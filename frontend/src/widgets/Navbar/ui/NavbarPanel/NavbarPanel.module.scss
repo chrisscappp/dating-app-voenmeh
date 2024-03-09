@@ -1,0 +1,17 @@
+.NavbarPanel {
+	background-color: var(--inst-panel-background);
+	width: 300px;
+	height: 40px;
+	margin: auto;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	border-radius: 5px;
+}
+
+.theme,
+.lang {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}

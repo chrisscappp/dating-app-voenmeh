@@ -1,0 +1,118 @@
+.Button {
+	cursor: pointer;
+	color: var(--button-primary);
+	padding: 6px 20px;
+	border-radius: 5px;
+}
+
+.clear,
+.clearInverted {
+	color: var(--primary-color);
+	padding: 0;
+	background: none;
+	border: none;
+	outline: none;
+}
+
+.clearInverted {
+	color: var(--inverted-primary-color);
+}
+
+.error {
+	border-color: red;
+	background: red;
+	padding: 7px 11px;
+}
+
+.outline {
+	border: 2px solid var(--button-primary);
+	background: none;
+	color: var(- -primary-color);
+	
+}
+
+.outlineInverted {
+	border: 1px solid var(--primary-color);
+	background: none;
+	color: var(--primary-color);
+}
+
+.background {
+	background: var(--button-primary);
+	color: var(--primary-color);
+	border: none;
+}
+
+.backgroundInverted {
+	background: var(--inverted-bg-color);
+	color: var(--inverted-primary-color);
+	border: none;
+}
+
+.backgroundInvertedText {
+	background: var(--button-primary);
+	color: var(--secondary-color);
+	border: none;
+}
+
+.square {
+	padding: 0;
+	border-radius: 0;
+}
+
+.square.size_s {
+	width: var(--font-line-s);
+	height: var(--font-line-s);
+	font: var(--font-s);
+	border-radius: 0;
+}
+
+.square.size_m {
+	width: var(--font-line-m);
+	height: var(--font-line-m);
+	font: var(--font-m);
+	border-radius: 0;
+}
+
+.square.size_l {
+	width: var(--font-line-l);
+	height: var(--font-line-l);
+	font: var(--font-l);
+	border-radius: 0;
+}
+
+.square.size_xl {
+	width: var(--font-line-xl);
+	height: var(--font-line-xl);
+	font: var(--font-xl);
+	border-radius: 0;
+}
+
+.size_s {
+	font-size: var(--font-size-s);
+	height: var(--button-s-height);
+}
+
+.size_m {
+	font-size: var(--font-size-m);
+	height: var(--button-m-height);
+}
+
+.size_l {
+	font-size: var(--font-size-l);
+	height: var(--button-l-height);
+}
+
+.size_xl {
+	font-size: var(--font-size-xl);
+	height: var(--button-xl-height);
+}
+
+.disabled {
+	opacity: 0.5;
+}
+
+.hovered:hover {
+	color: var(--button-hovered-text);
+	transition: 0.3s;
+}

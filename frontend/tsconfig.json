@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "module": "ES2022", // способы модульной сборки, то на чем пишем по сути
+    "target": "es5", // версия в которую компилируем код
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true, // пакеты module.exports и required
+    "allowSyntheticDefaultImports": true, // export default и тд
+    "baseUrl": ".",
+    "paths": {
+      "*": ["./src/*"]
+    }
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  },
+   "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx" // чтобы подхватывались все типы
+  ],
+}

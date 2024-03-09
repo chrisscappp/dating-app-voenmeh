@@ -1,0 +1,28 @@
+@import "./reset.scss";
+@import "./variables/global.scss";
+@import "./themes/dark.scss";
+@import "./themes/light.scss";
+
+.app,
+.app_modal {
+	font: var(--font-l);
+	color: var(--primary-color);
+}
+
+.app {
+	background: var(--bg-color);
+	min-height: 100vh;
+}
+
+.content-page {
+	display: flex;
+}
+
+.page-wrapper {
+	flex-grow: 1;
+	padding: 20px 40px;
+}
+
+.testTrans {
+	color: var(--secondary-color);
+}
