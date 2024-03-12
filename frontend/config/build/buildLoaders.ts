@@ -1,7 +1,10 @@
 import webpack from "webpack"
 import { BuildOptions } from "./types/config"
 import { buildCssLoader } from "./loaders/buildCssLoader"
+//@ts-ignore
 import path from "path"
+
+const __dirname = path.resolve(path.dirname(''));
 
 export default function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
 	
