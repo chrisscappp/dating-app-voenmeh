@@ -5,7 +5,7 @@ import path from "path"
 import { buildCssLoader } from "../build/loaders/buildCssLoader"
 import { buildSvgLoader } from "../build/loaders/buildSvgLoader"
 
-//const __dirname = path.resolve(path.dirname(''));
+const __dirname = path.resolve(path.dirname(''));
 
 export default ({config}: {config: webpack.Configuration}) => {
 	const paths: BuildPaths = {

@@ -17,6 +17,7 @@ export const LangSwitcher = (props: LangSwitcherProps) => {
 
 	const changeLanguage = () => {
 		i18n.changeLanguage(i18n.language === "ru" ? "en" : "ru")
+		window.location.reload()
 	}
 
 	return (
