@@ -17,11 +17,16 @@
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS",
-      "types": ["node"]
+      "types": [
+        "node",
+        "jest", 
+        "@testing-library/jest-dom"
+      ]
     }
   },
    "include": [
     "./src/**/*.ts",
-    "./src/**/*.tsx" // чтобы подхватывались все типы
+    "./src/**/*.tsx", // чтобы подхватывались все типы
+    "./config/jest/setupTests.ts"
   ],
 }

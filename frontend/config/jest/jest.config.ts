@@ -40,8 +40,6 @@ export default {
     "<rootDir>src"
   ],
   testMatch: [
-    //"**/__tests__/**/*.[jt]s?(x)",
-    //"**/?(*.)+(spec|test).[tj]s?(x)"
     '<rootDir>src/**/*(*.)@(spec|test).[tj]s?(x)'
   ],
   setupFilesAfterEnv: ['<rootDir>config/jest/setupTests.ts'],
