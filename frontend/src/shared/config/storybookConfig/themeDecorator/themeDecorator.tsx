@@ -1,6 +1,8 @@
 import { Decorator, StoryFn } from "@storybook/react"
 import { Themes } from "app/providers/ThemeProvider";
 import { ThemeProvider } from "app/providers/ThemeProvider/index"
+import React from "react"
+
 
 export const ThemeDecorator = (theme: Themes): Decorator => (StoryComponent: StoryFn)  => {
 	return (

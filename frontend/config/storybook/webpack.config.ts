@@ -1,17 +1,15 @@
 import webpack from "webpack"
 import { BuildPaths } from "../build/types/config"
-//@ts-ignore
 import path from "path"
 import { buildCssLoader } from "../build/loaders/buildCssLoader"
 import { buildSvgLoader } from "../build/loaders/buildSvgLoader"
-
-const __dirname = path.resolve(path.dirname(''));
 
 export default ({config}: {config: webpack.Configuration}) => {
 	const paths: BuildPaths = {
 		build: "",
 		entry: "",
 		html: "",
+		//@ts-ignore
 		src: path.resolve(__dirname, "..", "..", "src")
 	}
 
