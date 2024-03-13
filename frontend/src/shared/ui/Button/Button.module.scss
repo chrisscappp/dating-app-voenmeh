@@ -20,21 +20,22 @@
 
 .error {
 	border-color: red;
-	background: red;
-	padding: 7px 11px;
+	background: none;
+	padding: 20;
+	color: var(--inverted-primary-color)
 }
 
 .outline {
 	border: 2px solid var(--button-primary);
 	background: none;
-	color: var(- -primary-color);
+	color: var(--primary-color);
 	
 }
 
 .outlineInverted {
-	border: 1px solid var(--primary-color);
+	border: 1px solid var(--inverted-primary-color);
 	background: none;
-	color: var(--primary-color);
+	color: var(--inverted-primary-color);
 }
 
 .background {

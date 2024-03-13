@@ -1,0 +1,41 @@
+//var(--info-block-bg-color)
+
+.MainPageInfo {
+	
+}
+
+.infoWrapper {
+	width: 100%;
+	background: var(--info-block-bg-color);
+	border-radius: 20px;
+	display: flex;
+	justify-content: center;
+	box-sizing: border-box;
+	margin-top: 30px;
+}
+
+.content {
+	display: flex;
+	justify-content: center;
+	flex-direction: row;
+	padding: 40px;
+}
+
+.contentText {
+	margin-left: 40px;
+	width: 40%;
+}
+
+.description {
+	margin-top: 25px;
+}
+
+.subDescription {
+	margin-top: 10px;
+}
+
+.image {
+	background: #ffffff;
+	border-radius: 5px;
+}
+
