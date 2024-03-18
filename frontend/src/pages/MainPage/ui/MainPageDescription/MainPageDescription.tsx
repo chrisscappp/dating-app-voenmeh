@@ -1,6 +1,6 @@
 import { memo } from "react"
 import { useTranslation } from "react-i18next"
-import { TranslationKeys } from "shared/config/i18nConfig/translationConfig"
+import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import cls from "./MainPageDescription.module.scss"
 import { classNames } from "shared/lib/classNames/classNames";
 import { Text, TextAlign, TextSize, TextTheme } from "shared/ui/Text/Text";
@@ -24,7 +24,6 @@ export const MainPageDescription = memo((props: MainPageDescriptionProps) => {
 					<Text
 						title = {t("Ключевое приложение")}
 						size = {TextSize.XXL}
-						theme = {TextTheme.SECONDARY}
 						align = {TextAlign.CENTER}
 						className = {cls.mainTitle}
 					/>
@@ -33,7 +32,6 @@ export const MainPageDescription = memo((props: MainPageDescriptionProps) => {
 					<Text
 						text = {t("Текст ключевое приложение")}
 						size = {TextSize.L}
-						theme = {TextTheme.SECONDARY}
 						align = {TextAlign.CENTER}
 						className = {cls.subTitle}
 					/>

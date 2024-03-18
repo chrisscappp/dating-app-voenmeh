@@ -1,6 +1,7 @@
 import webpack from "webpack"
 import { BuildOptions } from "./types/config"
 import { buildCssLoader } from "./loaders/buildCssLoader"
+import { buildBabelLoader } from "./loaders/buildBabelLoader"
 import path from "path"
 
 const __dirname = path.resolve(path.dirname(''));
@@ -14,12 +15,7 @@ export default function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRu
 		exclude: /node_modules/,
 	}
 
-	const babelLoader = {
-		test: /\.(ts|tsx)$/,
-		include: path.resolve(__dirname, 'src'),
-		exclude: /(node_modules|bower_components|build)/,
-		use: ['babel-loader']
-	}
+	const babelLoader = buildBabelLoader()
 
 	const svgLoader = {
 		test: /\.svg$/,
