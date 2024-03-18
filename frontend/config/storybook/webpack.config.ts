@@ -3,6 +3,7 @@ import { BuildPaths } from "../build/types/config"
 import path from "path"
 import { buildCssLoader } from "../build/loaders/buildCssLoader"
 import { buildSvgLoader } from "../build/loaders/buildSvgLoader"
+import { buildBabelLoader } from "../build/loaders/buildBabelLoader"
 
 export default ({config}: {config: webpack.Configuration}) => {
 	const paths: BuildPaths = {
@@ -22,6 +23,7 @@ export default ({config}: {config: webpack.Configuration}) => {
 		}
 		return rule
 	})
+	config!.module!.rules.push(buildBabelLoader())
 	config!.module!.rules.push(buildSvgLoader())
 	config!.module!.rules.push(buildCssLoader(true))
 	

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react"
 import { Button, ButtonTheme } from './Button';
 import { Themes } from "app/providers/ThemeProvider";
 import { ThemeDecorator } from "shared/config/storybookConfig/themeDecorator/themeDecorator";

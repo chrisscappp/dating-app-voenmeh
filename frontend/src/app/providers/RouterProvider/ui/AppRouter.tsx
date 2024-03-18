@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { routeConfig } from "shared/config/routeConfig/routeConfig";
+import { Footer } from "widgets/Footer";
 
 export const AppRouter = () => {
 	return (
@@ -19,6 +20,7 @@ export const AppRouter = () => {
 						)
 					})}
 				</Routes>
+				<Footer/>
 			</Suspense>
 		</>
 	)

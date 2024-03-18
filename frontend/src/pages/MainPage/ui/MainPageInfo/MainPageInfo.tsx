@@ -1,10 +1,10 @@
 import { classNames } from "shared/lib/classNames/classNames"
 import cls from "./MainPageInfo.module.scss"
-import { Text, TextSize } from "shared/ui/Text/Text";
-import { useEffect, useMemo } from "react";
+import { Text, TextSize, TextTheme } from "shared/ui/Text/Text";
+import { useMemo } from "react";
 import { ConfigType } from "shared/config/mainPageInfoConfig/mainPageInfoConfig";
 import { useTranslation } from "react-i18next";
-import { TranslationKeys } from "shared/config/i18nConfig/translationConfig"
+import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 
 interface MainPageInfoProps {
 	className?: string;
@@ -31,16 +31,19 @@ export const MainPageInfo = ({ className, infoObject }: MainPageInfoProps) => {
 								<Text
 									subTitle = {t(item.subTitle)}
 									className = {cls.title}
+									theme = {TextTheme.SECONDARY}
 									size = {TextSize.L}
 								/>
 								<Text
 									text = {t(item.text)}
 									className = {cls.description}
+									theme = {TextTheme.SECONDARY}
 									size = {TextSize.ML}
 								/>
 								<Text
 									text = {t(item.subText)}
 									className = {cls.subDescription}
+									theme = {TextTheme.SECONDARY}
 									size = {TextSize.ML}
 								/>
 							</div>

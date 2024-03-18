@@ -3,7 +3,8 @@ import cls from "./Text.module.scss"
 
 export enum TextTheme {
 	PRIMARY = "primary",
-	SECONDARY = "secondary"
+	SECONDARY = "secondary",
+	GREY = "grey"
 }
 
 export enum TextSize {
@@ -29,6 +30,7 @@ interface TextProps {
 	align?: TextAlign;
 	theme?: TextTheme;
 	size?: TextSize;
+	link?: boolean;
 }
 
 export const Text = (props: TextProps) => {
@@ -40,13 +42,15 @@ export const Text = (props: TextProps) => {
 		align = TextAlign.LEFT,
 		theme = TextTheme.PRIMARY,
 		title,
-		size = TextSize.M
+		size = TextSize.M,
+		link
 	} = props
 
 	const mods = {
 		[cls[theme]]: true,
 		[cls[size]]: true,
-		[cls[align]]: true
+		[cls[align]]: true,
+		[cls.link]: link
 	}
 	
 	return (

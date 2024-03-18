@@ -4,7 +4,6 @@ import { ThemeDecorator } from "../../src/shared/config/storybookConfig/themeDec
 import { RouterDecorator } from "../../src/shared/config/storybookConfig/routerDecorator/routerDecorator"
 import { Themes } from "../../src/app/providers/ThemeProvider/index"
 
-
 const preview: Preview = {
   parameters: {
     controls: {
