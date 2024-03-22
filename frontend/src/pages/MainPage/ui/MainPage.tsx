@@ -1,4 +1,4 @@
-import { memo } from "react"
+import React, { memo } from "react"
 import { MainPageTitle } from "./MainPageTitle/MainPageTitle"
 import { MainPageInfo } from "./MainPageInfo/MainPageInfo"
 import { MainPageDescription } from "./MainPageDescription/MainPageDescription"

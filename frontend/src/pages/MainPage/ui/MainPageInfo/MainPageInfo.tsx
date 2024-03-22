@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { ConfigType } from "shared/config/mainPageInfoConfig/mainPageInfoConfig";
 import { useTranslation } from "react-i18next";
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
+import React from "react"
 
 interface MainPageInfoProps {
 	className?: string;
@@ -31,19 +32,19 @@ export const MainPageInfo = ({ className, infoObject }: MainPageInfoProps) => {
 								<Text
 									subTitle = {t(item.subTitle)}
 									className = {cls.title}
-									theme = {TextTheme.SECONDARY}
+									theme = {TextTheme.PRIMARY}
 									size = {TextSize.L}
 								/>
 								<Text
 									text = {t(item.text)}
 									className = {cls.description}
-									theme = {TextTheme.SECONDARY}
+									theme = {TextTheme.PRIMARY}
 									size = {TextSize.ML}
 								/>
 								<Text
 									text = {t(item.subText)}
 									className = {cls.subDescription}
-									theme = {TextTheme.SECONDARY}
+									theme = {TextTheme.PRIMARY}
 									size = {TextSize.ML}
 								/>
 							</div>

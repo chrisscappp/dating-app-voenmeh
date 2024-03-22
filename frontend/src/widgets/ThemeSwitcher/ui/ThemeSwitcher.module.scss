@@ -21,7 +21,7 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: var(--inverted-primary-color);
+	background: var(--inverted-secondary-color);
 	-webkit-transition: .4s;
 	transition: .4s;
 }
@@ -33,7 +33,7 @@
 	width: 23px;
 	left: 1px;
 	bottom: 0px;
-	background-color: var(--primary-color);
+	background-color: var(--secondary-color);
 	-webkit-transition: .4s;
 	transition: .4s;
 }
