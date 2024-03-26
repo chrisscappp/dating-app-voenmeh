@@ -46,7 +46,7 @@ export const Input = memo((props: InputProps) => {
 
 	const onFocus = () => {
 		setStyles({
-		 	border: "1.5px solid var(--input-focus-border)"
+		 	border: "2px solid var(--input-focus-border)"
 		})
 	}
 
@@ -66,6 +66,6 @@ export const Input = memo((props: InputProps) => {
 			type = {type || "text"}
 			onBlur = {onBlur}
 			onFocus = {onFocus}
-		/>
+		></input>
 	)
 })
