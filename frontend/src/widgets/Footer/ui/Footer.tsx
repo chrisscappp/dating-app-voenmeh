@@ -31,7 +31,10 @@ export const Footer = memo((props: FooterProps) => {
 	const iteratedLinks = useMemo(() => {
 		return links.map(item => {
 			return (
-				<span onClick = {() => onFollowUrl(item.link)}>
+				<span 
+					onClick = {() => onFollowUrl(item.link)}
+					key = {item.developerName}
+				>
 				<Text
 					text = {`“${item.developerName}” - ${item.link}`}
 					theme = {TextTheme.GREY}

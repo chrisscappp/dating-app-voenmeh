@@ -14,6 +14,7 @@ const App = () => {
 	return (
 		<div className = {classNames("app", {}, [theme])}>
 			<Navbar/>
+			{/* {для i18n} */}
 			<Suspense fallback = "">
 				<div className = "content-page">
 					<AppRouter/>

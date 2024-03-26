@@ -1,4 +1,4 @@
-import { memo } from "react"
+import React, { memo } from "react"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import cls from "./MainPageDescription.module.scss"
@@ -25,6 +25,7 @@ export const MainPageDescription = memo((props: MainPageDescriptionProps) => {
 						title = {t("Ключевое приложение")}
 						size = {TextSize.XXL}
 						align = {TextAlign.CENTER}
+						theme = {TextTheme.SECONDARY}
 						className = {cls.mainTitle}
 					/>
 				</div>
@@ -33,6 +34,7 @@ export const MainPageDescription = memo((props: MainPageDescriptionProps) => {
 						text = {t("Текст ключевое приложение")}
 						size = {TextSize.L}
 						align = {TextAlign.CENTER}
+						theme = {TextTheme.SECONDARY}
 						className = {cls.subTitle}
 					/>
 				</div>

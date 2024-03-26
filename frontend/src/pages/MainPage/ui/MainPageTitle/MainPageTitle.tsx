@@ -1,4 +1,4 @@
-import { memo } from "react"
+import React, { memo } from "react"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import cls from "./MainPageTitle.module.scss"
@@ -24,7 +24,7 @@ export const MainPageTitle = memo((props: MainPageTitleProps) => {
 			<div className = {cls.titleWrap}>
 				<Text
 					title = {t(title)}
-					theme = {TextTheme.SECONDARY}
+					theme = {TextTheme.PRIMARY}
 					size = {TextSize.XXL}
 					align = {TextAlign.CENTER}
 					className = {cls.mainTitle}
@@ -34,7 +34,7 @@ export const MainPageTitle = memo((props: MainPageTitleProps) => {
 				<Text
 					text = {t(subTitle)}
 					size = {TextSize.L}
-					theme = {TextTheme.SECONDARY}
+					theme = {TextTheme.PRIMARY}
 					align = {TextAlign.CENTER}
 					className = {cls.subTitle}
 				/>

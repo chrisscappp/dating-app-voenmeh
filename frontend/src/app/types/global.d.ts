@@ -18,3 +18,10 @@ declare module '*.jpeg'
 // from webpack
 
 declare const __IS_DEV__: boolean
+
+type DeepPartial<T> = T extends object ? {
+    [P in keyof T]?: DeepPartial<T[P]>;
+} : T;
+
+declare const $CombinedState: unique symbol
+type CombinedState<S> = { readonly [$CombinedState]?: undefined } & S
