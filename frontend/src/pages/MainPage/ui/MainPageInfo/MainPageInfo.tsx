@@ -19,8 +19,10 @@ export const MainPageInfo = ({ className, infoObject }: MainPageInfoProps) => {
 	const mainPageinfo = useMemo(() => {
 		return Object.values(infoObject).map(item => {
 			return (
-				<>
-					<div className = {cls.infoWrapper}>
+					<div 
+						className = {cls.infoWrapper}
+						key = {item.text}
+					>
 						<div className = {cls.content}>
 							<div className = {cls.contentImage}>
 								<img
@@ -50,7 +52,6 @@ export const MainPageInfo = ({ className, infoObject }: MainPageInfoProps) => {
 							</div>
 						</div>
 					</div>
-				</>
 			)
 		})
 	}, [])
