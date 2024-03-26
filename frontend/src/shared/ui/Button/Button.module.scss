@@ -3,6 +3,9 @@
 	color: var(--button-primary);
 	padding: 6px 20px;
 	border-radius: 5px;
+	font-family: "Roboto", sans-serif;
+	font-weight: 300;
+	font-style: normal;
 }
 
 .clear,
@@ -45,7 +48,7 @@
 
 .backgroundInverted {
 	background: var(--inverted-bg-color);
-	color: var(--inverted-secondary-color);
+	color: var(--secondary-color);
 	border: none;
 }
 

@@ -5,7 +5,9 @@ import { useMemo } from "react";
 import { ConfigType } from "shared/config/mainPageInfoConfig/mainPageInfoConfig";
 import { useTranslation } from "react-i18next";
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
-import React from "react"
+import React, { useState, useCallback } from "react"
+import { Button, ButtonTheme } from "shared/ui/Button/Button";
+import { LoginModal } from "feautures/Login";
 
 interface MainPageInfoProps {
 	className?: string;
@@ -15,6 +17,16 @@ interface MainPageInfoProps {
 export const MainPageInfo = ({ className, infoObject }: MainPageInfoProps) => {
 
 	const { t } = useTranslation(TranslationKeys.MAIN_PAGE)
+
+	const [ isOpenModal, setIsOpenModal ] = useState<boolean>(false)
+
+	const openModal = useCallback(() => {
+		setIsOpenModal(true)
+	}, [isOpenModal])
+
+	const closeModal = useCallback(() => {
+		setIsOpenModal(false)
+	}, [isOpenModal])
 
 	const mainPageinfo = useMemo(() => {
 		return Object.values(infoObject).map(item => {
@@ -49,6 +61,28 @@ export const MainPageInfo = ({ className, infoObject }: MainPageInfoProps) => {
 									theme = {TextTheme.PRIMARY}
 									size = {TextSize.ML}
 								/>
+								{item.buttonsText &&
+								<>
+									<div className = {cls.btnsBlock}>
+										<Button
+											className = {cls.getStartedBtn}
+											theme = {ButtonTheme.BACKGROUND_INVERTED}
+											hovered
+											onClick = {openModal}
+										>
+											{t(item.buttonsText[0])}
+										</Button>
+										<Button
+											className = {cls.learnMoreBtn}
+											theme = {ButtonTheme.BACKGROUND_INVERTED}
+											hovered
+										>
+											{t(item.buttonsText[1])}
+										</Button>
+									</div>
+								</>
+								}
+								
 							</div>
 						</div>
 					</div>
@@ -59,6 +93,13 @@ export const MainPageInfo = ({ className, infoObject }: MainPageInfoProps) => {
 	return (
 		<div className = {classNames(cls.MainPageInfo, {}, [className])}>
 			{mainPageinfo}
+			{
+			isOpenModal &&
+			<LoginModal
+				isOpen = {isOpenModal}
+				onClose = {closeModal}
+			/>
+			}
 		</div>
 	)
 }

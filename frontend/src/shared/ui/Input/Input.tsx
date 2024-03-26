@@ -10,7 +10,7 @@ interface InputProps extends HTMLInputProps {
 	value?: string | number,
 	placeholder?: string,
 	type?: string,
-	onChange?: (value: string | number) => void,
+	onChange?: (value: string) => void,
 	readonly?: boolean,
 	autoFocus?: boolean
 }

@@ -7,7 +7,7 @@ import { useTheme } from "app/providers/ThemeProvider"
 import { Themes } from "app/providers/ThemeProvider"
 import { Button, ButtonTheme } from "shared/ui/Button/Button"
 import { useTranslation } from "react-i18next"
-import { Modal } from "shared/ui/Modal/Modal"
+import { LoginModal } from "feautures/Login"
 import { useState } from "react"
 import { Text } from "shared/ui/Text/Text"
 
@@ -68,24 +68,10 @@ export const Navbar = (props: NavbarProps) => {
 			</div>
 			{
 				isOpenModal &&
-				<Modal
+				<LoginModal
 					isOpen = {isOpenModal}
 					onClose = {handleCloseModal}
-					lazy
-				>
-					<Text
-						text = {"modaladfsmfnssdfgdgdfgdfgdgdgdgdgdgdgdgdfgdfg"}
-					/>
-					<Text
-						text = {"modaladfsmfnssdfgdgdfgdfgdgdgdgdgdgdgdgdfgdfg"}
-					/>
-					<Text
-						text = {"modaladfsmfnssdfgdgdfgdfgdgdgdgdgdgdgdgdfgdfg"}
-					/>
-					<Text
-						text = {"modaladfsmfnssdfgdgdfgdfgdgdgdgdgdgdgdgdfgdfg"}
-					/>
-				</Modal>
+				/>
 			}
 		</div>
 	)
