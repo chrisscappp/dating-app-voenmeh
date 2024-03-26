@@ -3,6 +3,7 @@ export interface InfoBlock {
 	subTitle: string;
 	text: string;
 	subText: string;
+	buttonsText?: Array<string>
 }
 
 export enum InfoBlockName {
@@ -37,6 +38,7 @@ export const mainPageInfoConfig: ConfigType = {
 		imgUrl: "https://result.school/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fattitude.c93063c0.png&w=384&q=75",
 		subTitle: "Пора пробовать",
 		text: "Текст пора пробовать 1",
-		subText: ""
+		subText: "",
+		buttonsText: ["поехали", "доп инфо"]
 	},
 }

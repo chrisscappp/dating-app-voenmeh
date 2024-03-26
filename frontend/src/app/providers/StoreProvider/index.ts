@@ -1,6 +1,7 @@
 export {
 	StateSchema,
-	StateSchemaKey
+	StateSchemaKey,
+	ThunkConfig
 } from "./config/types"
 
 export { AppDispatch } from "./config/store"

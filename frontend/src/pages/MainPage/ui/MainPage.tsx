@@ -1,9 +1,8 @@
-import React, { memo, useState } from "react"
+import React, { memo } from "react"
 import { MainPageTitle } from "./MainPageTitle/MainPageTitle"
 import { MainPageInfo } from "./MainPageInfo/MainPageInfo"
 import { MainPageDescription } from "./MainPageDescription/MainPageDescription"
 import { InfoBlockName, mainPageInfoConfig } from "shared/config/mainPageInfoConfig/mainPageInfoConfig"
-import { Input } from "shared/ui/Input/Input"
 
 const firstInfoPart = {
 	[InfoBlockName.RESULT]: mainPageInfoConfig.resultBlock,
