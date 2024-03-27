@@ -45,7 +45,7 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
 
 	const onShowEye = () => {
 		setShowEye(!showEye)
-	} // dfsfs
+	}
 
 	const onChangeUsername = (value: string) => {
 		dispatch(loginFormActions.setUsername(value))
@@ -124,11 +124,8 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
 				>
 					{t("Войти")}
 				</Button>
-				
-				
 			</div>
-		</DynamicModuleLoader>
-			
+		</DynamicModuleLoader>		
 	)
 })
 

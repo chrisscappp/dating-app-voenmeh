@@ -1,0 +1,36 @@
+.RegisterForm {
+	display: flex;
+	flex-direction: column;
+	width: 500px;
+	padding: 20px;
+	max-width: 100%
+}
+
+.formTitle {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 15px;
+}
+
+.input {
+	margin-top: 8px;
+}
+
+.registerBtn {
+	margin-top: 20px;
+}
+
+.checkbox {
+	margin-top: 15px;
+}
+
+.checkboxWrap {
+	margin: 5px 0px 5px 0px;
+	display: flex;
+	align-items: center;
+}
+
+.personalText {
+	margin-top: 10px;
+	margin-left: 10px;
+}
