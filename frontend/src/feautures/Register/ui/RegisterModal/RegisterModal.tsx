@@ -1,16 +1,16 @@
 import { classNames } from "shared/lib/classNames/classNames"
 import React, { Suspense } from "react";
 import { Modal } from "shared/ui/Modal/Modal";
-import { LoginFormAsync } from "../LoginForm/LoginForm.async"
+import { RegisterFormAsync } from "../RegisterForm/RegisterForm.async"
 import { Loader } from "shared/ui/Loader/Loader";
 
-interface LoginModalProps {
+interface RegisterModalProps {
 	className?: string;
 	isOpen: boolean;
 	onClose: () => void;
 }
 
-export const LoginModal = ({ className, isOpen, onClose }: LoginModalProps) => {
+export const RegisterModal = ({ className, isOpen, onClose }: RegisterModalProps) => {
 
 	return (
 		<Modal 
@@ -20,7 +20,7 @@ export const LoginModal = ({ className, isOpen, onClose }: LoginModalProps) => {
 			lazy
 		>
 			<Suspense fallback = {<Loader/>}>
-				<LoginFormAsync
+				<RegisterFormAsync
 					onSuccess = {onClose}
 				/>
 			</Suspense>

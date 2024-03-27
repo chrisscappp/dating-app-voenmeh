@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import React, { useState, useCallback } from "react"
 import { Button, ButtonTheme } from "shared/ui/Button/Button";
-import { LoginModal } from "feautures/Login";
+import { RegisterModal } from "feautures/Register";
 
 interface MainPageInfoProps {
 	className?: string;
@@ -95,7 +95,7 @@ export const MainPageInfo = ({ className, infoObject }: MainPageInfoProps) => {
 			{mainPageinfo}
 			{
 			isOpenModal &&
-			<LoginModal
+			<RegisterModal
 				isOpen = {isOpenModal}
 				onClose = {closeModal}
 			/>

@@ -2,12 +2,14 @@ import { AnyAction, ReducersMapObject, Reducer  } from "@reduxjs/toolkit"
 import { AxiosInstance } from "axios";
 import { UserSchema } from "entities/User";
 import { LoginSchema } from "feautures/Login";
+import { RegisterSchema } from "feautures/Register"
 
 export interface StateSchema {
 	user: UserSchema,
-	
+
 	//async
-	loginForm?: LoginSchema
+	loginForm?: LoginSchema,
+	registerForm?: RegisterSchema,
 }
 
 export type StateSchemaKey = keyof StateSchema
