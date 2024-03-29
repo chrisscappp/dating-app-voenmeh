@@ -4,7 +4,7 @@ import { RegisterSchema, RegisterForm } from "../types/register"
 const initialState: RegisterSchema = {
 	isLoading: false,
 	formData: {
-		sex: ""
+		
 	}
 }
 

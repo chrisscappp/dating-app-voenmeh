@@ -43,12 +43,14 @@ export const MainPageInfo = ({ className, infoObject }: MainPageInfoProps) => {
 								/>
 							</div>
 							<div className = {cls.contentText}>
-								<Text
-									subTitle = {t(item.subTitle)}
-									className = {cls.title}
-									theme = {TextTheme.PRIMARY}
-									size = {TextSize.L}
-								/>
+								<div className = {cls.titleWrap}>
+									<Text
+										subTitle = {t(item.subTitle)}
+										className = {cls.title}
+										theme = {TextTheme.PRIMARY}
+										size = {TextSize.L}
+									/>
+								</div>
 								<Text
 									text = {t(item.text)}
 									className = {cls.description}

@@ -9,7 +9,8 @@ interface SelectSexProps {
 	className?: string;
 	onChange?: (value: Sex) => void;
 	value?: string,
-	readonly?: boolean
+	readonly?: boolean,
+	label?: string;
 }
 
 const sexOptions: SelectOption[] = [
@@ -25,6 +26,7 @@ export const SelectSex = memo((props: SelectSexProps) => {
 		onChange,
 		value,
 		readonly,
+		label
 	} = props
 
 	const mods: Mods = {}
@@ -36,7 +38,7 @@ export const SelectSex = memo((props: SelectSexProps) => {
 	return (
 		<div className = {cls.selectWrap}>
 			<Input
-				placeholder = {"укажите пол"}
+				placeholder = {label}
 				value = {value}
 				readonly
 			/>

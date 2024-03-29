@@ -14,5 +14,21 @@
 	"Ключевое приложение": "Key application in the public sphere",
 	"Текст ключевое приложение": "We are interested in everyone finding their place in society. Nowadays, words of support and having the right person next to you already gives you a sense of confidence in yourself and your abilities",
 	"поехали": "get started",
-	"доп инфо": "learn more"
+	"доп инфо": "learn more",
+	"Авторизация": "Authorization",
+	"Логин или почта": "input login or email",
+	"Пароль": "input password",
+	"Забыли пароль": "forgot password?",
+	"Войти": "sign in",
+	"Неверный логин или пароль": "Incorrect login or password",
+	"Регистрация": "Registration",
+	"имя": "your firstname",
+	"фамилия": "your lastname",
+	"дата рождения": "your birthday",
+	"укажите пол": "specify your gender",
+	"повторите пароль": "repeat password",
+	"согласие на обработку персональных данных": "consent to the processing of personal data",
+	"зарегестрироваться": "sign up",
+	"male": "male",
+	"female": "female"
 }

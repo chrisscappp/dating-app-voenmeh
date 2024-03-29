@@ -3,6 +3,7 @@ import { Provider } from "react-redux"
 import { ExtraArgumentType, StateSchema } from "../config/types"
 import { ReducersMapObject } from "@reduxjs/toolkit"
 import { createReduxStore } from "../config/store"
+import React from "react";
 
 interface StoreProviderProps {
 	children: ReactNode,

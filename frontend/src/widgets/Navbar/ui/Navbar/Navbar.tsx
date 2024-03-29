@@ -49,9 +49,9 @@ export const Navbar = (props: NavbarProps) => {
 				<div className = {cls.rightSide}>
 					{
 						theme === Themes.LIGHT ?
-							<LogoIconLight/>
+							<LogoIconLight className = {cls.icon}/>
 						: 
-							<LogoIconDark/>
+							<LogoIconDark className = {cls.icon}/>
 					}
 					<NavbarPanel
 						theme = {theme}

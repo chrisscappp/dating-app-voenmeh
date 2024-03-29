@@ -1,3 +1,5 @@
+import { Sex } from "entities/SelectSex";
+
 export interface RegisterForm {
 	firstname?: string;
 	lastname?: string;
@@ -6,7 +8,7 @@ export interface RegisterForm {
 	password?: string;
 	repeatPassword?: string;
 	birthday?: string;
-	sex?: string;
+	sex?: Sex;
 	validateErrors?: string;
 	checkBoxFlag?: boolean;
 }
