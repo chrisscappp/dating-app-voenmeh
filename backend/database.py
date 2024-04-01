@@ -17,12 +17,17 @@ db = firebase.database()
 
 
 class User(BaseModel):
-    email: str = "asd@kam.ru"
+    email: str
     login: str
-    password: str
+    id: str
 
 
 class UserInfo(BaseModel):
+    id: str = None
     login: str = None
-    name: str
+    username: str
+    firstname: str
+    lastname: str
     sex: str
+    birthday: str
+    createdAt: str
