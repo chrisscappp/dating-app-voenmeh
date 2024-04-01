@@ -14,6 +14,7 @@ import { SelectSex, Sex } from "entities/SelectSex";
 import { getRegisterFormBirthday, getRegisterFormCheckBoxFlag, getRegisterFormEmail, getRegisterFormError, getRegisterFormFirstname, getRegisterFormIsLoading, getRegisterFormLastname, getRegisterFormPassword, getRegisterFormRepeatPassword, getRegisterFormSex, getRegisterFormUsername, getRegisterFormValidateErrors } from "feautures/Register/model/selectors/getRegisterState";
 import { Loader } from "shared/ui/Loader/Loader";
 import { CheckBox } from "shared/ui/CheckBox/CheckBox";
+import { TranslationKeys } from "shared/config/i18nConfig/translationKeys";
 
 interface RegisterFormProps {
 	className?: string;
@@ -26,7 +27,7 @@ const initialReducers: ReducersList = {
 
 const RegisterForm = memo(({ className, onSuccess }: RegisterFormProps) => {
 
-	const { t } = useTranslation()
+	const { t } = useTranslation(TranslationKeys.MAIN_PAGE)
 	const dispatch = useAppDispatch()
 	const firstname = useSelector(getRegisterFormFirstname)
 	const lastname = useSelector(getRegisterFormLastname)
@@ -69,8 +70,8 @@ const RegisterForm = memo(({ className, onSuccess }: RegisterFormProps) => {
 		dispatch(registerFormActions.setRegisterFormField({ repeatPassword: value || "" }))
 	}, [])
 
-	const onChangeSex = useCallback((value?: string) => {
-		dispatch(registerFormActions.setRegisterFormField({ sex: value || "" }))
+	const onChangeSex = useCallback((value: string) => {
+		dispatch(registerFormActions.setRegisterFormField({ sex: value as Sex }))
 	}, [])
 
 	if (error) {
@@ -112,7 +113,7 @@ const RegisterForm = memo(({ className, onSuccess }: RegisterFormProps) => {
 				<Input 
 					type="text" 
 					className = {cls.input}
-					placeholder = {t("логин или почта")}
+					placeholder = {t("Логин или почта")}
 					onChange = {onChangeUsername}
 					value = {username}
 				/>
@@ -126,11 +127,12 @@ const RegisterForm = memo(({ className, onSuccess }: RegisterFormProps) => {
 				<SelectSex
 					onChange = {onChangeSex}
 					value = {sex}
+					label = {t("укажите пол")}
 				/>
 				<Input 
 					type="text" 
 					className = {cls.input}
-					placeholder = {t("пароль")}
+					placeholder = {t("Пароль")}
 					onChange = {onChangePassword}
 					value = {password}
 				/>
@@ -146,7 +148,7 @@ const RegisterForm = memo(({ className, onSuccess }: RegisterFormProps) => {
 						className = {cls.checkbox}
 					/>
 					<Text
-						text = {"согласие на обработку персональных данных"}
+						text = {t("согласие на обработку персональных данных")}
 						className = {cls.personalText}
 					/>
 				</div>

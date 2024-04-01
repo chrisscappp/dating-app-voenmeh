@@ -1,5 +1,3 @@
-//var(--info-block-bg-color)
-
 .MainPageInfo {
 	
 }
@@ -52,4 +50,23 @@
 .learnMoreBtn {
 	margin-left: 15px;
 	width: 100%;
+}
+
+@media (max-width: 675px) {
+	.content {
+		width: 100%;
+		flex-direction: column;
+	}
+	.contentImage {
+		display: flex;
+		justify-content: center;
+	}
+	.contentText {
+		width: 100%;
+		margin: 0 auto;
+	}
+	.titleWrap {
+		width: 100%;
+		margin-top: 30px;
+	}
 }

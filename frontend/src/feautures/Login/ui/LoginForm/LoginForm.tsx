@@ -21,6 +21,7 @@ import { loginFormActions } from "../../model/slice/loginSlice"
 import { Loader } from "shared/ui/Loader/Loader";
 import EyeOpenIcon from "shared/assets/icons/eye-open.svg"
 import EyeClosedIcon from "shared/assets/icons/eye-closed.svg"
+import { TranslationKeys } from "shared/config/i18nConfig/translationKeys";
 
 export interface LoginFormProps {
 	className?: string;
@@ -33,7 +34,7 @@ const initialReducers: ReducersList = {
 
 const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
 
-	const { t } = useTranslation()
+	const { t } = useTranslation(TranslationKeys.MAIN_PAGE)
 	const dispatch = useAppDispatch()
 	const username = useSelector(getLoginFormUsername)
 	const password = useSelector(getLoginFormPassword)
@@ -60,7 +61,7 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
 	}
 
 	if (error) {
-		return <Text theme = {TextTheme.PRIMARY} text = {"Произошла ошибка"}/>
+		return <Text theme = {TextTheme.PRIMARY} text = {t("Неверный логин или пароль")}/>
 	}
 
 	return (
@@ -80,7 +81,7 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
 					autoFocus
 					type="text" 
 					className = {cls.input}
-					placeholder = {t("Введите логин или почту")}
+					placeholder = {t("Логин или почта")}
 					value = {username}
 					onChange = {onChangeUsername}
 				/>
@@ -89,7 +90,7 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
 						type = {showEye ? "text" : "password"}
 						className = {cls.input}
 						value = {password}
-						placeholder = {t("Введите пароль")}
+						placeholder = {t("Пароль")}
 						onChange = {onChangePassword}
 					/>
 					<span 
@@ -115,7 +116,7 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
 					theme = {ButtonTheme.CLEAR_INVERTED}
 					hovered
 				>
-					{t("забыли пароль?")}
+					{t("Забыли пароль")}
 				</Button>
 				<Button 
 					className = {cls.loginBtn}
