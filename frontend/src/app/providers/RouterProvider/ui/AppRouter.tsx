@@ -1,11 +1,13 @@
 import { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { routeConfig } from "shared/config/routeConfig/routeConfig";
+import { Footer } from "widgets/Footer";
+import { PageLoader } from "widgets/PageLoader";
 
 export const AppRouter = () => {
 	return (
 		<>
-			<Suspense fallback = {<h3>Loading...</h3>}>
+			<Suspense fallback = {<PageLoader/>}>
 				<Routes>
 					{Object.values(routeConfig).map(({ path, element }) => {
 						return (
@@ -19,6 +21,7 @@ export const AppRouter = () => {
 						)
 					})}
 				</Routes>
+				<Footer/>
 			</Suspense>
 		</>
 	)

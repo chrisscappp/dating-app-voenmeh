@@ -1,0 +1,45 @@
+.LoginForm {
+	display: flex;
+	flex-direction: column;
+	width: 500px;
+	padding: 20px;
+	max-width: 100%
+}
+
+.formTitle {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 15px;
+}
+
+.input {
+	margin-top: 8px;
+}
+
+.passwordWrap {
+	position: relative;
+}
+
+.inputIcon {
+	z-index: var(--password-eye-zindex);
+	position: absolute;
+	top: 25%;
+	right: 20px;
+	cursor: pointer;
+}
+
+.loginBtn {
+	margin-top: 15px;
+}
+
+.forgotPass {
+	margin-left: auto;
+}
+
+.iconOpen {
+	stroke: var(--show-eye);
+}
+
+.iconClosed {
+	fill: var(--show-eye);
+}

@@ -1,7 +1,8 @@
-import { classNames } from "shared/lib/classNames/classNames"
+import { Mods, classNames } from "shared/lib/classNames/classNames"
 import cls from "./ThemeSwitcher.module.scss"
 import { useTheme } from "app/providers/ThemeProvider";
 import { Themes } from "app/providers/ThemeProvider/lib/themeContext";
+import { CSSProperties, MutableRefObject, useEffect, useRef, useState } from "react";
 
 interface ThemeSwitcherProps {
 	className?: string;
@@ -9,22 +10,54 @@ interface ThemeSwitcherProps {
 
 export const ThemeSwitcher = (props: ThemeSwitcherProps) => {
 
-	const { toggleTheme } = useTheme()
+	const { toggleTheme, theme } = useTheme()
+	const [ isSwitched, setIsSwitched ] = useState(false)
 
 	const {
 		className
 	} = props
 
+	const ref = useRef() as MutableRefObject<CSSProperties>
+
+	useEffect(() => {
+		if (theme === "app_dark_theme") {
+			setIsSwitched(true)
+		}
+	}, [])
+
+	const onSwitch = () => {
+		toggleTheme(Themes.DARK)
+		setIsSwitched(!isSwitched)
+		if (isSwitched) {
+			ref.current.transform = "translateX(26px)"
+		} else {
+			ref.current = {}
+		}
+	}
+
+	const mods: Mods = {
+		[cls.dark]: theme === Themes.DARK,
+		[cls.round]: true,
+		[cls.bgSwithed]: isSwitched
+	}
+
 	return (
 		<div className = {classNames(cls.ThemeSwitcher, {}, [className])}>
-			<input 
-				type="checkbox" 
-				id="switch" 
-			/>
-			<label 
-				htmlFor="switch"
-				onClick = {() => toggleTheme(Themes.DARK)}
-			>Toggle</label>
+			<label className={cls.switch}>
+  				<input 
+					type="checkbox" 
+					onClick = {onSwitch}
+				/>
+  				<span 
+					className={classNames(cls.slider, mods, [])}
+				>
+					<div
+						//@ts-ignore
+						ref = {ref}
+						className = {classNames(cls.ball, {[cls.isSwitched]: isSwitched}, [])}>
+					</div>
+				</span>
+			</label>
 		</div>
 	)
 }
