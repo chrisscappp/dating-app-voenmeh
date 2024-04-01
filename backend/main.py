@@ -1,7 +1,12 @@
+import json
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from database import firebase, auth, db, User, UserInfo
+from pydantic import BaseModel
+from requests import HTTPError
 
+from database import firebase, auth, db, User, UserInfo
+from functions import generateId
 
 app = FastAPI(
     title="Trading App"
@@ -28,24 +33,84 @@ app.add_middleware(
 )'''
 
 
+class UserLog(BaseModel):
+    email: str = None
+    login: str = None
+    password: str
+
+
+def auth_user(user: UserLog):
+    try:
+        current_user = auth.sign_in_with_email_and_password(user.email, user.password)
+    except HTTPError as e:
+        error_json = e.args[1]
+        error = json.loads(error_json)['error']['message']
+        if error == "INVALID_EMAIL":
+            return "Invalid email"
+        if error == "INVALID_LOGIN_CREDENTIALS":
+            return "Invalid login credentials"
+        if error == """TOO_MANY_ATTEMPTS_TRY_LATER : Access to this account has been temporarily disabled due
+                    to many failed login attempts. You can immediately restore it by resetting your password
+                    or you can try again later.""":
+            return "Too many attempts"
+        else:
+            return error
+    else:
+        current_user = auth.refresh(current_user['refreshToken'])
+        return db.child("user").order_by_child("login").equal_to(user.login).get().val()[current_user["userId"]]
+
+
 @app.post("/authByEmail")
-def auth_user(user: User):
-    user = auth.sign_in_with_email_and_password(user.email, user.password)
-    currentuser = auth.refresh(user['refreshToken'])
+def auth_user_by_email(user: UserLog):
+    answer = auth_user(user)
+    return answer
+
+@app.post("/authByLogin")
+def auth_user_by_login(user: UserLog):
+    for _ in db.child("userInfo").order_by_child("login").equal_to(user.login).get():
+        current_user = db.child("user").order_by_child("login").equal_to(user.login).get()
+        for key in current_user.val():
+            userid = key
+        user.email = current_user.val()[userid]["email"]
+        answer = auth_user(user)
+        return answer
+    return "Invalid login"
 
 
 @app.post("/register")
-def register_user(user: User, info: UserInfo):
-    data_user = {"email": user.email, "login": user.login}
-    data_info = {"login": user.login, "name": info.name, "sex": info.sex}
-    user = auth.create_user_with_email_and_password(user.email, user.password)
-    current_user = auth.refresh(user['refreshToken'])
-    db.child("user").child(current_user["userId"]).set(data_user)
-    db.child("userInfo").child(current_user["userId"]).set(data_info)
+def register_user(user: UserLog, info: UserInfo):
+    for _ in db.child("userInfo").order_by_child("login").equal_to(user.login).get():
+        return "Login exists"
+    userid = generateId()
+    data_user = {"id": userid, "email": user.email, "login": user.login}
+    data_info = {"id": userid, "login": user.login, "username": info.username, "sex": info.sex,
+                 "birthday": info.birthday, "createdAt": info.createdAt, "firstname": info.firstname,
+                 "lastname": info.lastname}
+    try:
+        current_user = auth.create_user_with_email_and_password(user.email, user.password)
+    except HTTPError as e:
+        error_json = e.args[1]
+        error = json.loads(error_json)['error']['message']
+        if error == "INVALID_EMAIL":
+            return "Invalid email"
+        if error == "EMAIL_EXISTS":
+            return "Email exists"
+        if error == "WEAK_PASSWORD : Password should be at least 6 characters":
+            return "Weak password"
+        else:
+            return error
+    else:
+        current_user = auth.refresh(current_user['refreshToken'])
+        db.child("user").child(current_user["userId"]).set(data_user)
+        db.child("userInfo").child(current_user["userId"]).set(data_info)
+        current_user = auth.refresh(current_user['refreshToken'])
+        return db.child("user").order_by_child("login").equal_to(user.login).get().val()[current_user["userId"]]
 
 
 @app.get("/profile")
 def get_profile(login: str):
     current_user = db.child("userInfo").order_by_child("login").equal_to(login).get()
-    return current_user
+    for _ in current_user:
+        return current_user
+    return 404
 
