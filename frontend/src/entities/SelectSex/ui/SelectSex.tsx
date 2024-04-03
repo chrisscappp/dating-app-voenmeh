@@ -1,9 +1,9 @@
 import { classNames, Mods } from "shared/lib/classNames/classNames"
 import cls from "./SelectSex.module.scss"
-import React, { memo, useCallback}  from "react";
-import { Select, SelectOption } from "shared/ui/Select/Select";
+import React, { memo, useCallback}  from "react"
+import { Select, SelectOption } from "shared/ui/Select/Select"
 import { Sex } from "../model/types"
-import { Input } from "shared/ui/Input/Input";
+import { Input } from "shared/ui/Input/Input"
 
 interface SelectSexProps {
 	className?: string;

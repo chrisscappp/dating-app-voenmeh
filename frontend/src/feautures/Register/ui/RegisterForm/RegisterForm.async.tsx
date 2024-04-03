@@ -1,3 +1,3 @@
-import { lazy } from "react";
+import { lazy } from "react"
 
-export const RegisterFormAsync = lazy(() => import('./RegisterForm'))
+export const RegisterFormAsync = lazy(() => import("./RegisterForm"))

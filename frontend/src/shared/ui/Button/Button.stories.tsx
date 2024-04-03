@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import { Button, ButtonTheme } from './Button';
-import { Themes } from "app/providers/ThemeProvider";
-import { ThemeDecorator } from "shared/config/storybookConfig/themeDecorator/themeDecorator";
-import React from "react";
+import { Button, ButtonTheme } from "./Button"
+import { Themes } from "app/providers/ThemeProvider"
+import { ThemeDecorator } from "shared/config/storybookConfig/themeDecorator/themeDecorator"
+import React from "react"
 
 const meta: Meta<typeof Button> = {
 	title: "shared/Button",
-  	component: Button,
-};
+	component: Button,
+}
 
-export default meta;
+export default meta
 type Story = StoryObj<typeof Button>;
 
 export const BackgroundBtn: Story = {
@@ -20,7 +20,7 @@ export const BackgroundBtn: Story = {
 		},
 		theme: ButtonTheme.BACKGROUND
 	},
-};
+}
 
 export const BackgroundInvertedTextBtn: Story = {
 	args: {
@@ -30,7 +30,7 @@ export const BackgroundInvertedTextBtn: Story = {
 		},
 		theme: ButtonTheme.BACKGROUND_INVERTED_TEXT
 	},
-};
+}
 
 export const BackgroundBtnDark: Story = {
 	args: {
@@ -41,7 +41,7 @@ export const BackgroundBtnDark: Story = {
 		theme: ButtonTheme.BACKGROUND_INVERTED
 	},
 	decorators: [ThemeDecorator(Themes.DARK)]
-};
+}
 
 export const ClearBtn: Story = {
 	args: {
@@ -51,7 +51,7 @@ export const ClearBtn: Story = {
 		},
 		theme: ButtonTheme.CLEAR_INVERTED
 	},
-};
+}
 
 export const ClearBtnDark: Story = {
 	args: {
@@ -62,7 +62,7 @@ export const ClearBtnDark: Story = {
 		theme: ButtonTheme.CLEAR_INVERTED
 	},
 	decorators: [ThemeDecorator(Themes.DARK)]
-};
+}
 
 export const ErrorBtn: Story = {
 	args: {
@@ -72,7 +72,7 @@ export const ErrorBtn: Story = {
 		},
 		theme: ButtonTheme.ERROR
 	},
-};
+}
 
 export const ErrorBtnDark: Story = {
 	args: {
@@ -83,7 +83,7 @@ export const ErrorBtnDark: Story = {
 		theme: ButtonTheme.ERROR
 	},
 	decorators: [ThemeDecorator(Themes.DARK)]
-};
+}
 
 export const OutlineBtn: Story = {
 	args: {
@@ -93,7 +93,7 @@ export const OutlineBtn: Story = {
 		},
 		theme: ButtonTheme.OUTLINE
 	},
-};
+}
 
 export const OutlineBtnDark: Story = {
 	args: {
@@ -104,7 +104,7 @@ export const OutlineBtnDark: Story = {
 		theme: ButtonTheme.OUTLINE_INVERTED
 	},
 	decorators: [ThemeDecorator(Themes.DARK)]
-};
+}
 
 export const OutlineInvertedBtn: Story = {
 	args: {
@@ -114,5 +114,5 @@ export const OutlineInvertedBtn: Story = {
 		},
 		theme: ButtonTheme.OUTLINE_INVERTED
 	},
-};
+}
 

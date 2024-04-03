@@ -1,16 +1,16 @@
 import React from "react"
-import type { Meta, StoryObj } from '@storybook/react';
-import { Select } from './Select';
-import { ThemeDecorator } from "shared/config/storybookConfig/themeDecorator/themeDecorator";
-import { Themes } from "app/providers/ThemeProvider";
+import type { Meta, StoryObj } from "@storybook/react"
+import { Select } from "./Select"
+import { ThemeDecorator } from "shared/config/storybookConfig/themeDecorator/themeDecorator"
+import { Themes } from "app/providers/ThemeProvider"
 
 const meta: Meta<typeof Select> = {
 	title: "shared/Select",
-  	component: Select,
+	component: Select,
 	args: {}
-};
+}
 
-export default meta;
+export default meta
 type Story = StoryObj<typeof Select>;
 
 const options = [
@@ -24,7 +24,7 @@ export const SelectPrimary: Story = {
 		label: "Text",
 		options: options
 	},
-};
+}
 
 export const SelectDark: Story = {
 	args: {
@@ -32,4 +32,4 @@ export const SelectDark: Story = {
 		options: options
 	},
 	decorators: ThemeDecorator(Themes.DARK)
-};
+}

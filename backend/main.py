@@ -1,6 +1,5 @@
 import json
-
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from requests import HTTPError
@@ -74,7 +73,7 @@ def auth_user_by_login(user: UserLog):
         user.email = current_user.val()[userid]["email"]
         answer = auth_user(user)
         return answer
-    return "Invalid login"
+    raise HTTPException(status_code=403, detail="loh")
 
 
 @app.post("/register")

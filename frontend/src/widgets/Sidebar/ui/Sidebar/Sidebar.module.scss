@@ -1,0 +1,38 @@
+.Sidebar {
+	height: calc(100vh - var(--navbar-height));
+	width: var(--sidebar-width-collapsed);
+	background: var(--inverted-bg-color);
+	transition: width 0.5s;
+	display: flex;
+	justify-content: center;
+}
+
+.iconsWrap {
+	border-radius: 10px;
+	width: 50px;
+	max-height: 330px;
+	background: var(--inst-panel-background);
+}
+
+.icons {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.sideBarItem {
+	margin-top: 20px;
+}
+
+.collapsed {
+	width: var(--sidebar-width);
+	.iconsWrap {
+		width: 260px;
+		margin: 0px 15px 0px 15px;
+	}
+	.icons {
+		align-items: start;
+		margin-left: 20px;
+	}
+}
+

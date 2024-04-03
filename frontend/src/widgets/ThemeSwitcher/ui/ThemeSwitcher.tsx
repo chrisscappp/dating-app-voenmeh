@@ -1,8 +1,8 @@
 import { Mods, classNames } from "shared/lib/classNames/classNames"
 import cls from "./ThemeSwitcher.module.scss"
-import { useTheme } from "app/providers/ThemeProvider";
-import { Themes } from "app/providers/ThemeProvider/lib/themeContext";
-import { CSSProperties, MutableRefObject, useEffect, useRef, useState } from "react";
+import { useTheme } from "app/providers/ThemeProvider"
+import { Themes } from "app/providers/ThemeProvider/lib/themeContext"
+import { CSSProperties, MutableRefObject, useEffect, useRef, useState } from "react"
 
 interface ThemeSwitcherProps {
 	className?: string;
@@ -23,7 +23,7 @@ export const ThemeSwitcher = (props: ThemeSwitcherProps) => {
 		if (theme === "app_dark_theme") {
 			setIsSwitched(true)
 		}
-	}, [])
+	}, [theme])
 
 	const onSwitch = () => {
 		toggleTheme(Themes.DARK)
@@ -44,11 +44,11 @@ export const ThemeSwitcher = (props: ThemeSwitcherProps) => {
 	return (
 		<div className = {classNames(cls.ThemeSwitcher, {}, [className])}>
 			<label className={cls.switch}>
-  				<input 
+				<input 
 					type="checkbox" 
 					onClick = {onSwitch}
 				/>
-  				<span 
+				<span 
 					className={classNames(cls.slider, mods, [])}
 				>
 					<div

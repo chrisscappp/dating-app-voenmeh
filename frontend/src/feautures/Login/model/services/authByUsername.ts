@@ -1,13 +1,13 @@
-import { createAsyncThunk } from '@reduxjs/toolkit'
-import { IUser } from "entities/User/index";
+import { createAsyncThunk } from "@reduxjs/toolkit"
+import { IUser } from "entities/User/index"
 import { userActions } from "entities/User/index"
 import { USER_LOCALSTORAGE_KEY } from "shared/consts/localStorageKeys"
-import { ThunkConfig } from "app/providers/StoreProvider/index";
-import axios from "axios";
+import { ThunkConfig } from "app/providers/StoreProvider/index"
 
 interface LoginByUsernameProps {
-	username: string;
-	password: string;
+	login: string | undefined;
+	password: string | undefined;
+	email: string | undefined;
 }
 
 export const loginByUsername = createAsyncThunk<
@@ -15,8 +15,8 @@ export const loginByUsername = createAsyncThunk<
 	LoginByUsernameProps, 
 	ThunkConfig<string>
 >(
-  	'login/loginByUsername',
-  	async (authData, thunkAPI) => {
+	"login/loginByUsername",
+	async (authData, thunkAPI) => {
 		const {
 			dispatch,
 			extra,
@@ -24,18 +24,19 @@ export const loginByUsername = createAsyncThunk<
 		} = thunkAPI
 
 		try {
-    		const response = await extra.api.post<IUser>("/login", authData)
+			const response = await extra.api.post<IUser>("/authByLogin", authData)
 			if (!response.data) {
 				throw new Error()
 			}
 			
 			localStorage.setItem(USER_LOCALSTORAGE_KEY, JSON.stringify(response.data))
 			dispatch(userActions.setAuthData(response.data))
+			extra.navigate(`/profile/${response.data.id}`)
 			return response.data
-		} catch (e) {
+		} catch (e: unknown) {
 			console.error(e)
 			return rejectWithValue("Неверный логин или пароль")
 		}	
-  	},
+	},
 )
 // вызывается внутри компонента

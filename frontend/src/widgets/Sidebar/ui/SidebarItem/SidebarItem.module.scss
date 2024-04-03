@@ -1,0 +1,16 @@
+.SidebarItem {
+	display: flex;
+	align-items: center;
+}
+
+.link {
+	margin-left: 20px;
+}
+
+.collapsed {
+	.link {
+		opacity: 0;
+		transition: 0.2s opacity;
+		width: 0;
+	}
+}

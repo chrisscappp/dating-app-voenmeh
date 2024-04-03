@@ -1,8 +1,10 @@
 import { classNames } from "shared/lib/classNames/classNames"
-import React, { Suspense } from "react";
-import { Modal } from "shared/ui/Modal/Modal";
+import React, { Suspense } from "react"
+import { Modal } from "shared/ui/Modal/Modal"
 import { LoginFormAsync } from "../LoginForm/LoginForm.async"
-import { Loader } from "shared/ui/Loader/Loader";
+import { Loader } from "shared/ui/Loader/Loader"
+import { DynamicModuleLoader, ReducersList } from "shared/lib/components/DynamicModuleLoader/DynamicModuleLoader"
+import { loginFormReducer } from "../../model/slice/loginSlice"
 
 interface LoginModalProps {
 	className?: string;
@@ -10,20 +12,25 @@ interface LoginModalProps {
 	onClose: () => void;
 }
 
+const initialReducers: ReducersList = {
+	loginForm: loginFormReducer
+}
+
 export const LoginModal = ({ className, isOpen, onClose }: LoginModalProps) => {
 
 	return (
-		<Modal 
-			className = {classNames('', {}, [className])}
-			isOpen = {isOpen}
-			onClose = {onClose}
-			lazy
-		>
-			<Suspense fallback = {<Loader/>}>
-				<LoginFormAsync
-					onSuccess = {onClose}
-				/>
-			</Suspense>
-		</Modal>
+		<DynamicModuleLoader reducers={initialReducers} removeAfterUnmount>
+			<Modal 
+				className = {classNames("", {}, [className])}
+				isOpen = {isOpen}
+				onClose = {onClose}
+			>
+				<Suspense fallback = {<Loader/>}>
+					<LoginFormAsync
+						onSuccess = {onClose}
+					/>
+				</Suspense>
+			</Modal>
+		</DynamicModuleLoader>
 	)
 }

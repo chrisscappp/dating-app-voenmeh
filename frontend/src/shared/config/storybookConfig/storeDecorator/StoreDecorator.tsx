@@ -1,9 +1,9 @@
 import { Decorator, StoryFn } from "@storybook/react"
 import React from "react"
-import { StateSchema, StoreProvider } from "app/providers/StoreProvider";
-import { ReducersList } from "shared/lib/components/DynamicModuleLoader/DynamicModuleLoader";
-import { loginFormReducer } from "feautures/Login";
-import { registerFormReducer } from "feautures/Register";
+import { StateSchema, StoreProvider } from "app/providers/StoreProvider"
+import { ReducersList } from "shared/lib/components/DynamicModuleLoader/DynamicModuleLoader"
+import { loginFormReducer } from "feautures/Login"
+import { registerFormReducer } from "feautures/Register"
 
 const initialAsyncReducers: ReducersList = {
 	loginForm: loginFormReducer,
@@ -22,4 +22,4 @@ export const StoreDecorator = (
 			<StoryComponent/>
 		</StoreProvider>
 	)
-};
+}

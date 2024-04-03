@@ -1,6 +1,6 @@
 import { classNames } from "shared/lib/classNames/classNames" 
 
-describe('classNames', () => {
+describe("classNames", () => {
 	test("classname with main class", () => {
 		const expected = "classname"
 		expect(classNames("classname")).toBe(expected)

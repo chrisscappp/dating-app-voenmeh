@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import { Text, TextAlign, TextSize, TextTheme } from './Text';
-import { Themes } from "app/providers/ThemeProvider";
-import { ThemeDecorator } from "shared/config/storybookConfig/themeDecorator/themeDecorator";
-import React from "react";
+import { Text, TextAlign, TextSize, TextTheme } from "./Text"
+import { Themes } from "app/providers/ThemeProvider"
+import { ThemeDecorator } from "shared/config/storybookConfig/themeDecorator/themeDecorator"
+import React from "react"
 
 const meta: Meta<typeof Text> = {
 	title: "shared/Text",
-  	component: Text,
-};
+	component: Text,
+}
 
-export default meta;
+export default meta
 type Story = StoryObj<typeof Text>;
 
 export const TextPrimary: Story = {
@@ -17,7 +17,7 @@ export const TextPrimary: Story = {
 		theme: TextTheme.PRIMARY,
 		text: "Text"
 	},
-};
+}
 
 export const TextPrimaryDark: Story = {
 	args: {
@@ -25,14 +25,14 @@ export const TextPrimaryDark: Story = {
 		text: "Text"
 	},
 	decorators: [ThemeDecorator(Themes.DARK)]
-};
+}
 
 export const TextSecondary: Story = {
 	args: {
 		theme: TextTheme.SECONDARY,
 		text: "Text"
 	},
-};
+}
 
 export const TextSecondaryDark: Story = {
 	args: {
@@ -40,21 +40,21 @@ export const TextSecondaryDark: Story = {
 		text: "Text"
 	},
 	decorators: [ThemeDecorator(Themes.DARK)]
-};
+}
 
 export const TextGrey: Story = {
 	args: {
 		theme: TextTheme.GREY,
 		text: "Text"
 	},
-};
+}
 
 export const TitlePrimary: Story = {
 	args: {
 		theme: TextTheme.PRIMARY,
 		title: "Text"
 	},
-};
+}
 
 export const TitlePrimaryDark: Story = {
 	args: {
@@ -62,7 +62,7 @@ export const TitlePrimaryDark: Story = {
 		title: "Text"
 	},
 	decorators: [ThemeDecorator(Themes.DARK)]
-};
+}
 
 export const TextPrimaryS: Story = {
 	args: {
@@ -70,7 +70,7 @@ export const TextPrimaryS: Story = {
 		text: "Text",
 		size: TextSize.S
 	},
-};
+}
 
 export const TextPrimaryM: Story = {
 	args: {
@@ -78,7 +78,7 @@ export const TextPrimaryM: Story = {
 		text: "Text",
 		size: TextSize.M
 	},
-};
+}
 
 export const TextPrimaryL: Story = {
 	args: {
@@ -86,7 +86,7 @@ export const TextPrimaryL: Story = {
 		text: "Text",
 		size: TextSize.L
 	},
-};
+}
 
 export const TextPrimaryXL: Story = {
 	args: {
@@ -94,7 +94,7 @@ export const TextPrimaryXL: Story = {
 		text: "Text",
 		size: TextSize.XL
 	},
-};
+}
 
 export const TextPrimaryXXL: Story = {
 	args: {
@@ -102,4 +102,4 @@ export const TextPrimaryXXL: Story = {
 		text: "Text",
 		size: TextSize.XXL
 	},
-};
+}

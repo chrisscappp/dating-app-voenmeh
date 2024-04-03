@@ -1,0 +1,17 @@
+.AppLink {
+	font-family: "Roboto", sans-serif;
+	font-weight: 300;
+	font-style: normal;
+	text-decoration: none;
+	&:hover {
+		opacity: 0.7;
+	}
+}
+
+.primary {
+	color: var(--inverted-primary-color);
+}
+
+.secondary{
+	color: var(--secondary-color);
+}

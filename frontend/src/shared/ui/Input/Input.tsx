@@ -1,7 +1,7 @@
 import { classNames, Mods } from "shared/lib/classNames/classNames"
-import { ChangeEvent, CSSProperties, InputHTMLAttributes, memo, useEffect, useRef, useState } from "react";
+import { ChangeEvent, CSSProperties, InputHTMLAttributes, memo, useEffect, useRef, useState } from "react"
 import cls from "./Input.module.scss"
-import React from "react";
+import React from "react"
 
 type HTMLInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "value" | "readOnly">
 
@@ -46,7 +46,7 @@ export const Input = memo((props: InputProps) => {
 
 	const onFocus = () => {
 		setStyles({
-		 	border: "2px solid var(--input-focus-border)"
+			border: "2px solid var(--input-focus-border)"
 		})
 	}
 

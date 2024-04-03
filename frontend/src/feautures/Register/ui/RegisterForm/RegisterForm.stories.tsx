@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import RegisterForm from './RegisterForm';
-import { Themes } from "app/providers/ThemeProvider";
-import { ThemeDecorator } from "shared/config/storybookConfig/themeDecorator/themeDecorator";
-import React from "react";
-import { StoreDecorator } from "shared/config/storybookConfig/storeDecorator/StoreDecorator";
-import { Sex } from "entities/SelectSex";
+import RegisterForm from "./RegisterForm"
+import { Themes } from "app/providers/ThemeProvider"
+import { ThemeDecorator } from "shared/config/storybookConfig/themeDecorator/themeDecorator"
+import React from "react"
+import { StoreDecorator } from "shared/config/storybookConfig/storeDecorator/StoreDecorator"
+import { Sex } from "entities/SelectSex"
 
 const meta: Meta<typeof RegisterForm> = {
 	title: "feature/RegisterForm",
-  	component: RegisterForm,
-};
+	component: RegisterForm,
+}
 
-export default meta;
+export default meta
 type Story = StoryObj<typeof RegisterForm>;
 
 export const DefaultRegisterForm: Story = {
@@ -31,7 +31,7 @@ export const DefaultRegisterForm: Story = {
 			}
 		}
 	})]
-};
+}
 
 export const DefaultRegisterFormDark: Story = {
 	args: {
@@ -53,7 +53,7 @@ export const DefaultRegisterFormDark: Story = {
 		}),
 		ThemeDecorator(Themes.DARK)
 	]
-};
+}
 
 export const RegisterFormError: Story = {
 	args: {
@@ -64,7 +64,7 @@ export const RegisterFormError: Story = {
 			error: "erorr"
 		}
 	})]
-};
+}
 
 export const RegisterFormIsLoading: Story = {
 	args: {
@@ -75,4 +75,4 @@ export const RegisterFormIsLoading: Story = {
 			isLoading: true
 		}
 	})]
-};
+}
