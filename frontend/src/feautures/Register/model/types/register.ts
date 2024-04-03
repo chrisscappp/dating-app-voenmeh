@@ -1,4 +1,4 @@
-import { Sex } from "entities/SelectSex";
+import { Sex } from "entities/SelectSex"
 
 export interface RegisterForm {
 	firstname?: string;

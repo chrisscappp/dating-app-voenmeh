@@ -7,7 +7,7 @@
 //@ts-ignore
 import path from "path"
 
-const __dirname = path.resolve(path.dirname(''));
+const __dirname = path.resolve(path.dirname(""))
 
 export default {
   // All imported modules in your tests should be mocked automatically
@@ -40,12 +40,12 @@ export default {
     "<rootDir>src"
   ],
   testMatch: [
-    '<rootDir>src/**/*(*.)@(spec|test).[tj]s?(x)'
+    "<rootDir>src/**/*(*.)@(spec|test).[tj]s?(x)"
   ],
-  setupFilesAfterEnv: ['<rootDir>config/jest/setupTests.ts'],
+  setupFilesAfterEnv: ["<rootDir>config/jest/setupTests.ts"],
   moduleNameMapper: {
-    '\\.s?css$': 'identity-obj-proxy',
-    '\\.svg': path.resolve(__dirname, 'jestEmptyComponent.tsx'),
+    "\\.s?css$": "identity-obj-proxy",
+    "\\.svg": path.resolve(__dirname, "jestEmptyComponent.tsx"),
     "^axios$": "axios/dist/node/axios.cjs"
   },
   rootDir: "../../",
@@ -214,4 +214,4 @@ export default {
 
   // Whether to use watchman for file crawling
   // watchman: true,
-};
+}

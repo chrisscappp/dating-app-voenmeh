@@ -15,12 +15,20 @@
 }
 
 .content-page {
-	//display: flex;
+	display: flex;
 }
 
 .page-wrapper {
 	flex-grow: 1;
-	padding: 20px 0px 20px 0px;
+	width: 100%;
+	padding: 20px 20px 45px 20px;
+}
+
+.auth-page-wrapper {
+	height: calc(100vh - var(--navbar-height));
+	overflow-y: auto;
+	width: 100%;
+	flex-grow: 1;
 }
 
 .testTrans {

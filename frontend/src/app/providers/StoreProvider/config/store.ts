@@ -1,8 +1,9 @@
-import { configureStore, Reducer, ReducersMapObject } from "@reduxjs/toolkit";
-import { ExtraArgumentType, StateSchema } from "./types";
-import { createReducerManager } from "./reducerManager";
-import { userReducer } from "entities/User";
-import { $api } from "shared/api/api";
+import { configureStore, Reducer, ReducersMapObject } from "@reduxjs/toolkit"
+import { ExtraArgumentType, StateSchema } from "./types"
+import { createReducerManager } from "./reducerManager"
+import { userReducer } from "entities/User"
+import { $api } from "shared/api/api"
+import { useNavigate } from "react-router"
 
 export function createReduxStore(
 	initialState?: StateSchema,
@@ -15,8 +16,12 @@ export function createReduxStore(
 
 	const reducerManager = createReducerManager(rootReducers)
 
+	// eslint-disable-next-line react-hooks/rules-of-hooks
+	const navigate = useNavigate()
+
 	const extraArg: ExtraArgumentType = {
-		api: $api
+		api: $api,
+		navigate: navigate
 	}
 
 	const store = configureStore({
@@ -36,4 +41,4 @@ export function createReduxStore(
 	return store
 }
 
-export type AppDispatch = ReturnType<typeof createReduxStore>['dispatch']
+export type AppDispatch = ReturnType<typeof createReduxStore>["dispatch"]

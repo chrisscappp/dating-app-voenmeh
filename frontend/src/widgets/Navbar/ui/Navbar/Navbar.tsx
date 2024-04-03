@@ -5,11 +5,15 @@ import { NavbarPanel } from "../NavbarPanel/NavbarPanel"
 import cls from "./Navbar.module.scss"
 import { useTheme } from "app/providers/ThemeProvider"
 import { Themes } from "app/providers/ThemeProvider"
-import { Button, ButtonTheme } from "shared/ui/Button/Button"
-import { useTranslation } from "react-i18next"
+import { NavbarButtons } from "../NavbarButtons/NavbarButtons"
 import { LoginModal } from "feautures/Login"
 import { RegisterModal } from "feautures/Register"
 import { useCallback, useState } from "react"
+import { useSelector } from "react-redux"
+import { getUserAuthData } from "entities/User"
+import { NavbarProfilePanel } from "../NavbarProfilePanel/NavbarProfilePanel"
+import { userActions } from "entities/User"
+import { useAppDispatch } from "shared/lib/hooks/useAppDispatch"
 
 interface NavbarProps {
 	className?: string;
@@ -18,26 +22,31 @@ interface NavbarProps {
 export const Navbar = (props: NavbarProps) => {
 
 	const { theme } = useTheme()
-	const { t } = useTranslation()
+	const dispatch = useAppDispatch()
+	const auth = useSelector(getUserAuthData)
 
 	const [ isOpenLoginModal, setIsOpenLoginModal ] = useState<boolean>(false)
 	const [ isOpenRegisterModal, setIsOpenRegisterModal ] = useState<boolean>(false)
 
 	const handleOpenLoginModal = useCallback(() => {
 		setIsOpenLoginModal(true)
-	}, [isOpenLoginModal])
+	}, [])
 
 	const handleCloseLoginModal = useCallback(() => {
 		setIsOpenLoginModal(false)
-	}, [isOpenLoginModal])
+	}, [])
 
 	const handleOpenRegisterModal = useCallback(() => {
 		setIsOpenRegisterModal(true)
-	}, [isOpenLoginModal])
+	}, [])
 
 	const handleCloseRegisterModal = useCallback(() => {
 		setIsOpenRegisterModal(false)
-	}, [isOpenLoginModal])
+	}, [])
+
+	const onLogout = useCallback(() => {
+		dispatch(userActions.logout())
+	}, [dispatch])
 
 	const {
 		className
@@ -50,31 +59,26 @@ export const Navbar = (props: NavbarProps) => {
 					{
 						theme === Themes.LIGHT ?
 							<LogoIconLight className = {cls.icon}/>
-						: 
+							: 
 							<LogoIconDark className = {cls.icon}/>
 					}
 					<NavbarPanel
 						theme = {theme}
 					/>
 				</div>
-				<div className = {cls.leftSide}>
-					<Button
-						theme = {ButtonTheme.OUTLINE}
-						hovered
-						onClick = {handleOpenLoginModal}
-					>
-						{t("Войти")}
-					</Button>
-					<Button
-						theme = {
-							theme === Themes.LIGHT ? ButtonTheme.BACKGROUND : ButtonTheme.BACKGROUND_INVERTED_TEXT
-						}
-						hovered
-						onClick = {handleOpenRegisterModal}
-					>
-						{t("Регистрация")}
-					</Button>
-				</div>
+				{ !auth ? 
+					<NavbarButtons
+						handleOpenLoginModal = {handleOpenLoginModal}
+						handleOpenRegisterModal = {handleOpenRegisterModal}
+						theme = {theme}
+					/> 
+					: 
+					<NavbarProfilePanel 
+						className = {cls.navbarProfilePanel}
+						onLogout={onLogout}
+					/>
+				}
+				
 			</div>
 			{
 				isOpenLoginModal &&

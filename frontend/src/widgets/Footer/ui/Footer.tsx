@@ -2,9 +2,10 @@ import { memo, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import cls from "./Footer.module.scss"
-import { classNames } from "shared/lib/classNames/classNames";
-import { Text, TextAlign, TextSize, TextTheme } from "shared/ui/Text/Text";
+import { classNames } from "shared/lib/classNames/classNames"
+import { Text, TextAlign, TextSize, TextTheme } from "shared/ui/Text/Text"
 import LogoFooter from "shared/assets/icons/logo-footer.svg"
+import { Portal } from "shared/ui/Portal/Portal"
 
 interface FooterProps {
 	className?: string;
@@ -35,76 +36,79 @@ export const Footer = memo((props: FooterProps) => {
 					onClick = {() => onFollowUrl(item.link)}
 					key = {item.developerName}
 				>
-				<Text
-					text = {`“${item.developerName}” - ${item.link}`}
-					theme = {TextTheme.GREY}
-					className = {cls.text}
-					link
-				/>	
+					<Text
+						text = {`“${item.developerName}” - ${item.link}`}
+						theme = {TextTheme.GREY}
+						className = {cls.text}
+						link
+					/>	
 				</span>
 			)
 		})
 	}, [])
 	
 	return (
-		<div className = {classNames(cls.Footer, {}, [className])}>
-			<div className = {cls.contentWrapper}>
-				<div className = {cls.developers}>
-					<div className = {cls.developersTitle}>
-						<LogoFooter/>
+		<Portal>
+			<div className = {classNames(cls.Footer, {}, [className])}>
+				<div className = {cls.contentWrapper}>
+					<div className = {cls.developers}>
+						<div className = {cls.developersTitle}>
+							<LogoFooter/>
+							<Text
+								text = {t("Военмех. Знакомства")}
+								className = {cls.title}
+							/>
+						</div>
+						<div className = {cls.developersText}>
+							<Text 
+								text = {t("Команда разработчиков:")}
+								theme = {TextTheme.GREY}
+							/>
+							<Text 
+								text = {t("Гриша")}
+								theme = {TextTheme.GREY}
+								className = {cls.text}
+							/>
+							<Text 
+								text = {t("Тимоха")}
+								theme = {TextTheme.GREY}
+								className = {cls.text}
+							/>
+							<Text 
+								text = {t("Саня")}
+								theme = {TextTheme.GREY}
+								className = {cls.text}
+							/>
+						</div>
+					</div>
+					<div className = {cls.information}>
 						<Text
-							text = {t("Военмех. Знакомства")}
-							className = {cls.title}
+							text = {t("Информация")}
+							className = {cls.informationTitle}
+						/>
+						<Text
+							text = {t("Приложение реализовано")}
+							theme = {TextTheme.GREY}
+							className = {cls.informationText}
+						/>
+						<Text
+							text = {t("Все права")}
+							theme = {TextTheme.GREY}
+							className = {cls.informationText}
 						/>
 					</div>
-					<div className = {cls.developersText}>
-						<Text 
-							text = {t("Команда разработчиков:")}
-							theme = {TextTheme.GREY}
+					<div className = {cls.contacts}>
+						<Text
+							text = {t("Контакты")}
+							className = {cls.informationTitle}
 						/>
-						<Text 
-							text = {t("Гриша")}
-							theme = {TextTheme.GREY}
-							className = {cls.text}
-						/>
-						<Text 
-							text = {t("Тимоха")}
-							theme = {TextTheme.GREY}
-							className = {cls.text}
-						/>
-						<Text 
-							text = {t("Саня")}
-							theme = {TextTheme.GREY}
-							className = {cls.text}
-						/>
-					</div>
-				</div>
-				<div className = {cls.information}>
-					<Text
-						text = {t("Информация")}
-						className = {cls.informationTitle}
-					/>
-					<Text
-						text = {t("Приложение реализовано")}
-						theme = {TextTheme.GREY}
-						className = {cls.informationText}
-					/>
-					<Text
-						text = {t("Все права")}
-						theme = {TextTheme.GREY}
-						className = {cls.informationText}
-					/>
-				</div>
-				<div className = {cls.contacts}>
-					<Text
-						text = {t("Контакты")}
-						className = {cls.informationTitle}
-					/>
-					<div className = {cls.contactsText}>
-						{iteratedLinks}
+						<div className = {cls.contactsText}>
+							{iteratedLinks}
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</Portal>
+		
 	)
 })

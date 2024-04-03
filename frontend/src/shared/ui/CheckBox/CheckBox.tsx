@@ -1,6 +1,6 @@
 import { classNames } from "shared/lib/classNames/classNames"
 import cls from "./CheckBox.module.scss"
-import React, { memo } from "react";
+import React, { memo } from "react"
 
 interface CheckBoxProps {
 	className?: string;

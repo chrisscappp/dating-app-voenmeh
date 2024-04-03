@@ -28,19 +28,19 @@ export const NavbarPanel = (props: NavbarPanelProps) => {
 		<div className = {classNames(cls.NavbarPanel, {}, [className])}>
 			<div className = {cls.theme}>
 				{
-				theme === Themes.LIGHT ? 
-					<ThemeIconLight/>
-				:
-					<ThemeIconDark/>
+					theme === Themes.LIGHT ? 
+						<ThemeIconLight/>
+						:
+						<ThemeIconDark/>
 				}
 				<ThemeSwitcher/>
 			</div>
 			<div className = {cls.lang}>
 				{
-				theme === Themes.LIGHT ? 
-					<LanguageIconLight/>
-				:
-					<LanguageIconDark/>
+					theme === Themes.LIGHT ? 
+						<LanguageIconLight/>
+						:
+						<LanguageIconDark/>
 				}
 				<LangSwitcher/>
 			</div>

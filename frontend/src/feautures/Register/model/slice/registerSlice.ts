@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { RegisterSchema, RegisterForm } from "../types/register"
 
 const initialState: RegisterSchema = {
@@ -9,7 +9,7 @@ const initialState: RegisterSchema = {
 }
 
 export const registerSlice = createSlice({
-	name: 'registerForm',
+	name: "registerForm",
 	initialState,
 	reducers: {
 		setRegisterFormField: (state, action: PayloadAction<RegisterForm>) => {

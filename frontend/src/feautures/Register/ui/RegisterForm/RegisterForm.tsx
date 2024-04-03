@@ -1,20 +1,20 @@
 import { classNames } from "shared/lib/classNames/classNames"
 import cls from "./RegisterForm.module.scss"
-import React, { memo, useCallback } from "react";
-import { useTranslation } from "react-i18next";
-import { ReducersList } from "shared/lib/components/DynamicModuleLoader/DynamicModuleLoader";
-import { DynamicModuleLoader } from "shared/lib/components/DynamicModuleLoader/DynamicModuleLoader";
-import { useAppDispatch } from "shared/lib/hooks/useAppDispatch";
-import { useSelector } from "react-redux";
-import { registerFormReducer, registerFormActions } from "../../model/slice/registerSlice";
-import { Text, TextSize } from "shared/ui/Text/Text";
-import { Input } from "shared/ui/Input/Input";
-import { Button, ButtonTheme } from "shared/ui/Button/Button";
-import { SelectSex, Sex } from "entities/SelectSex";
-import { getRegisterFormBirthday, getRegisterFormCheckBoxFlag, getRegisterFormEmail, getRegisterFormError, getRegisterFormFirstname, getRegisterFormIsLoading, getRegisterFormLastname, getRegisterFormPassword, getRegisterFormRepeatPassword, getRegisterFormSex, getRegisterFormUsername, getRegisterFormValidateErrors } from "feautures/Register/model/selectors/getRegisterState";
-import { Loader } from "shared/ui/Loader/Loader";
-import { CheckBox } from "shared/ui/CheckBox/CheckBox";
-import { TranslationKeys } from "shared/config/i18nConfig/translationKeys";
+import React, { memo, useCallback } from "react"
+import { useTranslation } from "react-i18next"
+import { ReducersList } from "shared/lib/components/DynamicModuleLoader/DynamicModuleLoader"
+import { DynamicModuleLoader } from "shared/lib/components/DynamicModuleLoader/DynamicModuleLoader"
+import { useAppDispatch } from "shared/lib/hooks/useAppDispatch"
+import { useSelector } from "react-redux"
+import { registerFormReducer, registerFormActions } from "../../model/slice/registerSlice"
+import { Text, TextSize } from "shared/ui/Text/Text"
+import { Input } from "shared/ui/Input/Input"
+import { Button, ButtonTheme } from "shared/ui/Button/Button"
+import { SelectSex, Sex } from "entities/SelectSex"
+import { getRegisterFormBirthday, getRegisterFormCheckBoxFlag, getRegisterFormEmail, getRegisterFormError, getRegisterFormFirstname, getRegisterFormIsLoading, getRegisterFormLastname, getRegisterFormPassword, getRegisterFormRepeatPassword, getRegisterFormSex, getRegisterFormUsername, getRegisterFormValidateErrors } from "feautures/Register/model/selectors/getRegisterState"
+import { Loader } from "shared/ui/Loader/Loader"
+import { CheckBox } from "shared/ui/CheckBox/CheckBox"
+import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 
 interface RegisterFormProps {
 	className?: string;
@@ -44,35 +44,35 @@ const RegisterForm = memo(({ className, onSuccess }: RegisterFormProps) => {
 
 	const onChangeFirstname = useCallback((value?: string) => {
 		dispatch(registerFormActions.setRegisterFormField({ firstname: value || "" }))
-	}, [])
+	}, [dispatch])
 
 	const onChangeLastname = useCallback((value?: string) => {
 		dispatch(registerFormActions.setRegisterFormField({ lastname: value || "" }))
-	}, [])
+	}, [dispatch])
 
 	const onChangeUsername = useCallback((value?: string) => {
 		dispatch(registerFormActions.setRegisterFormField({ username: value || "" }))
-	}, [])
+	}, [dispatch])
 
 	const onChangeEmail = useCallback((value?: string) => {
 		dispatch(registerFormActions.setRegisterFormField({ email: value || "" }))
-	}, [])
+	}, [dispatch])
 
 	const onChangeBirthday = useCallback((value?: string) => {
 		dispatch(registerFormActions.setRegisterFormField({ birthday: value || "" }))
-	}, [])
+	}, [dispatch])
 
 	const onChangePassword = useCallback((value?: string) => {
 		dispatch(registerFormActions.setRegisterFormField({ password: value || "" }))
-	}, [])
+	}, [dispatch])
 
 	const onChangeRepeatPassword = useCallback((value?: string) => {
 		dispatch(registerFormActions.setRegisterFormField({ repeatPassword: value || "" }))
-	}, [])
+	}, [dispatch])
 
 	const onChangeSex = useCallback((value: string) => {
 		dispatch(registerFormActions.setRegisterFormField({ sex: value as Sex }))
-	}, [])
+	}, [dispatch])
 
 	if (error) {
 		return <h3>{error}</h3>

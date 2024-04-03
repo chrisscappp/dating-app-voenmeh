@@ -1,8 +1,8 @@
 import { classNames, Mods } from "shared/lib/classNames/classNames"
 import cls from "./Select.module.scss"
-import React, { ChangeEvent, memo, useMemo }  from "react";
-import { useTranslation } from "react-i18next";
-import { TranslationKeys } from "shared/config/i18nConfig/translationKeys";
+import React, { ChangeEvent, memo, useMemo }  from "react"
+import { useTranslation } from "react-i18next"
+import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 
 export interface SelectOption {
 	value: string;
@@ -45,7 +45,7 @@ export const Select = memo((props: SelectProps) => {
 				</option>
 			)
 		})
-	}, [options])
+	}, [options, t])
 
 	const onChangeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
 		onChange?.(e.target.value)
