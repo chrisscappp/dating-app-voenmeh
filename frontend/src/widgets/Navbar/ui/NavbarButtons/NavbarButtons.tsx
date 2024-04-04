@@ -2,6 +2,7 @@ import { Button, ButtonTheme } from "shared/ui/Button/Button"
 import cls from "./NavbarButtons.module.scss"
 import { Themes } from "app/providers/ThemeProvider"
 import { useTranslation } from "react-i18next"
+import { memo } from "react"
 
 interface NavbarButtonsProps {
 	handleOpenLoginModal: () => void; 
@@ -9,7 +10,7 @@ interface NavbarButtonsProps {
 	theme: Themes;
 }
 
-export const NavbarButtons = ({ handleOpenLoginModal, handleOpenRegisterModal, theme }: NavbarButtonsProps) => {
+export const NavbarButtons = memo(({ handleOpenLoginModal, handleOpenRegisterModal, theme }: NavbarButtonsProps) => {
 	
 	const { t } = useTranslation()
 	
@@ -33,4 +34,4 @@ export const NavbarButtons = ({ handleOpenLoginModal, handleOpenRegisterModal, t
 			</Button>
 		</div>
 	)
-}
+})

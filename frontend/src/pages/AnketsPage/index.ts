@@ -1,0 +1,1 @@
+export { AnketsPageAsync as AnketsPage } from "./ui/AnketsPage/AnketsPage.async"

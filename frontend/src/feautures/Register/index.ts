@@ -17,7 +17,7 @@ export {
 	getRegisterFormPassword,
 	getRegisterFormSex,
 	getRegisterFormState,
-	getRegisterFormUsername,
+	getRegisterFormLogin,
 	getRegisterFormValidateErrors
 } from "./model/selectors/getRegisterState"
 

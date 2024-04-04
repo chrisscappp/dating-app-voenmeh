@@ -31,10 +31,10 @@ export const loginByUsername = createAsyncThunk<
 			
 			localStorage.setItem(USER_LOCALSTORAGE_KEY, JSON.stringify(response.data))
 			dispatch(userActions.setAuthData(response.data))
-			extra.navigate(`/profile/${response.data.id}`)
+			extra.navigate("/ankets")
 			return response.data
 		} catch (e: unknown) {
-			console.error(e)
+			const err = e as Error
 			return rejectWithValue("Неверный логин или пароль")
 		}	
 	},
