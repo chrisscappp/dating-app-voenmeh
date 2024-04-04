@@ -5,6 +5,7 @@ import { ThemeDecorator } from "shared/config/storybookConfig/themeDecorator/the
 import React from "react"
 import { StoreDecorator } from "shared/config/storybookConfig/storeDecorator/StoreDecorator"
 import { Sex } from "entities/SelectSex"
+import { FormErrorType } from "feautures/Register/model/types/errors"
 
 const meta: Meta<typeof RegisterForm> = {
 	title: "feature/RegisterForm",
@@ -23,7 +24,7 @@ export const DefaultRegisterForm: Story = {
 			formData: {
 				firstname: "A",
 				lastname: "B",
-				username: "C",
+				login: "C",
 				birthday: "31.02.2000",
 				password: "1",
 				repeatPassword: "2",
@@ -43,7 +44,7 @@ export const DefaultRegisterFormDark: Story = {
 				formData: {
 					firstname: "A",
 					lastname: "B",
-					username: "C",
+					login: "C",
 					birthday: "31.02.2000",
 					password: "1",
 					repeatPassword: "2",
@@ -61,7 +62,7 @@ export const RegisterFormError: Story = {
 	},
 	decorators: [StoreDecorator({
 		registerForm: {
-			error: "erorr"
+			error: FormErrorType.SERVER_ERROR
 		}
 	})]
 }

@@ -8,6 +8,9 @@ import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import React, { useState, useCallback } from "react"
 import { Button, ButtonTheme } from "shared/ui/Button/Button"
 import { RegisterModal } from "feautures/Register"
+import { useSelector } from "react-redux"
+import { getUserAuthData } from "entities/User"
+import { useNavigate } from "react-router"
 
 interface MainPageInfoProps {
 	className?: string;
@@ -19,6 +22,16 @@ export const MainPageInfo = ({ className, infoObject }: MainPageInfoProps) => {
 	const { t } = useTranslation(TranslationKeys.MAIN_PAGE)
 
 	const [ isOpenModal, setIsOpenModal ] = useState<boolean>(false)
+	const authData = useSelector(getUserAuthData)
+	const navigate = useNavigate()
+
+	const onNavigate = useCallback(() => {
+		navigate("/ankets")
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth",
+		})
+	}, [navigate])
 
 	const openModal = useCallback(() => {
 		setIsOpenModal(true)
@@ -70,7 +83,7 @@ export const MainPageInfo = ({ className, infoObject }: MainPageInfoProps) => {
 											className = {cls.getStartedBtn}
 											theme = {ButtonTheme.BACKGROUND_INVERTED}
 											hovered
-											onClick = {openModal}
+											onClick = {authData ? onNavigate : openModal}
 										>
 											{t(item.buttonsText[0])}
 										</Button>
@@ -83,14 +96,13 @@ export const MainPageInfo = ({ className, infoObject }: MainPageInfoProps) => {
 										</Button>
 									</div>
 								</>
-							}
-								
+							}		
 						</div>
 					</div>
 				</div>
 			)
 		})
-	}, [infoObject, openModal, t])
+	}, [authData, infoObject, onNavigate, openModal, t])
 
 	return (
 		<div className = {classNames(cls.MainPageInfo, {}, [className])}>

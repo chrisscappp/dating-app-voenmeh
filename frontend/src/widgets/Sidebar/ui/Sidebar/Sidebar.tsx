@@ -1,10 +1,13 @@
 import { classNames, Mods } from "shared/lib/classNames/classNames"
 import cls from "./Sidebar.module.scss"
-import { memo, useState } from "react"
+import { memo, useMemo, useState, useEffect, useCallback } from "react"
 import { sidebarItemList } from "../../model/sidebarItems"
-import { SidebarItemType } from "../../model/types"
 import { SidebarItem } from "../SidebarItem/SidebarItem"
 import { useHover } from "shared/lib/hooks/useHover"
+import LogoutIcon from "shared/assets/icons/logout-icon-sidebar.svg"
+import { Text, TextTheme } from "shared/ui/Text/Text"
+import { useAppDispatch } from "shared/lib/hooks/useAppDispatch"
+import { userActions } from "entities/User"
 
 interface SidebarProps {
 	className?: string;
@@ -12,12 +15,51 @@ interface SidebarProps {
 
 export const Sidebar = memo((props: SidebarProps) => {
 	
-	const [ collapsed, setCollapsed ] = useState<boolean>(true)
 	const [ isHover, bindHover ] = useHover()
+	const [ scrollValue, setScrollValue ] = useState<number>(0)
+	const [ isIconsFixed, setIsIconsFixed ] = useState<boolean>(true)
+	const dispatch = useAppDispatch()
 
 	const {
 		className
 	} = props
+
+	const onSetScrollValue = (value: number) => {
+		setScrollValue(value)
+	}
+
+	useEffect(() => {
+		window.addEventListener("scroll", () => onSetScrollValue(pageYOffset))
+		return (
+			window.removeEventListener("scroll", () => onSetScrollValue(pageYOffset))
+		)
+	}, [])
+
+	useEffect(() => {
+		if (scrollValue >= 200) {
+			setIsIconsFixed(false)
+		} else {
+			setIsIconsFixed(true)
+		}
+		
+	}, [scrollValue])
+
+	const routes = useMemo(() => {
+		return Object.values(sidebarItemList).map(item => {
+			return (
+				<SidebarItem
+					item={item}
+					collapsed={isHover}
+					key = {item.path}
+					className = {cls.sideBarItem}
+				/>
+			)
+		})
+	}, [isHover])
+
+	const onLogout = useCallback(() => {
+		dispatch(userActions.logout())
+	}, [dispatch])
 
 	const mods: Mods = {
 		[cls.collapsed]: isHover
@@ -25,20 +67,19 @@ export const Sidebar = memo((props: SidebarProps) => {
 	
 	return (
 		<div className = {classNames(cls.Sidebar, mods, [className])}>
-			<div {...bindHover} className = {cls.iconsWrap}>
+			<div {...bindHover} className = {classNames(cls.iconsWrap, {[cls.fixed]: isIconsFixed}, [])}>
 				<div className = {cls.icons}>
-					{Object.values(sidebarItemList).map(item => {
-						return (
-							<SidebarItem
-								item={item}
-								collapsed={isHover}
-								key = {item.path}
-								className = {cls.sideBarItem}
-							/>
-						)
-					})}
+					{routes}
+					<div className = {cls.logoutIcon} onClick = {onLogout}>
+						<LogoutIcon/>
+						{isHover && 
+						<Text
+							text = {"Выйти"}
+							className = {cls.logoutText}
+							theme = {TextTheme.SECONDARY}
+						/>}
+					</div>
 				</div>
-				
 			</div>
 		</div>
 	)
