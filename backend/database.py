@@ -25,7 +25,6 @@ class User(BaseModel):
 class UserInfo(BaseModel):
     id: str
     login: str
-    username: str
     firstname: str
     lastname: str
     sex: str

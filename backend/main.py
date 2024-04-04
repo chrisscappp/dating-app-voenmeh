@@ -43,7 +43,6 @@ class UserReg(BaseModel):
     email: str
     login: str
     password: str
-    username: str
     firstname: str
     lastname: str
     sex: str
@@ -96,7 +95,7 @@ def register_user(user: UserReg):
         raise HTTPException(status_code=403, detail="Login already exists")
     userid = generateId()
     data_user = {"id": userid, "email": user.email, "login": user.login}
-    data_info = {"id": userid, "login": user.login, "username": user.username, "sex": user.sex,
+    data_info = {"id": userid, "login": user.login, "sex": user.sex,
                  "birthday": user.birthday, "createdAt": user.createdAt, "firstname": user.firstname,
                  "lastname": user.lastname}
     try:
