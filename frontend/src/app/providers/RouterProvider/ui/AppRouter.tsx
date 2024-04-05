@@ -1,9 +1,10 @@
-import { Suspense, useCallback, useMemo } from "react"
+import { Suspense, useCallback } from "react"
 import { Route, Routes } from "react-router-dom"
 import { AppRouteProps, routeConfig } from "shared/config/routeConfig/routeConfig"
 import { Footer } from "widgets/Footer"
 import { PageLoader } from "widgets/PageLoader"
 import { ProtectedRoute } from "./ProtectRoute"
+import { Page } from "widgets/Page"
 
 export const AppRouter = () => {
 
@@ -11,7 +12,7 @@ export const AppRouter = () => {
 		const element = (
 			<Suspense fallback = {<PageLoader/>}>
 				<div 
-					className = {"page-wrapper"}
+					// className = {"page-wrapper"}
 				>
 					{route.element}
 				</div>

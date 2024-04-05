@@ -9,13 +9,14 @@ import { LangSwitcher } from "widgets/LangSwitcher"
 import { ThemeSwitcher } from "widgets/ThemeSwitcher"
 import { useTheme } from "app/providers/ThemeProvider"
 import { Themes } from "app/providers/ThemeProvider"
+import { memo } from "react"
 
 interface NavbarPanelProps {
 	className?: string;
 	theme: Themes;
 }
 
-export const NavbarPanel = (props: NavbarPanelProps) => {
+export const NavbarPanel = memo((props: NavbarPanelProps) => {
 
 	const { t } = useTranslation()
 
@@ -46,4 +47,4 @@ export const NavbarPanel = (props: NavbarPanelProps) => {
 			</div>
 		</div>
 	)
-}
+})

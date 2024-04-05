@@ -6,6 +6,7 @@ import { ProfilePage } from "pages/ProfilePage"
 import { LikesPage } from "pages/LikesPage"
 import { SymphatyPage } from "pages/SymphatyPage"
 import { FriendsPage } from "pages/FriendsPage"
+import { AnketsPage } from "pages/AnketsPage"
 
 export type AppRouteProps = RouteProps & {
 	authOnly?: boolean;
@@ -18,6 +19,7 @@ export enum AppRoutes {
 	LIKES = "likes",
 	SYMPHATY = "symphaty",
 	FRIENDS = "friends",
+	ANKETS = "ankets",
 	//last
 	NOT_FOUND = "not_found"
 }
@@ -29,6 +31,7 @@ export const routerPath: Record<AppRoutes, string> = {
 	[AppRoutes.LIKES]: "/likes",
 	[AppRoutes.SYMPHATY]: "/symphaty",
 	[AppRoutes.FRIENDS]: "/friends",
+	[AppRoutes.ANKETS]: "/ankets", // + :type
 	//last
 	[AppRoutes.NOT_FOUND]: "*"
 }
@@ -41,13 +44,17 @@ export const routeConfig: Record<AppRoutes, AppRouteProps> = {
 	[AppRoutes.ABOUT]: {
 		path: routerPath.about,
 		element: <AboutPage/>,
-		authOnly: true
 	},
 	[AppRoutes.PROFILE]: {
 		path: routerPath.profile + ":id",
 		element: <ProfilePage/>,
 		authOnly: true
 	},
+	[AppRoutes.ANKETS]: {
+		path: routerPath.ankets,
+		element: <AnketsPage/>,
+		authOnly: true
+	}, 
 	[AppRoutes.LIKES]: {
 		path: routerPath.likes,
 		element: <LikesPage/>,
