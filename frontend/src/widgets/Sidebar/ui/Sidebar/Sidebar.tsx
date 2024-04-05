@@ -7,7 +7,7 @@ import { useHover } from "shared/lib/hooks/useHover"
 import LogoutIcon from "shared/assets/icons/logout-icon-sidebar.svg"
 import { Text, TextTheme } from "shared/ui/Text/Text"
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch"
-import { userActions } from "entities/User"
+import { userActions } from "entity/User"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 

@@ -14,9 +14,10 @@ export default ({config}: {config: webpack.Configuration}) => {
 		src: path.resolve(__dirname, "..", "..", "src")
 	}
 
+	//config!.output!.publicPath = "/"
+
 	config!.resolve!.modules!.push(paths.src)
 	config!.resolve!.extensions!.push(".ts", ".tsx")
-
 	
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	config!.module!.rules = config!.module!.rules!.map((rule: any) => {

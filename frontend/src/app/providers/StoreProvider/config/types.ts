@@ -1,6 +1,6 @@
 import { AnyAction, ReducersMapObject, Reducer  } from "@reduxjs/toolkit"
 import { AxiosInstance } from "axios"
-import { UserSchema } from "entities/User"
+import { UserSchema } from "entity/User"
 import { LoginSchema } from "feautures/Login"
 import { RegisterSchema } from "feautures/Register"
 import { NavigateFunction } from "react-router"
