@@ -8,7 +8,7 @@ import { Themes } from "app/providers/ThemeProvider"
 import { NavbarButtons } from "../NavbarButtons/NavbarButtons"
 import { LoginModal } from "feautures/Login"
 import { RegisterModal } from "feautures/Register"
-import { useCallback, useState } from "react"
+import { memo, useCallback, useState } from "react"
 import { useSelector } from "react-redux"
 import { getUserAuthData } from "entities/User"
 import { NavbarProfilePanel } from "../NavbarProfilePanel/NavbarProfilePanel"
@@ -19,7 +19,7 @@ interface NavbarProps {
 	className?: string;
 }
 
-export const Navbar = (props: NavbarProps) => {
+export const Navbar = memo((props: NavbarProps) => {
 
 	const { theme } = useTheme()
 	const dispatch = useAppDispatch()
@@ -96,4 +96,4 @@ export const Navbar = (props: NavbarProps) => {
 			}
 		</div>
 	)
-}
+})

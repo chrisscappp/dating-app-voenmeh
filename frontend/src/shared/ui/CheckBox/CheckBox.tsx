@@ -5,10 +5,17 @@ import React, { memo } from "react"
 interface CheckBoxProps {
 	className?: string;
 	label?: string;
-	value?: string;
+	value?: boolean;
+	onChange?: () => void;
 }
 
-export const CheckBox = memo(({ className }: CheckBoxProps) => {
+export const CheckBox = memo((props: CheckBoxProps) => {
+
+	const {
+		className,
+		onChange,
+		value
+	} = props
 
 	return (
 		<input 
@@ -17,6 +24,8 @@ export const CheckBox = memo(({ className }: CheckBoxProps) => {
 			id="coding" 
 			name="interest" 
 			value="coding" 
+			checked = {value}
+			onChange={onChange}
 		/>
 	)
 })

@@ -23,9 +23,8 @@ class User(BaseModel):
 
 
 class UserInfo(BaseModel):
-    id: str = None
-    login: str = None
-    username: str
+    id: str
+    login: str
     firstname: str
     lastname: str
     sex: str
