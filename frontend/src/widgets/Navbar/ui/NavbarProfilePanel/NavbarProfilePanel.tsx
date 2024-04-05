@@ -3,7 +3,7 @@ import cls from "./NavbarProfilePanel.module.scss"
 import ProfileIcon from "shared/assets/icons/profile-icon.svg"
 import NotificationsIcon from "shared/assets/icons/notifications-icon.svg"
 import LogoutIcon from "shared/assets/icons/logout-icon.svg"
-import { memo } from "react"
+import React, { memo } from "react"
 
 interface NavbarProfilePanelProps {
 	className?: string;

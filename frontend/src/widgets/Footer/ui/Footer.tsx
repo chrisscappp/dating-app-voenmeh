@@ -1,9 +1,9 @@
-import { memo, useMemo } from "react"
+import React, { memo, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import cls from "./Footer.module.scss"
 import { classNames } from "shared/lib/classNames/classNames"
-import { Text, TextAlign, TextSize, TextTheme } from "shared/ui/Text/Text"
+import { Text, TextTheme } from "shared/ui/Text/Text"
 import LogoFooter from "shared/assets/icons/logo-footer.svg"
 import { Portal } from "shared/ui/Portal/Portal"
 

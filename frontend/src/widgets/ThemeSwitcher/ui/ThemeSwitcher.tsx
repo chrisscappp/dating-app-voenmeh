@@ -2,7 +2,7 @@ import { Mods, classNames } from "shared/lib/classNames/classNames"
 import cls from "./ThemeSwitcher.module.scss"
 import { useTheme } from "app/providers/ThemeProvider"
 import { Themes } from "app/providers/ThemeProvider/lib/themeContext"
-import { CSSProperties, MutableRefObject, useEffect, useRef, useState } from "react"
+import React, { CSSProperties, MutableRefObject, useEffect, useRef, useState } from "react"
 
 interface ThemeSwitcherProps {
 	className?: string;
