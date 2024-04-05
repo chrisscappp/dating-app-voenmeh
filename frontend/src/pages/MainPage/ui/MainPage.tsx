@@ -3,6 +3,7 @@ import { MainPageTitle } from "./MainPageTitle/MainPageTitle"
 import { MainPageInfo } from "./MainPageInfo/MainPageInfo"
 import { MainPageDescription } from "./MainPageDescription/MainPageDescription"
 import { InfoBlockName, mainPageInfoConfig } from "shared/config/mainPageInfoConfig/mainPageInfoConfig"
+import { Page } from "widgets/Page"
 
 const firstInfoPart = {
 	[InfoBlockName.RESULT]: mainPageInfoConfig.resultBlock,
@@ -17,7 +18,7 @@ const secondInfoPart = {
 const MainPage = () => {
 
 	return (
-		<div>
+		<Page>
 			<MainPageTitle/>
 			<MainPageInfo
 				//@ts-ignore
@@ -28,7 +29,7 @@ const MainPage = () => {
 				//@ts-ignore
 				infoObject = {secondInfoPart}
 			/>
-		</div>
+		</Page>
 	)
 }
 

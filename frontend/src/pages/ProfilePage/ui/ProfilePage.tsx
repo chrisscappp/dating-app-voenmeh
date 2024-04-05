@@ -4,16 +4,16 @@ import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import { classNames } from "shared/lib/classNames/classNames"
 import { Sidebar } from "widgets/Sidebar"
 import cls from "./ProfilePage.module.scss"
+import { Page } from "widgets/Page"
 
 const ProfilePage = () => {
 	
 	//const { t } = useTranslation(TranslationKeys.ABOUT_PAGE)
 	
 	return (
-		<div className = {classNames(cls.ProfilePage, {}, [])}>
-			{/* <Sidebar/> */}
+		<Page className = {classNames(cls.ProfilePage, {}, [])}>
 			prilfe page
-		</div>
+		</Page>
 	)
 }
 

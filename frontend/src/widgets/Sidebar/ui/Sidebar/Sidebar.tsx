@@ -8,6 +8,8 @@ import LogoutIcon from "shared/assets/icons/logout-icon-sidebar.svg"
 import { Text, TextTheme } from "shared/ui/Text/Text"
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch"
 import { userActions } from "entities/User"
+import { useTranslation } from "react-i18next"
+import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 
 interface SidebarProps {
 	className?: string;
@@ -19,6 +21,7 @@ export const Sidebar = memo((props: SidebarProps) => {
 	const [ scrollValue, setScrollValue ] = useState<number>(0)
 	const [ isIconsFixed, setIsIconsFixed ] = useState<boolean>(true)
 	const dispatch = useAppDispatch()
+	const { t } = useTranslation(TranslationKeys.SIDEBAR)
 
 	const {
 		className
@@ -41,7 +44,6 @@ export const Sidebar = memo((props: SidebarProps) => {
 		} else {
 			setIsIconsFixed(true)
 		}
-		
 	}, [scrollValue])
 
 	const routes = useMemo(() => {
@@ -74,7 +76,7 @@ export const Sidebar = memo((props: SidebarProps) => {
 						<LogoutIcon/>
 						{isHover && 
 						<Text
-							text = {"Выйти"}
+							text = {t("Выйти")}
 							className = {cls.logoutText}
 							theme = {TextTheme.SECONDARY}
 						/>}
