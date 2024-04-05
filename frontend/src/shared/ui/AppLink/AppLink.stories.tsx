@@ -1,24 +1,27 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import AboutPage from "./AboutPage"
+import { AppLink } from "./AppLink"
 import { Themes } from "app/providers/ThemeProvider"
 import { ThemeDecorator } from "shared/config/storybookConfig/themeDecorator/themeDecorator"
 import React from "react"
 
-const meta: Meta<typeof AboutPage> = {
-	title: "pages/AboutPage",
-	component: AboutPage,
+const meta: Meta<typeof AppLink> = {
+	title: "shared/AppLink",
+	component: AppLink,
 }
 
 export default meta
-type Story = StoryObj<typeof AboutPage>;
+type Story = StoryObj<typeof AppLink>;
 
-export const AboutPageLight: Story = {
-	args: {},
-	decorators: []
+export const AppLinkLight: Story = {
+	args: {
+		children: "Link"
+	},
 }
 
-export const AboutPageDark: Story = {
-	args: {	},
+export const AppLinkDark: Story = {
+	args: {
+		children: "Link"
+	},
 	decorators: [ThemeDecorator(Themes.DARK)]
 }
 

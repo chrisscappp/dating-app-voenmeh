@@ -1,4 +1,4 @@
-import { memo } from "react"
+import React, { memo } from "react"
 import { Page } from "widgets/Page"
 
 const AnketsPage = () => {

@@ -1,6 +1,6 @@
 import { classNames, Mods } from "shared/lib/classNames/classNames"
 import cls from "./Sidebar.module.scss"
-import { memo, useMemo, useState, useEffect, useCallback } from "react"
+import React, { memo, useMemo, useState, useEffect, useCallback } from "react"
 import { sidebarItemList } from "../../model/sidebarItems"
 import { SidebarItem } from "../SidebarItem/SidebarItem"
 import { useHover } from "shared/lib/hooks/useHover"

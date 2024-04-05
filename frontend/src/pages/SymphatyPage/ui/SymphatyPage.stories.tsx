@@ -1,23 +1,23 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import AboutPage from "./AboutPage"
+import SymphatyPage from "./SymphatyPage"
 import { Themes } from "app/providers/ThemeProvider"
 import { ThemeDecorator } from "shared/config/storybookConfig/themeDecorator/themeDecorator"
 import React from "react"
 
-const meta: Meta<typeof AboutPage> = {
-	title: "pages/AboutPage",
-	component: AboutPage,
+const meta: Meta<typeof SymphatyPage> = {
+	title: "pages/SymphatyPage",
+	component: SymphatyPage,
 }
 
 export default meta
-type Story = StoryObj<typeof AboutPage>;
+type Story = StoryObj<typeof SymphatyPage>;
 
-export const AboutPageLight: Story = {
+export const SymphatyPageLight: Story = {
 	args: {},
 	decorators: []
 }
 
-export const AboutPageDark: Story = {
+export const SymphatyPageDark: Story = {
 	args: {	},
 	decorators: [ThemeDecorator(Themes.DARK)]
 }

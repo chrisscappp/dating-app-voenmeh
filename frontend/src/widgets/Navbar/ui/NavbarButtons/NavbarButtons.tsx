@@ -2,7 +2,7 @@ import { Button, ButtonTheme } from "shared/ui/Button/Button"
 import cls from "./NavbarButtons.module.scss"
 import { Themes } from "app/providers/ThemeProvider"
 import { useTranslation } from "react-i18next"
-import { memo } from "react"
+import React, { memo } from "react"
 
 interface NavbarButtonsProps {
 	handleOpenLoginModal: () => void; 
