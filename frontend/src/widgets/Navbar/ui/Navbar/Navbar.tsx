@@ -10,9 +10,8 @@ import { LoginModal } from "feautures/Login"
 import { RegisterModal } from "feautures/Register"
 import { memo, useCallback, useState } from "react"
 import { useSelector } from "react-redux"
-import { getUserAuthData } from "entities/User"
+import { getUserAuthData, userActions } from "entity/User"
 import { NavbarProfilePanel } from "../NavbarProfilePanel/NavbarProfilePanel"
-import { userActions } from "entities/User"
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch"
 
 interface NavbarProps {

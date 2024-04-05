@@ -1,7 +1,7 @@
 import { configureStore, Reducer, ReducersMapObject } from "@reduxjs/toolkit"
 import { ExtraArgumentType, StateSchema } from "./types"
 import { createReducerManager } from "./reducerManager"
-import { userReducer } from "entities/User"
+import { userReducer } from "entity/User"
 import { $api } from "shared/api/api"
 import { useNavigate } from "react-router"
 

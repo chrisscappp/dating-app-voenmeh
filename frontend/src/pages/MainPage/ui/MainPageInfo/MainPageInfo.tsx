@@ -9,7 +9,7 @@ import React, { useState, useCallback } from "react"
 import { Button, ButtonTheme } from "shared/ui/Button/Button"
 import { RegisterModal } from "feautures/Register"
 import { useSelector } from "react-redux"
-import { getUserAuthData } from "entities/User"
+import { getUserAuthData } from "entity/User"
 import { useNavigate } from "react-router"
 
 interface MainPageInfoProps {

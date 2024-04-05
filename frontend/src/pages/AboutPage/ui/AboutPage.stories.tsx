@@ -1,26 +1,26 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import MainPage from "./MainPage"
+import AboutPage from "./AboutPage"
 import { Themes } from "app/providers/ThemeProvider"
 import { ThemeDecorator } from "shared/config/storybookConfig/themeDecorator/themeDecorator"
 import React from "react"
 import { StoreDecorator } from "shared/config/storybookConfig/storeDecorator/StoreDecorator"
 
-const meta: Meta<typeof MainPage> = {
-	title: "pages/MainPage",
-	component: MainPage,
+const meta: Meta<typeof AboutPage> = {
+	title: "pages/AboutPage",
+	component: AboutPage,
 }
 
 export default meta
-type Story = StoryObj<typeof MainPage>;
+type Story = StoryObj<typeof AboutPage>;
 
-export const MainPageLight: Story = {
+export const AboutPageLight: Story = {
 	args: {},
-	decorators: [StoreDecorator({})]
+	decorators: []
 }
 
-export const MainPageDark: Story = {
+export const AboutPageDark: Story = {
 	args: {	},
-	decorators: [ThemeDecorator(Themes.DARK), StoreDecorator({})]
+	decorators: [ThemeDecorator(Themes.DARK)]
 }
 
 

@@ -4,7 +4,7 @@ import { Themes } from "app/providers/ThemeProvider"
 import { ThemeDecorator } from "shared/config/storybookConfig/themeDecorator/themeDecorator"
 import React from "react"
 import { StoreDecorator } from "shared/config/storybookConfig/storeDecorator/StoreDecorator"
-import { Sex } from "entities/SelectSex"
+import { Sex } from "entity/SelectSex"
 import { FormErrorType } from "feautures/Register/model/types/errors"
 
 const meta: Meta<typeof RegisterForm> = {

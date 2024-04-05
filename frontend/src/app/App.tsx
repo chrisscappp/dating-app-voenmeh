@@ -6,7 +6,7 @@ import { AppRouter } from "./providers/RouterProvider"
 import "./styles/reset.scss"
 import "./styles/index.scss"
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch"
-import { userActions, getUserAuthInited, getUserAuthData } from "entities/User"
+import { userActions, getUserAuthInited, getUserAuthData } from "entity/User"
 import { useSelector } from "react-redux"
 import { Sidebar } from "widgets/Sidebar"
 
