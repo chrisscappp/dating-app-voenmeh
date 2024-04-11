@@ -6,7 +6,6 @@ from pydantic import BaseModel
 from requests import HTTPError
 
 from database import firebase, auth, db, User, UserInfo
-from functions import generateId
 
 app = FastAPI(
     title="Trading App"
@@ -124,16 +123,31 @@ def register_user(user: UserReg):
         return current_user
 
 
-@app.post("/profile")
-def get_profile(user: UserSelf):
-    current_user = db.child("userInfo").order_by_child("userId").equal_to(user.userId).get()
+@app.get("/profile/{user_id}")
+def get_profile(user_id: str):
+    current_user = db.child("userInfo").order_by_child("userId").equal_to(user_id).get()
     for _ in current_user:
         return current_user[0].val()
     raise HTTPException(status_code=404)
 
 
-@app.put("/edit")
-def edit_profile(user: UserInfo):
-    db.child("userInfo").child(user.userId).update({"firstname": user.firstname, "lastname": user.lastname})
-    return db.child("userInfo").order_by_child("userId").equal_to(user.userId).get()[0].val()
+@app.put("/edit/{user_id}")
+def edit_profile(user_id: str, user: UserInfo):
+    try:
+        if not auth.get_account_info(user.idToken)["users"][0]["localId"] == user_id:
+            raise HTTPException(status_code=403, detail="Invalid IP")
+    except HTTPError as e:
+        error_json = e.args[1]
+        error = json.loads(error_json)['error']['message']
+        if error == "INVALID_ID_TOKEN":
+            raise HTTPException(status_code=403, detail="Invalid id token")
+    for _ in db.child("userInfo").order_by_child("userId").equal_to(user_id).get():
+        db.child("userInfo").child(user.userId).update({"firstname": user.firstname, "lastname": user.lastname,
+                                                        "faculty": user.faculty, "course": user.course,
+                                                        "about": user.about, "interested": user.interested,
+                                                        "hobbies": user.hobbies, "contacts": user.contacts,
+                                                        "avatar": user.avatar})
+        return db.child("userInfo").order_by_child("userId").equal_to(user_id).get()[0].val()
+    raise HTTPException(status_code=404)
+
 

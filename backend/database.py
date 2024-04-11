@@ -22,9 +22,18 @@ class User(BaseModel):
 
 
 class UserInfo(BaseModel):
+    idToken: str = None
     userId: str
     firstname: str
     lastname: str
     sex: str
     birthday: str
     createdAt: str
+    faculty: str = None
+    course: str = None
+    confirm: bool = False
+    about: str = None
+    interested: list = None
+    hobbies: list = None
+    contacts: list = None
+    avatar: str = None
