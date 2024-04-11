@@ -142,7 +142,7 @@ def edit_profile(user_id: str, user: UserInfo):
         if error == "INVALID_ID_TOKEN":
             raise HTTPException(status_code=403, detail="Invalid id token")
     for _ in db.child("userInfo").order_by_child("userId").equal_to(user_id).get():
-        db.child("userInfo").child(user.userId).update({"firstname": user.firstname, "lastname": user.lastname,
+        db.child(f"userInfo/{user_id}").update({"firstname": user.firstname, "lastname": user.lastname,
                                                         "faculty": user.faculty, "course": user.course,
                                                         "about": user.about, "interested": user.interested,
                                                         "hobbies": user.hobbies, "contacts": user.contacts,
