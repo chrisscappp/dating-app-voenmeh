@@ -25,9 +25,9 @@ export function validateForm(form: RegisterForm) {
 		errors.push(FormErrorType.INVALID_DATA)
 	}
 
-	if (birthday && /([0-9]{2})\/([0-9]{2})\/([0-9]{4})/.test(birthday)) {
-		errors.push(FormErrorType.INCORRECT_BIRTHDAY)
-	}
+	// if (birthday && /^[0-3]?[0-9]\.[01]?[0-9]\.[12][90][0-9][0-9]$/.test(birthday)) {
+	// 	errors.push(FormErrorType.INCORRECT_BIRTHDAY)
+	// }
 
 	if (repeatPassword !== password) {
 		errors.push(FormErrorType.REPEAT_PASSWORD)

@@ -3,6 +3,7 @@ import { AxiosInstance } from "axios"
 import { UserSchema } from "entity/User"
 import { LoginSchema } from "feautures/Login"
 import { RegisterSchema } from "feautures/Register"
+import { EditableProfileSchema } from "feautures/EditableProfile"
 import { NavigateFunction } from "react-router"
 
 export interface StateSchema {
@@ -11,6 +12,7 @@ export interface StateSchema {
 	//async
 	loginForm?: LoginSchema,
 	registerForm?: RegisterSchema,
+	editableProfile?: EditableProfileSchema
 }
 
 export type StateSchemaKey = keyof StateSchema

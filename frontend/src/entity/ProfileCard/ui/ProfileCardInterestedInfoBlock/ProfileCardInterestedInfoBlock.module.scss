@@ -1,0 +1,26 @@
+.areaWrap {
+	position: relative;
+}
+
+.icon {
+	z-index: 40;
+	position: absolute;
+	top: 105px;
+	right: 7px;
+	cursor: pointer;
+	fill: var(--primary-color);
+	fill-opacity: 0.8;
+	transition: 0.3s;
+
+	&:hover {
+		opacity: 0.7;
+	}
+}
+
+.infoBlock {
+	margin-bottom: 35px;
+}
+
+.inputTitle {
+	margin-bottom: 10px;
+}

@@ -3,6 +3,11 @@ import { ChangeEvent, CSSProperties, InputHTMLAttributes, memo, useEffect, useRe
 import cls from "./Input.module.scss"
 import React from "react"
 
+export enum InputTheme {
+	DEFAULT = "default",
+	PROFILE_BLOCK = "profile_block"
+}
+
 type HTMLInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "value" | "readOnly">
 
 interface InputProps extends HTMLInputProps {
@@ -12,7 +17,9 @@ interface InputProps extends HTMLInputProps {
 	type?: string,
 	onChange?: (value: string) => void,
 	readonly?: boolean,
+	readonlyForProfile?: boolean,
 	autoFocus?: boolean
+	theme?: InputTheme
 }
 
 export const Input = memo((props: InputProps) => {
@@ -24,7 +31,9 @@ export const Input = memo((props: InputProps) => {
 		autoFocus,
 		type,
 		onChange,
-		readonly 
+		readonly,
+		readonlyForProfile,
+		theme = InputTheme.DEFAULT
 	} = props
 
 	const [styles, setStyles] = useState<CSSProperties>()
@@ -36,22 +45,26 @@ export const Input = memo((props: InputProps) => {
 		}
 	}, [autoFocus])
 
-	const mods: Mods = {
-		[cls.readonly]: readonly
-	}
-
 	const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
 		onChange?.(e.target.value)
 	}
 
 	const onFocus = () => {
-		setStyles({
-			border: "2px solid var(--input-focus-border)"
-		})
+		if (!readonly) {
+			setStyles({
+				border: "2px solid var(--input-focus-border)"
+			})
+		}
 	}
 
 	const onBlur = () => {
 		setStyles({})
+	}
+
+	const mods: Mods = {
+		[cls.readonly]: readonly,
+		[cls.readonlyForProfile]: readonlyForProfile,
+		[cls[theme]]: true
 	}
 
 	return (
