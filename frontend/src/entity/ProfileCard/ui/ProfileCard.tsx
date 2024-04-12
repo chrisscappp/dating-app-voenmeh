@@ -9,7 +9,7 @@ import { Button, ButtonTheme } from "shared/ui/Button/Button"
 import { Input } from "shared/ui/Input/Input"
 import { useSelector } from "react-redux"
 import { getUserAuthData } from "entity/User"
-import { Profile } from "../model/types"
+import { Contact, Profile } from "../model/types"
 import { ProfileCardFooterButtons } from "./ProfileCardFooterButtons/ProfileCardFooterButtons"
 import { SelectFacultet } from "entity/SelectFacultet"
 import { SelectCourse, Courses } from "entity/SelectCourse"
@@ -35,6 +35,7 @@ interface ProfileCardProps {
 	onChangeFacultet?: (value: FaluctetsItem) => void;
 	onChangeInterested?: (value: string[]) => void;
 	onChangeHobbies?: (value: string[]) => void;
+	onChangeContacts?: (value: Contact) => void;
 	onChangeAbout?: (value: string) => void;
 	onChangeCourse?: (value: Courses) => void;
 	onCancelEdit?: () => void;
@@ -55,6 +56,7 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 		onChangeFacultet,
 		onChangeInterested,
 		onChangeHobbies,
+		onChangeContacts,
 		onChangeAbout,
 		onChangeCourse,
 		onCancelEdit
@@ -62,12 +64,6 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 
 	const authData = useSelector(getUserAuthData)
 	const { t } = useTranslation(TranslationKeys.PROFILE_PAGE)
-
-	const contacts = useMemo(() => {
-		if (data?.contacts) {
-			return Object.entries(data.contacts).map((item) => item.join(": "))
-		}
-	}, [data])
 
 	if (isLoading) {
 		return (
@@ -201,7 +197,8 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 					<ProfileCardContactsInfoBlock
 						title = {t("Контакты")}
 						areaPlaceholder = {t("Вы можете оставить свои контакты для тех, с кем построите взаимную симпатию")}
-						data = {contacts}
+						data = {data?.contacts}
+						onChange = {onChangeContacts}
 						readonly = {readonly}
 					/>
 				</div>

@@ -35,4 +35,4 @@ class UserInfo(BaseModel):
     interested: list = None
     hobbies: list = None
     contacts: dict = None
-    avatar: str = ""
+    avatar: str = None

@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useEffect } from "react"
 import { useSelector } from "react-redux"
-import { ProfileCard } from "entity/ProfileCard"
+import { Contact, ProfileCard } from "entity/ProfileCard"
 import { useParams } from "react-router"
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch"
 import { getProfileData } from "../model/selectors/getProfileData/getProfileData"
@@ -82,6 +82,10 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
 		dispatch(editableProfileActions.updateProfileField({ hobbies: value }))
 	}, [dispatch])
 
+	const onChangeContacts = useCallback((value: Contact) => {
+		dispatch(editableProfileActions.updateProfileField({ contacts:  value}))
+	}, [dispatch])
+
 	const onCancelEdit = useCallback(() => {
 		dispatch(editableProfileActions.cancelEdit())
 	}, [dispatch])
@@ -116,6 +120,7 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
 			onChangeLastname = {onChangeLastname}
 			onChangeInterested = {onChangeInterested}
 			onChangeHobbies = {onChangeHobbies}
+			onChangeContacts = {onChangeContacts}
 			onChangeFacultet = {onChangeFacultet}
 			onChangeCourse = {onChangeCourse}
 			onChangeAbout = {onChangeAbout}

@@ -5,6 +5,7 @@ import { LoginSchema } from "feautures/Login"
 import { RegisterSchema } from "feautures/Register"
 import { EditableProfileSchema } from "feautures/EditableProfile"
 import { NavigateFunction } from "react-router"
+import { ChangePasswordSchema } from "feautures/ChangePassword"
 
 export interface StateSchema {
 	user: UserSchema,
@@ -12,7 +13,8 @@ export interface StateSchema {
 	//async
 	loginForm?: LoginSchema,
 	registerForm?: RegisterSchema,
-	editableProfile?: EditableProfileSchema
+	editableProfile?: EditableProfileSchema,
+	changePassword?: ChangePasswordSchema
 }
 
 export type StateSchemaKey = keyof StateSchema

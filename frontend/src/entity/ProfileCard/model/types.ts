@@ -1,9 +1,10 @@
 import { Contacts } from "entity/SelectContacts"
 import { FaluctetsItem } from "shared/consts/faluctets"
 
-interface Contact {
-	vk: string,
-	telegram: string
+export interface Contact {
+	vk?: string,
+	telegram?: string,
+	phone?: string
 }
 
 //fixed
@@ -25,6 +26,6 @@ export interface Profile {
 export interface InfoBlockProps {
 	title: string;
 	areaPlaceholder: string;
-	data?: string | string[]
+	data?: string | string[] | Contact
 	readonly?: boolean;
 }
