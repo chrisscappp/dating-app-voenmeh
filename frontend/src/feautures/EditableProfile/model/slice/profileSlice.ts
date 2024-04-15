@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { EditableProfileSchema } from "../types/profile"
 import { Profile } from "entity/ProfileCard"
-import { fetchProfileData } from "../services/fetchProfileData/fetchProfileData"
+import { fetchAnketCardData } from "entity/Anket"
 import { updateProfileData } from "../services/updateProfileData/updateProfileData"
 
 const initialState: EditableProfileSchema = {
@@ -34,16 +34,16 @@ export const editableProfileSlice = createSlice({
 	},
 	extraReducers: (builder) => {
 		builder
-			.addCase(fetchProfileData.pending, (state) => {
+			.addCase(fetchAnketCardData.pending, (state) => {
 				state.isLoading = true
 				state.error = undefined
 			})
-			.addCase(fetchProfileData.fulfilled, (state, action: PayloadAction<Profile>) => {
+			.addCase(fetchAnketCardData.fulfilled, (state, action: PayloadAction<Profile>) => {
 				state.isLoading = false
 				state.data = action.payload
 				state.form = action.payload
 			})
-			.addCase(fetchProfileData.rejected, (state, action) => {
+			.addCase(fetchAnketCardData.rejected, (state, action) => {
 				state.isLoading = false
 				state.error = action.payload
 			})

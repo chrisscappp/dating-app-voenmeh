@@ -40,8 +40,8 @@ export const Sidebar = memo((props: SidebarProps) => {
 	}, [])
 
 	useEffect(() => {
-		console.log("SCROLL VALUE", scrollValue)
-		console.log("window", window.screen.height)
+		console.log("SCROLL VAL", scrollValue)
+		console.log("window", window.outerHeight)
 		if (scrollValue >= window.screen.height) {
 			setIsIconsFixed(false)
 			setIsIconsStatic(true)

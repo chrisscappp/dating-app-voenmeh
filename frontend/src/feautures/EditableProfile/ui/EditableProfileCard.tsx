@@ -8,7 +8,7 @@ import { getProfileForm } from "../model/selectors/getProfileForm/getProfileForm
 import { getProfileIsLoading } from "../model/selectors/getProfileIsLoading/getProfileIsLoading"
 import { getProfileReadonly } from "../model/selectors/getProfileReadonly/getProfileReadonly"
 import { getProfileError } from "../model/selectors/getProfileError/getProfileError"
-import { fetchProfileData } from "../model/services/fetchProfileData/fetchProfileData"
+import { fetchAnketCardData } from "entity/Anket"
 import { editableProfileActions } from "../model/slice/profileSlice"
 import { FaluctetsItem } from "shared/consts/faluctets"
 import { Courses } from "entity/SelectCourse"
@@ -39,7 +39,7 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
 	const authData = useSelector(getUserAuthData)
 
 	useEffect(() => {
-		dispatch(fetchProfileData(userId ? userId : ""))
+		dispatch(fetchAnketCardData(userId ? userId : ""))
 	}, [dispatch, userId])
 
 	const onEditProfile = useCallback(async () => {
@@ -48,6 +48,7 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
 		} else {
 			dispatch(editableProfileActions.setReadonly(true))
 		}
+		window.scrollTo({ top: 0, behavior: "smooth" })
 	}, [authData?.userId, dispatch, formData, formEditableData])
 
 	const onChangeReadonly = useCallback(() => {

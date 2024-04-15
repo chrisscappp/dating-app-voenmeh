@@ -1,0 +1,15 @@
+.AnketsSectionItem {
+	width: 305px;
+	height: 200px;
+	cursor: pointer;
+	transition: transform 0.3s;
+	&:hover {
+		transform: translateY(-3%);
+	}
+}
+
+@media (max-width: 889px) {
+	.AnketsSectionItem {
+		width: 100%;
+	}
+}
