@@ -2,7 +2,6 @@ import { classNames, Mods } from "shared/lib/classNames/classNames"
 import cls from "./Select.module.scss"
 import React, { ChangeEvent, memo, useMemo }  from "react"
 import { useTranslation } from "react-i18next"
-import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 
 export interface SelectOption {
 	value: string;
@@ -20,7 +19,7 @@ interface SelectProps {
 
 export const Select = memo((props: SelectProps) => {
 
-	const { t } = useTranslation(TranslationKeys.MAIN_PAGE)
+	const { t } = useTranslation()
 
 	const { 
 		className, 
@@ -38,7 +37,7 @@ export const Select = memo((props: SelectProps) => {
 			return (
 				<option
 					key = {item.value}
-					value = {t(item.value)}
+					value = {item.value}
 					className = {cls.option}
 				>
 					{t(item.content)}

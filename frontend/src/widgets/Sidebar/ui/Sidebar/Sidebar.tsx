@@ -1,6 +1,6 @@
 import { classNames, Mods } from "shared/lib/classNames/classNames"
 import cls from "./Sidebar.module.scss"
-import React, { memo, useMemo, useState, useEffect, useCallback } from "react"
+import React, { memo, useMemo, useState, useEffect, useCallback, CSSProperties } from "react"
 import { sidebarItemList } from "../../model/sidebarItems"
 import { SidebarItem } from "../SidebarItem/SidebarItem"
 import { useHover } from "shared/lib/hooks/useHover"
@@ -20,6 +20,7 @@ export const Sidebar = memo((props: SidebarProps) => {
 	const [ isHover, bindHover ] = useHover()
 	const [ scrollValue, setScrollValue ] = useState<number>(0)
 	const [ isIconsFixed, setIsIconsFixed ] = useState<boolean>(true)
+	const [ isIconsStatic, setIsIconsStatic ] = useState<boolean>(false)
 	const dispatch = useAppDispatch()
 	const { t } = useTranslation(TranslationKeys.SIDEBAR)
 
@@ -39,10 +40,14 @@ export const Sidebar = memo((props: SidebarProps) => {
 	}, [])
 
 	useEffect(() => {
-		if (scrollValue >= 200) {
+		console.log("SCROLL VALUE", scrollValue)
+		console.log("window", window.screen.height)
+		if (scrollValue >= window.screen.height) {
 			setIsIconsFixed(false)
+			setIsIconsStatic(true)
 		} else {
 			setIsIconsFixed(true)
+			setIsIconsStatic(false)
 		}
 	}, [scrollValue])
 
@@ -66,10 +71,18 @@ export const Sidebar = memo((props: SidebarProps) => {
 	const mods: Mods = {
 		[cls.collapsed]: isHover
 	}
+
+	const iconsMods: Mods = {
+		[cls.fixed]: isIconsFixed,
+	}
+
+	const staticStyles: CSSProperties = {
+		marginTop: window.screen.height
+	}
 	
 	return (
 		<div className = {classNames(cls.Sidebar, mods, [className])}>
-			<div {...bindHover} className = {classNames(cls.iconsWrap, {[cls.fixed]: isIconsFixed}, [])}>
+			<div {...bindHover} style = {isIconsStatic ? staticStyles : {}} className = {classNames(cls.iconsWrap, iconsMods, [])}>
 				<div className = {cls.icons}>
 					{routes}
 					<div className = {cls.logoutIcon} onClick = {onLogout}>

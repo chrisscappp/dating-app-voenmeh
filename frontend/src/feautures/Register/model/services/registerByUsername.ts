@@ -42,7 +42,6 @@ export const registerByUsername = createAsyncThunk<IUser, void, ThunkConfig<Form
 			delete regData["checkBoxFlag"]
 			delete regData["repeatPassword"]
 			regData.createdAt = new Date().toLocaleDateString()
-			regData.sex = regData.sex === "мужской" ? "male" : "female"
 
 			const response = await extra.api.post<IUser>("/register", regData)
 			
@@ -52,12 +51,22 @@ export const registerByUsername = createAsyncThunk<IUser, void, ThunkConfig<Form
 			
 			localStorage.setItem(USER_LOCALSTORAGE_KEY, JSON.stringify(response.data))
 			dispatch(userActions.setAuthData(response.data))
-			extra.navigate(`/profile/${response.data.id}`)
+			extra.navigate(`/profile/${response.data.userId}`)
 			return response.data
 		} catch (e: unknown) {
 			//@ts-ignore
-			console.error(e)
-			return rejectWithValue([FormErrorType.SERVER_ERROR])
+			switch (e.response.data.detail) {
+			case FormErrorType.EMAIL_ALREADY: {
+				return rejectWithValue([FormErrorType.EMAIL_ALREADY])
+			}
+			case FormErrorType.LOGIN_ALREADY: {
+				return rejectWithValue([FormErrorType.LOGIN_ALREADY])
+			}
+			case FormErrorType.PASSWORD_INVALID: {
+				return rejectWithValue([FormErrorType.PASSWORD_INVALID])
+			}
+			default: return rejectWithValue([FormErrorType.SERVER_ERROR])
+			}
 		}	
 	},
 )

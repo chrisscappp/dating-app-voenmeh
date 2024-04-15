@@ -15,8 +15,8 @@ interface SelectSexProps {
 
 const sexOptions: SelectOption[] = [
 	{value: "", content: ""},
-	{value: Sex.FEMALE, content: Sex.FEMALE},
 	{value: Sex.MALE, content: Sex.MALE},
+	{value: Sex.FEMALE, content: Sex.FEMALE},
 ]
 
 export const SelectSex = memo((props: SelectSexProps) => {

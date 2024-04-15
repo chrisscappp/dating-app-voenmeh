@@ -1,0 +1,12 @@
+.editBtn {
+	width: 250px;
+	margin-bottom: 10px;
+}
+
+@media (max-width: 785px) {
+	.editBtn {
+		width: 100%;
+		height: 100%;
+		margin-bottom: 10px;
+	}
+}

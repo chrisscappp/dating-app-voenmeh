@@ -2,5 +2,37 @@
 	"Тестовый перевод": "Test translation",
 	"Язык": "русский",
 	"Войти": "sign in",
-	"Регистрация": "sign up"
+	"Регистрация": "sign up",
+	"Профиль подсказка": "Profile",
+	"Уведомления подсказка": "Notifications",
+	"Выйти подсказка": "Logout",
+	"male": "male",
+	"female": "female",
+
+	"Кого вы хотите найти?": "Who do you want to find?",
+	"Удалить последний элемент списка": "Remove the last element in list",
+	"Расскажите о ваших хобби, интересах": "Tell us briefly about your hobbies",
+	
+	"Хобби": "Hobbies",
+	"Спорт": "Sport",
+	"Книги": "Books",
+	"Готовка": "Cooking",
+	"Путешествия": "Travel",
+	"Рисование": "Painting",
+	"Кино": "Cinema",
+	"Прогулки": "Walk",
+	"Музыка": "Music",
+	"Выставки": "Exhibitions",
+
+	"Раздел": "Chapter",
+	"Факультет \"\"": "Facultet \"\"",
+	"facultet_a": "Facultet \"А\"",
+	"facultet_e": "Facultet \"Е\"",
+	"facultet_i": "Facultet \"И\"",
+	"facultet_o": "Facultet \"О\"",
+	"facultet_r": "Facultet \"Р\"",
+	"friends": "Friends",
+	"females": "Girls",
+	"males": "Boys",
+	"foreigners": "Foreigners"
 }

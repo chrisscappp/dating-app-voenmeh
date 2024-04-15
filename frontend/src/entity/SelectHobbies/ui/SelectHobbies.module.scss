@@ -1,0 +1,32 @@
+.changeElemsWrap {
+	display: flex;
+	margin-top: 5px;
+}
+
+.inputHobbie {
+	margin-left: 10px;
+	width: 200px;
+}
+
+.inputWrap {
+	display: flex;
+}
+
+.addBtn {
+	margin-left: 5px;
+}
+
+@media (max-width: 570px) {
+	.inputWrap {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.addBtn {
+		margin-top: 5px;
+	}
+	.inputHobbie {
+		margin-left: 10px;
+		width: 100%;
+	}
+}

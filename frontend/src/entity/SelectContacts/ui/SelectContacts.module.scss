@@ -1,0 +1,33 @@
+.changeElemsWrap {
+	display: flex;
+	margin-top: 5px;
+}
+
+.inputContact {
+	margin-left: 10px;
+	width: 300px;
+}
+
+.inputWrap {
+	display: flex;
+}
+
+.addBtn {
+	margin-left: 5px;
+}
+
+@media (max-width: 930px) {
+	.changeElemsWrap {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.inputWrap {
+		margin-top: 5px;
+		justify-content: flex-start;
+	}
+
+	.inputContact {
+		width: 100%;
+	}
+}

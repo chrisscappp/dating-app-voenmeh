@@ -5,7 +5,10 @@ export enum FormErrorType {
 	INCORRECT_EMAIL = "INCORRECT_EMAIL",
 	REPEAT_PASSWORD = "REPEAT_PASSWORD",
 	EMPTY_FORM = "EMPTY_FORM",
-	SERVER_ERROR = "SERVER_ERROR"
+	SERVER_ERROR = "SERVER_ERROR",
+	EMAIL_ALREADY = "Email already exists",
+	LOGIN_ALREADY = "Login already exists",
+	PASSWORD_INVALID = "Week password",
 }
 
 export interface Error {

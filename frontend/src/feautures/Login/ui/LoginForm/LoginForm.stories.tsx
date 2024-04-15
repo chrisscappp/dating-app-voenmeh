@@ -4,7 +4,6 @@ import { Themes } from "app/providers/ThemeProvider"
 import { ThemeDecorator } from "shared/config/storybookConfig/themeDecorator/themeDecorator"
 import React from "react"
 import { StoreDecorator } from "shared/config/storybookConfig/storeDecorator/StoreDecorator"
-import { Sex } from "entity/SelectSex"
 
 const meta: Meta<typeof LoginForm> = {
 	title: "feature/LoginForm",

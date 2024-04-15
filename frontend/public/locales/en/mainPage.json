@@ -31,13 +31,14 @@
 	"повторите пароль": "repeat password",
 	"согласие на обработку персональных данных": "consent to the processing of personal data",
 	"зарегестрироваться": "sign up",
-	"male": "male",
-	"female": "female",
 	"Поля формы пусты": "Form fields is empty",
 	"Некорректная дата рождения": "Incorrect date of birth",
 	"Некорректная почта": "Incorrect email",
 	"Все поля формы должны быть заполнены": "All form fields must be filled",
 	"Пароли не совпадают": "Passwords dont match",
 	"Ошибка сервера": "Server error",
-	"Нет согласия на обработку персональных данных": "There is no consent to the processing of personal data"
+	"Нет согласия на обработку персональных данных": "There is no consent to the processing of personal data",
+	"Логин используется": "Login already exists",
+	"Почта используется": "Email already exists",
+	"Пипин короткий": "Weak password"
 }

@@ -1,7 +1,4 @@
 .Input {
-	background: none;
-	border: 2px solid var(--primary-color);
-	color: var(--primary-color);
 	border-radius: 5px;
 	padding: 4px;
 	outline: none;
@@ -9,9 +6,24 @@
 	font-weight: 300;
 	font-style: normal;
 	width: 100%;
+}
+
+.default {
+	background: none;
+	border: 2px solid var(--primary-color);
+	color: var(--primary-color);
 	height: 40px;
 }
 
-.readonly {
-	opacity: 0.7;
+.profile_block {
+	border: none;
+	background-color: var(--input-profile);
+	padding: 0px 0px 140px 0px;
+	text-align: right;
+	top: 0;
+}
+
+.readonlyForProfile {
+	border: none;
+	background: none;
 }

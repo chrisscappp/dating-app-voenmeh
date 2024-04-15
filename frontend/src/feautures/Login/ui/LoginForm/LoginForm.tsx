@@ -19,6 +19,7 @@ import EyeOpenIcon from "shared/assets/icons/eye-open.svg"
 import EyeClosedIcon from "shared/assets/icons/eye-closed.svg"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import { loginByUsername } from "../../model/services/authByUsername"
+import { Form } from "shared/ui/Form/Form"
 
 export interface LoginFormProps {
 	className?: string;
@@ -60,9 +61,7 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
 	}
 
 	return (
-		<div 
-			className = {classNames(cls.LoginForm, {}, [className])}
-		>
+		<Form className = {classNames(cls.LoginForm, {}, [className])}>
 			<Text
 				title = {t("Авторизация")}
 				size = {TextSize.XL}
@@ -117,7 +116,7 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
 			>
 				{t("Войти")}
 			</Button>
-		</div>	
+		</Form>	
 	)
 })
 

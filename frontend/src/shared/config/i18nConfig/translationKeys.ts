@@ -3,5 +3,7 @@ export enum TranslationKeys {
 	ABOUT_PAGE = "aboutPage",
 	NOT_FOUND_PAGE = "notFoundPage",
 	FOOTER = "footer",
-	SIDEBAR = "sidebar"
+	SIDEBAR = "sidebar",
+	PROFILE_PAGE = "profilePage",
+	DELETE_ACCOUNT_FORM = "deleteAccount"
 }
