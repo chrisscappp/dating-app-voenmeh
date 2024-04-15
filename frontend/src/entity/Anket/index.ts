@@ -1,0 +1,1 @@
+export { fetchAnketCardData } from "./model/services/fetchAnketCardData/fetchAnketCardData"
