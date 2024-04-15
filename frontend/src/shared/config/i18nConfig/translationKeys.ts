@@ -4,5 +4,6 @@ export enum TranslationKeys {
 	NOT_FOUND_PAGE = "notFoundPage",
 	FOOTER = "footer",
 	SIDEBAR = "sidebar",
-	PROFILE_PAGE = "profilePage"
+	PROFILE_PAGE = "profilePage",
+	DELETE_ACCOUNT_FORM = "deleteAccount"
 }

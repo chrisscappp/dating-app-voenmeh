@@ -4,6 +4,9 @@ import { useNavigate } from "react-router"
 import { IUser } from "entity/User"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
+import { DeleteAccountModal } from "feautures/DeleteAccount" //! нарушение архитектуры
+import { Portal } from "shared/ui/Portal/Portal"
+import { useCallback, useState } from "react"
 
 interface ProfileCardFooterButtonsProps {
 	authData?: IUser
@@ -25,6 +28,15 @@ export const ProfileCardFooterButtons = (props: ProfileCardFooterButtonsProps) =
 
 	const navigate = useNavigate()
 	const { t } = useTranslation(TranslationKeys.PROFILE_PAGE)
+	const [ isOpen, setIsOpen ] = useState<boolean>(false)
+
+	const onOpenModal = useCallback(() => {
+		setIsOpen(true)
+	}, [])
+
+	const onCloseModal = useCallback(() => {
+		setIsOpen(false)
+	}, [])
 
 	const toAnkets = () => {
 		navigate("/ankets")
@@ -73,10 +85,21 @@ export const ProfileCardFooterButtons = (props: ProfileCardFooterButtonsProps) =
 					<Button 
 						className = {cls.footerBtn}
 						theme = {ButtonTheme.ERROR}
+						onClick = {onOpenModal}
 					>
 						{t("удалить анкету")}
 					</Button>
 				</div>
+			}
+			{
+				isOpen && (
+					<Portal>
+						<DeleteAccountModal
+							isOpen = {isOpen}
+							onClose = {onCloseModal}
+						/>
+					</Portal>
+				)
 			}
 		</>
 	)

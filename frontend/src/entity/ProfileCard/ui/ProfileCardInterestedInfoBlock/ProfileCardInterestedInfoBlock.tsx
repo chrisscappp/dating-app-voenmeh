@@ -31,7 +31,11 @@ export const ProfileCardInterestedInfoBlock = (props: ProfileCardInterestedInfoB
 	}, [data, onChange])
 
 	const translatedData = useMemo(() => {
-		return data?.map(item => t(item)).join(", ")
+		if (data) {
+			return data?.map(item => t(item)).join(", ")
+		} else {
+			return ""
+		}
 	}, [data, t])
 
 	return (
@@ -55,6 +59,7 @@ export const ProfileCardInterestedInfoBlock = (props: ProfileCardInterestedInfoB
 				</span>}
 			</div>
 			{!readonly && <SelectInterested
+				className = {cls.select}
 				data={data}
 				onChange={onChange}
 				value={t("раздел")}

@@ -17,31 +17,15 @@ export const updateUserPassword = createAsyncThunk<
 		} = thunkAPI
 
 		const formData = getChangePasswordForm(getState())
-		const oldPass = "12345678"
-
-		if (oldPass !== formData?.oldPassword) {
-			return rejectWithValue("Старый пароль указан неверно")
-		}
-
-		// получать пароль с бэка
 
 		try {
-			// const response = await extra.api.put<ChangePasswordForm>(`/edit/${userId}`, formData, {
-			// 	headers: {
-			// 		"Content-Type": "application/json"
-			// 	}
-			// })
-			
-			// if (!response.data) {
-			// 	throw new Error()
-			// }
+			const response = await extra.api.put<ChangePasswordForm>(`/edit/${userId}`, formData, {
+				headers: {
+					"Content-Type": "application/json"
+				}
+			})
 
-			const res: ChangePasswordForm = {
-				newPassword: "",
-				oldPassword: formData.oldPassword
-			}
-
-			return res
+			return response.data
 		} catch (e) {
 			console.error(e)
 			return rejectWithValue("Произошла ошибка при попытке редактирования профиля :(")

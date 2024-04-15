@@ -19,7 +19,7 @@ import EyeOpenIcon from "shared/assets/icons/eye-open.svg"
 import EyeClosedIcon from "shared/assets/icons/eye-closed.svg"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import { loginByUsername } from "../../model/services/authByUsername"
-import { USER_LOCALSTORAGE_KEY } from "shared/consts/localStorageKeys"
+import { Form } from "shared/ui/Form/Form"
 
 export interface LoginFormProps {
 	className?: string;
@@ -54,7 +54,6 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
 		if (res.meta.requestStatus === "fulfilled") {
 			onSuccess()
 		}
-		//localStorage.setItem(USER_LOCALSTORAGE_KEY, JSON.stringify({id: "kagd", login: "admin2004", email: "chrisscappp@mail.ru"}))
 	}, [dispatch, password, username, onSuccess])
 
 	if (isLoading) {
@@ -62,9 +61,7 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
 	}
 
 	return (
-		<div 
-			className = {classNames(cls.LoginForm, {}, [className])}
-		>
+		<Form className = {classNames(cls.LoginForm, {}, [className])}>
 			<Text
 				title = {t("Авторизация")}
 				size = {TextSize.XL}
@@ -119,7 +116,7 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
 			>
 				{t("Войти")}
 			</Button>
-		</div>	
+		</Form>	
 	)
 })
 

@@ -13,13 +13,14 @@ import { Loader } from "shared/ui/Loader/Loader"
 import { Button, ButtonTheme } from "shared/ui/Button/Button"
 import { updateUserPassword } from "../../model/services/updateUserPassword"
 import { getUserAuthData } from "entity/User"
+import { Form } from "shared/ui/Form/Form"
 
-export interface ChangePasswordForm {
+export interface ChangePasswordFormProps {
 	className?: string;
 	onClose?: () => void;
 }
 
-const ChangePasswordForm = (props: ChangePasswordForm) => {
+const ChangePasswordForm = (props: ChangePasswordFormProps) => {
 
 	const {
 		className,
@@ -56,7 +57,7 @@ const ChangePasswordForm = (props: ChangePasswordForm) => {
 	}
 
 	return (
-		<div className = {classNames(cls.ChangePasswordForm, {}, [className])}>
+		<Form className = {classNames(cls.ChangePasswordForm, {}, [className])}>
 			<Text
 				className = {cls.formTitle}
 				title = {"Смена пароля"}
@@ -81,7 +82,7 @@ const ChangePasswordForm = (props: ChangePasswordForm) => {
 			>
 				изменить пароль
 			</Button>
-		</div>
+		</Form>
 	)
 }
 

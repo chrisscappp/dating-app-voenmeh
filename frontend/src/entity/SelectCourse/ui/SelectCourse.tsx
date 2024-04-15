@@ -42,8 +42,6 @@ export const SelectCourse = memo((props: SelectCourseProps) => {
 
 	const mods: Mods = {}
 
-	console.log("See value", value)
-
 	return (
 		<div className = {classNames(cls.selectWrap, {}, [className])}>
 			<Input

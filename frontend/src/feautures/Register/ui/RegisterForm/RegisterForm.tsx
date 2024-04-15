@@ -1,6 +1,6 @@
 import { classNames } from "shared/lib/classNames/classNames"
 import cls from "./RegisterForm.module.scss"
-import React, { memo, useCallback, useMemo } from "react"
+import React, { memo, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch"
 import { useSelector } from "react-redux"
@@ -15,6 +15,7 @@ import { CheckBox } from "shared/ui/CheckBox/CheckBox"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import { registerByUsername } from "../../model/services/registerByUsername"
 import { FormErrorType } from "../../model/types/errors"
+import { Form } from "shared/ui/Form/Form"
 
 interface RegisterFormProps {
 	className?: string;
@@ -46,6 +47,9 @@ const RegisterForm = memo(({ className, onSuccess }: RegisterFormProps) => {
 		[FormErrorType.REPEAT_PASSWORD]: t("Пароли не совпадают"),
 		[FormErrorType.SERVER_ERROR]: t("Ошибка сервера"),
 		[FormErrorType.TURN_CHECKBOX]: t("Нет согласия на обработку персональных данных"),
+		[FormErrorType.LOGIN_ALREADY]: t("Логин используется"),
+		[FormErrorType.EMAIL_ALREADY]: t("Почта используется"),
+		[FormErrorType.PASSWORD_INVALID]: t("Пипин короткий")
 	}
 
 	const onChangeFirstname = useCallback((value?: string) => {
@@ -101,9 +105,7 @@ const RegisterForm = memo(({ className, onSuccess }: RegisterFormProps) => {
 	}
 
 	return (
-		<div 
-			className = {classNames(cls.RegisterForm, {}, [className])}
-		>
+		<Form className = {classNames(cls.RegisterForm, {}, [className])}>
 			<Text
 				title = {t("Регистрация")}
 				size = {TextSize.XL}
@@ -189,7 +191,7 @@ const RegisterForm = memo(({ className, onSuccess }: RegisterFormProps) => {
 			>
 				{t("зарегестрироваться")}
 			</Button>
-		</div>
+		</Form>
 	)
 })
 

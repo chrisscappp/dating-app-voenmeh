@@ -55,8 +55,18 @@ export const registerByUsername = createAsyncThunk<IUser, void, ThunkConfig<Form
 			return response.data
 		} catch (e: unknown) {
 			//@ts-ignore
-			console.error(e)
-			return rejectWithValue([FormErrorType.SERVER_ERROR])
+			switch (e.response.data.detail) {
+			case FormErrorType.EMAIL_ALREADY: {
+				return rejectWithValue([FormErrorType.EMAIL_ALREADY])
+			}
+			case FormErrorType.LOGIN_ALREADY: {
+				return rejectWithValue([FormErrorType.LOGIN_ALREADY])
+			}
+			case FormErrorType.PASSWORD_INVALID: {
+				return rejectWithValue([FormErrorType.PASSWORD_INVALID])
+			}
+			default: return rejectWithValue([FormErrorType.SERVER_ERROR])
+			}
 		}	
 	},
 )

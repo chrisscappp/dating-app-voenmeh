@@ -12,8 +12,6 @@ const reducers: ReducersList = {
 
 const ProfilePage = () => {
 	
-	//const { t } = useTranslation(TranslationKeys.ABOUT_PAGE)
-
 	const state = useSelector(getProfileState)
 	
 	return (

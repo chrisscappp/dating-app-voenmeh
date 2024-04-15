@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect } from "react"
+import React, { FormEvent, memo, useCallback, useEffect } from "react"
 import { useSelector } from "react-redux"
 import { Contact, ProfileCard } from "entity/ProfileCard"
 import { useParams } from "react-router"
@@ -62,6 +62,21 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
 		dispatch(editableProfileActions.updateProfileField({ lastname: value }))
 	}, [dispatch])
 
+	const onChangeAvatar = useCallback((e: FormEvent<HTMLInputElement>) => {
+		const target = e.target as HTMLInputElement & {
+			files: FileList
+		}
+		if (target.files[0].size < 4200000) {
+			const file = new FileReader()
+			file.onload = function() {
+				dispatch(editableProfileActions.updateProfileField({ avatar: file.result as string }))
+			}
+			file.readAsDataURL(target.files[0])
+		} else {
+			alert("Выберите файл меньше 4мб")
+		}
+	}, [dispatch])
+
 	const onChangeFacultet = useCallback((value: FaluctetsItem) => {
 		dispatch(editableProfileActions.updateProfileField({ faculty: value }))
 	}, [dispatch])
@@ -118,6 +133,7 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
 			onChangeReadonly = {onChangeReadonly}
 			onChangeFirstname = {onChangeFirstname}
 			onChangeLastname = {onChangeLastname}
+			onChangeAvatar = {onChangeAvatar}
 			onChangeInterested = {onChangeInterested}
 			onChangeHobbies = {onChangeHobbies}
 			onChangeContacts = {onChangeContacts}

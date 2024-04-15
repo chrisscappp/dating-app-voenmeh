@@ -33,9 +33,7 @@ export const loginByUsername = createAsyncThunk<
 			extra.navigate("/ankets")
 			return response.data
 		} catch (e: unknown) {
-			const err = e as Error
 			return rejectWithValue("Неверный логин или пароль")
 		}	
 	},
 )
-// вызывается внутри компонента

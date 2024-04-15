@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from "react"
+import React, { FormEvent, memo, useRef } from "react"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import cls from "./ProfileCard.module.scss"
@@ -19,7 +19,6 @@ import { ProfileCardAboutInfoBlock } from "./ProfileCardAboutInfoBlock/ProfileCa
 import { ProfileCardInterestedInfoBlock } from "./ProfileCardInterestedInfoBlock/ProfileCardInterestedInfoBlock"
 import { ProfileCardHobbiesInfoBlock } from "./ProfileCardHobbiesInfoBlock/ProfileCardHobbiesInfoBlock"
 import { ProfileCardContactsInfoBlock } from "./ProfileCardContactsInfoBlock/ProfileCardContactsInfoBlock"
-import { Skeleton } from "shared/ui/Skeleton/Skeleton"
 import { ProfileCardSkeleton } from "./ProfileCardSkeleton/ProfileCardSkeleton"
 
 interface ProfileCardProps {
@@ -32,6 +31,7 @@ interface ProfileCardProps {
 	onChangeReadonly?: () => void;
 	onChangeFirstname?: (value: string) => void;
 	onChangeLastname?: (value: string) => void;
+	onChangeAvatar?: (e: FormEvent<HTMLInputElement>) => void;
 	onChangeFacultet?: (value: FaluctetsItem) => void;
 	onChangeInterested?: (value: string[]) => void;
 	onChangeHobbies?: (value: string[]) => void;
@@ -44,26 +44,22 @@ interface ProfileCardProps {
 export const ProfileCard = memo((props: ProfileCardProps) => {
 	
 	const {
-		isLoading,
-		className,
-		userId,
-		data,
-		readonly,
-		onEditProfile,
-		onChangeReadonly,
-		onChangeFirstname,
-		onChangeLastname,
-		onChangeFacultet,
-		onChangeInterested,
-		onChangeHobbies,
-		onChangeContacts,
-		onChangeAbout,
-		onChangeCourse,
-		onCancelEdit
+		isLoading, className, userId, data, onChangeAvatar,
+		readonly, onEditProfile, onChangeReadonly, onChangeFirstname,
+		onChangeLastname, onChangeFacultet, onChangeInterested, onChangeHobbies,
+		onChangeContacts, onChangeAbout, onChangeCourse, onCancelEdit
 	} = props
 
 	const authData = useSelector(getUserAuthData)
 	const { t } = useTranslation(TranslationKeys.PROFILE_PAGE)
+	const filePickerRef = useRef(null)
+
+	const handlePick = () => {
+		if (filePickerRef.current !== null) {
+			//@ts-ignore
+			filePickerRef.current.click()
+		}
+	}
 
 	if (isLoading) {
 		return (
@@ -83,17 +79,26 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 			<div className = {cls.header}>
 				<div className = {cls.mainInfo}>
 					<div className = {cls.avatarWrap}>
-						<Avatar
-							className = {cls.avatar}
-							src = {data?.avatar}
-						/>
+						<Avatar className = {cls.avatar} avatarSrc = {data?.avatar} />
 						{ !readonly && 
-							<Button 
-								className = {cls.uploadAvatar}
-								theme = {ButtonTheme.BACKGROUND_INVERTED}
-							>
-								{t("загрузить")}
-							</Button>
+							(
+								<>
+									<input 
+										accept = "image/*" 
+										ref = {filePickerRef}
+										type = {"file"} 
+										onChange = {onChangeAvatar}
+										className = {cls.hidden}
+									/>
+									<Button 
+										className = {cls.uploadAvatar}
+										theme = {ButtonTheme.BACKGROUND_INVERTED}
+										onClick = {handlePick}
+									>
+										{t("загрузить")}
+									</Button>
+								</>		
+							)	
 						}
 					</div>
 					<div className = {cls.headerText}>

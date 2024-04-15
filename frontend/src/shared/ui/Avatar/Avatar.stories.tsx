@@ -13,7 +13,7 @@ type Story = StoryObj<typeof Avatar>;
 
 export const AvatarDefault: Story = {
 	args: {
-		src: AvatarImgDefault 
+		avatarSrc: AvatarImgDefault 
 	},
 }
 

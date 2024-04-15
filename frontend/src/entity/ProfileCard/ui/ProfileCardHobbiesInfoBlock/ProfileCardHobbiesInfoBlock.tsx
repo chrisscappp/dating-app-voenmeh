@@ -33,7 +33,12 @@ export const ProfileCardHobbiesInfoBlock = (props: ProfileCardAboutInfoBlockProp
 	}, [data, onChange])
 
 	const translatedData = useMemo(() => {
-		return data?.map(item => t(item)).join(", ")
+		if (data) {
+			return data?.map(item => t(item)).join(", ")
+		} else {
+			return ""
+		}
+		
 	}, [data, t])
 
 	const mods: Mods = {
