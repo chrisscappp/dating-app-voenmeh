@@ -1,3 +1,4 @@
+import React from "react"
 import { RouteProps } from "react-router"
 import { MainPage } from "pages/MainPage"
 import { AboutPage } from "pages/AboutPage"
@@ -6,7 +7,7 @@ import { ProfilePage } from "pages/ProfilePage"
 import { LikesPage } from "pages/LikesPage"
 import { SymphatyPage } from "pages/SymphatyPage"
 import { FriendsPage } from "pages/FriendsPage"
-import { AnketsPage } from "pages/AnketsPage"
+import { AnketsPage, AnketsPageDetail } from "pages/AnketsPage"
 
 export type AppRouteProps = RouteProps & {
 	authOnly?: boolean;
@@ -20,6 +21,7 @@ export enum AppRoutes {
 	SYMPHATY = "symphaty",
 	FRIENDS = "friends",
 	ANKETS = "ankets",
+	ANKETS_DETAILS = "ankets_details",
 	//last
 	NOT_FOUND = "not_found"
 }
@@ -31,7 +33,8 @@ export const routerPath: Record<AppRoutes, string> = {
 	[AppRoutes.LIKES]: "/likes",
 	[AppRoutes.SYMPHATY]: "/symphaty",
 	[AppRoutes.FRIENDS]: "/friends",
-	[AppRoutes.ANKETS]: "/ankets", // + :type
+	[AppRoutes.ANKETS]: "/ankets", 
+	[AppRoutes.ANKETS_DETAILS]: "/ankets/", // + :sectionType
 	//last
 	[AppRoutes.NOT_FOUND]: "*"
 }
@@ -53,6 +56,11 @@ export const routeConfig: Record<AppRoutes, AppRouteProps> = {
 	[AppRoutes.ANKETS]: {
 		path: routerPath.ankets,
 		element: <AnketsPage/>,
+		authOnly: true
+	}, 
+	[AppRoutes.ANKETS_DETAILS]: {
+		path: routerPath.ankets_details + ":sectionType",
+		element: <AnketsPageDetail/>,
 		authOnly: true
 	}, 
 	[AppRoutes.LIKES]: {

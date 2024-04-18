@@ -1,0 +1,1 @@
+export { AvatarDetailModal } from "./ui/AvatarDetail"

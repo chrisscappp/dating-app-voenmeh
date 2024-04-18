@@ -15,11 +15,10 @@ const preview: Preview = {
 		}
 	},
 	decorators: [
-		//...i18nDecorators,
 		StyleDecorator,
 		ThemeDecorator(Themes.LIGHT),
 		RouterDecorator,
-		TranslateDecorator(),
+		//TranslateDecorator(),
 	]
 }
 

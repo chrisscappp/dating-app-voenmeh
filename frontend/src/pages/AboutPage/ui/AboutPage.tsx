@@ -1,15 +1,16 @@
-import { memo } from "react"
+import React, { memo } from "react"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
+import { Page } from "widgets/Page"
 
 const AboutPage = () => {
 	
 	const { t } = useTranslation(TranslationKeys.ABOUT_PAGE)
 	
 	return (
-		<div>
+		<Page>
 			{t("Страница о нас")}
-		</div>
+		</Page>
 	)
 }
 

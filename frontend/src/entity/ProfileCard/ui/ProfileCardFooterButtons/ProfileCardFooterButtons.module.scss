@@ -1,0 +1,28 @@
+.footerBtns {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.footerBtn {
+	width: 100%;
+	margin-top: 15px;
+	margin-right: 35px;
+	height: 55px;
+}
+
+@media (max-width: 785px) {
+	.footerBtn {
+		margin-top: 15px;
+		margin-right: 35px;
+	}
+}
+
+@media (max-width: 660px) {
+	.footerBtns {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+	}
+}

@@ -1,0 +1,1 @@
+export { AnketsSectionList } from "./ui/AnketsSectionList/AnketsSectionList"

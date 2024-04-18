@@ -1,11 +1,13 @@
-import { memo } from "react"
+import { AnketsSectionList } from "entity/AnketsSection"
+import React, { memo } from "react"
+import { Page } from "widgets/Page"
 
 const AnketsPage = () => {
 	
 	return (
-		<div>
-			AnketsPage
-		</div>
+		<Page>
+			<AnketsSectionList/>
+		</Page>
 	)
 }
 

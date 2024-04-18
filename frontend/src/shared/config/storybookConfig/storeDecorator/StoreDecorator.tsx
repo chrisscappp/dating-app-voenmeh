@@ -7,7 +7,7 @@ import { registerFormReducer } from "feautures/Register"
 
 const initialAsyncReducers: ReducersList = {
 	loginForm: loginFormReducer,
-	registerForm: registerFormReducer
+	registerForm: registerFormReducer,
 }
 
 export const StoreDecorator = (

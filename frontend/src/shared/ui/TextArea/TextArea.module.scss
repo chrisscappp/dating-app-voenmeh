@@ -1,0 +1,17 @@
+.TextArea {
+	border-radius: 5px;
+	padding: 5px;
+	outline: none;
+	font-family: "Roboto", sans-serif;
+	font-weight: 300;
+	font-style: normal;
+	width: 100%;
+	background: var(--input-profile);
+	resize: none;
+	border: 2px solid var(--input-focus-border);
+	color: var(--primary-color);
+}
+
+.readonly {
+	border: none;
+}

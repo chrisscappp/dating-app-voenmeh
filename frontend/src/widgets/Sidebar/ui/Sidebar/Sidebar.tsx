@@ -1,13 +1,15 @@
 import { classNames, Mods } from "shared/lib/classNames/classNames"
 import cls from "./Sidebar.module.scss"
-import { memo, useMemo, useState, useEffect, useCallback } from "react"
+import React, { memo, useMemo, useState, useEffect, useCallback, CSSProperties } from "react"
 import { sidebarItemList } from "../../model/sidebarItems"
 import { SidebarItem } from "../SidebarItem/SidebarItem"
 import { useHover } from "shared/lib/hooks/useHover"
 import LogoutIcon from "shared/assets/icons/logout-icon-sidebar.svg"
 import { Text, TextTheme } from "shared/ui/Text/Text"
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch"
-import { userActions } from "entities/User"
+import { userActions } from "entity/User"
+import { useTranslation } from "react-i18next"
+import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 
 interface SidebarProps {
 	className?: string;
@@ -18,7 +20,9 @@ export const Sidebar = memo((props: SidebarProps) => {
 	const [ isHover, bindHover ] = useHover()
 	const [ scrollValue, setScrollValue ] = useState<number>(0)
 	const [ isIconsFixed, setIsIconsFixed ] = useState<boolean>(true)
+	const [ isIconsStatic, setIsIconsStatic ] = useState<boolean>(false)
 	const dispatch = useAppDispatch()
+	const { t } = useTranslation(TranslationKeys.SIDEBAR)
 
 	const {
 		className
@@ -36,12 +40,15 @@ export const Sidebar = memo((props: SidebarProps) => {
 	}, [])
 
 	useEffect(() => {
-		if (scrollValue >= 200) {
+		//console.log("SCROLL VAL", scrollValue)
+		//console.log("window", window.outerHeight)
+		if (scrollValue >= window.screen.height) {
 			setIsIconsFixed(false)
+			setIsIconsStatic(true)
 		} else {
 			setIsIconsFixed(true)
+			setIsIconsStatic(false)
 		}
-		
 	}, [scrollValue])
 
 	const routes = useMemo(() => {
@@ -64,17 +71,25 @@ export const Sidebar = memo((props: SidebarProps) => {
 	const mods: Mods = {
 		[cls.collapsed]: isHover
 	}
+
+	const iconsMods: Mods = {
+		[cls.fixed]: isIconsFixed,
+	}
+
+	const staticStyles: CSSProperties = {
+		marginTop: window.screen.height
+	}
 	
 	return (
 		<div className = {classNames(cls.Sidebar, mods, [className])}>
-			<div {...bindHover} className = {classNames(cls.iconsWrap, {[cls.fixed]: isIconsFixed}, [])}>
+			<div {...bindHover} style = {isIconsStatic ? staticStyles : {}} className = {classNames(cls.iconsWrap, iconsMods, [])}>
 				<div className = {cls.icons}>
 					{routes}
 					<div className = {cls.logoutIcon} onClick = {onLogout}>
 						<LogoutIcon/>
 						{isHover && 
 						<Text
-							text = {"Выйти"}
+							text = {t("Выйти")}
 							className = {cls.logoutText}
 							theme = {TextTheme.SECONDARY}
 						/>}

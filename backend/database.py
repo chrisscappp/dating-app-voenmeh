@@ -19,12 +19,37 @@ db = firebase.database()
 class User(BaseModel):
     email: str
     login: str
-    id: str
+    userId: str
 
 
 class UserInfo(BaseModel):
-    id: str
+    idToken: str = None
+    userId: str
+    firstname: str
+    lastname: str
+    sex: str
+    birthday: str
+    createdAt: str
+    faculty: str = None
+    course: str = None
+    confirm: bool = False
+    about: str = None
+    interested: list = None
+    hobbies: list = None
+    contacts: list = None
+    avatar: str = None
+
+
+class UserLog(BaseModel):
+    email: str = None
+    login: str = None
+    password: str
+
+
+class UserReg(BaseModel):
+    email: str
     login: str
+    password: str
     firstname: str
     lastname: str
     sex: str

@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { IUser } from "entities/User/index"
-import { userActions } from "entities/User/index"
+import { IUser, userActions } from "entity/User"
 import { USER_LOCALSTORAGE_KEY } from "shared/consts/localStorageKeys"
 import { ThunkConfig } from "app/providers/StoreProvider/index"
 
@@ -24,7 +23,7 @@ export const loginByUsername = createAsyncThunk<
 		} = thunkAPI
 
 		try {
-			const response = await extra.api.post<IUser>("/authByLogin", authData)
+			const response = await extra.api.post<IUser>("/auth", authData)
 			if (!response.data) {
 				throw new Error()
 			}
@@ -34,9 +33,7 @@ export const loginByUsername = createAsyncThunk<
 			extra.navigate("/ankets")
 			return response.data
 		} catch (e: unknown) {
-			const err = e as Error
 			return rejectWithValue("Неверный логин или пароль")
 		}	
 	},
 )
-// вызывается внутри компонента

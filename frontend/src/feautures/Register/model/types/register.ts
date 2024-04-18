@@ -1,4 +1,4 @@
-import { Sex } from "entities/SelectSex"
+import { Sex } from "entity/SelectSex"
 import { FormErrorType, ValidateErrorObj } from "./errors"
 
 export interface RegisterForm {

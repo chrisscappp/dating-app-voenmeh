@@ -1,4 +1,4 @@
-import { getUserAuthData } from "entities/User"
+import { getUserAuthData } from "entity/User"
 import { useSelector } from "react-redux"
 import { Navigate, useLocation } from "react-router"
 import { routerPath } from "shared/config/routeConfig/routeConfig"

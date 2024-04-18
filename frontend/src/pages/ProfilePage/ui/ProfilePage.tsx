@@ -1,19 +1,27 @@
-import { memo } from "react"
-import { useTranslation } from "react-i18next"
-import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
+import React, { memo } from "react"
 import { classNames } from "shared/lib/classNames/classNames"
-import { Sidebar } from "widgets/Sidebar"
 import cls from "./ProfilePage.module.scss"
+import { Page } from "widgets/Page"
+import { DynamicModuleLoader, ReducersList } from "shared/lib/components/DynamicModuleLoader/DynamicModuleLoader"
+import { EditableProfileCard, editableProfileReducer, getProfileState } from "feautures/EditableProfile"
+import { useSelector } from "react-redux"
+import { useParams } from "react-router"
+
+const reducers: ReducersList = {
+	editableProfile: editableProfileReducer
+}
 
 const ProfilePage = () => {
 	
-	//const { t } = useTranslation(TranslationKeys.ABOUT_PAGE)
+	const state = useSelector(getProfileState)
 	
 	return (
-		<div className = {classNames(cls.ProfilePage, {}, [])}>
-			{/* <Sidebar/> */}
-			prilfe page
-		</div>
+		<DynamicModuleLoader reducers = {reducers} removeAfterUnmount>
+			<Page className = {classNames(cls.ProfilePage, {}, [])}>
+				{state && <EditableProfileCard/>}
+			</Page>
+		</DynamicModuleLoader>
+		
 	)
 }
 

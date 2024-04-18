@@ -7,9 +7,8 @@ import cls from "./NavbarPanel.module.scss"
 import { useTranslation } from "react-i18next"
 import { LangSwitcher } from "widgets/LangSwitcher"
 import { ThemeSwitcher } from "widgets/ThemeSwitcher"
-import { useTheme } from "app/providers/ThemeProvider"
 import { Themes } from "app/providers/ThemeProvider"
-import { memo } from "react"
+import React, { memo } from "react"
 
 interface NavbarPanelProps {
 	className?: string;

@@ -1,0 +1,124 @@
+.ProfileCard {
+	width: 100%;
+	border-radius: 5px;
+	background: var(--info-block-bg-color);
+	padding: 45px 30px 45px 30px;
+}
+
+.arrow {
+	fill: var(--secondary-color);
+}
+
+.headerTitle {
+	display: flex;
+	justify-content: center;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 40px;
+}
+
+.mainInfo {
+	display: flex;
+}
+
+.name {
+	display: flex;
+}
+
+.avatarWrap {
+	display: flex;
+	flex-direction: column;
+}
+
+.uploadAvatar {
+	width: 100px;
+	display: flex;
+	justify-content: center;
+	margin-top: 10px;
+}
+
+.avatar {
+	min-height: 125px;
+}
+
+.headerText {
+	margin-left: 20px;
+}
+
+.age {
+	margin-top: 5px;
+}
+
+.faluctet {
+	margin-right: 15px;
+}
+
+.editingBtns {
+	display: flex;
+	flex-direction: column;
+}
+
+.body {
+	margin-top: 70px;
+}
+
+.infoBlock {
+	margin-bottom: 35px;
+}
+
+.selectorsWrap {
+	display: flex;
+	margin-top: 30px
+}
+
+.course {
+	margin-left: 10px;
+}
+
+.inputLastname {
+	margin-left: 10px;
+}
+
+.selectCourse {
+	margin-left: 10px;
+}
+
+.inputAvatarWrap {
+	width: 100px;
+	position: relative;
+	margin-bottom: 40px;
+}
+
+.hidden {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	width: 0;
+	height: 0;
+	opacity: 0;
+}
+
+@media (max-width: 1130px) {
+	.header {
+		display: flex;
+		flex-direction: column;
+		margin-top: 40px;
+	}
+	.editingBtns {
+		margin-top: 30px;
+	}
+}
+
+@media (max-width: 660px) {
+	.header {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.editingBtns {
+		margin-top: 20px;
+	}
+}
