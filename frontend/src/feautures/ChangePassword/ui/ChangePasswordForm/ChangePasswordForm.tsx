@@ -33,12 +33,8 @@ const ChangePasswordForm = (props: ChangePasswordFormProps) => {
 	const isLoading = useSelector(getChangePasswordIsLoading)
 	const error = useSelector(getChangePasswordError)
 
-	const onChangeOldPassword = useCallback((value: string) => {
-		dispatch(changePasswordActions.setOldPassword(value))
-	}, [dispatch])
-
-	const onChangeNewPassword = useCallback((value: string) => {
-		dispatch(changePasswordActions.setNewPassword(value))
+	const onChangePassword = useCallback((value: string) => {
+		dispatch(changePasswordActions.setPassword(value))
 	}, [dispatch])
 
 	const onSavePassword = useCallback(async () => {
@@ -64,16 +60,11 @@ const ChangePasswordForm = (props: ChangePasswordFormProps) => {
 			/>
 			{error && <Text theme = {TextTheme.ERROR} text = {error}/>}
 			<Input
+				autoFocus
 				className = {cls.input}
 				placeholder = {"введите старый пароль"}
-				value = {formData?.oldPassword}
-				onChange = {onChangeOldPassword}
-			/>
-			<Input
-				className = {cls.input}
-				placeholder = {"введите новый пароль"}
-				value = {formData?.newPassword}
-				onChange = {onChangeNewPassword}
+				value = {formData?.password}
+				onChange = {onChangePassword}
 			/>
 			<Button
 				className = {cls.btn}

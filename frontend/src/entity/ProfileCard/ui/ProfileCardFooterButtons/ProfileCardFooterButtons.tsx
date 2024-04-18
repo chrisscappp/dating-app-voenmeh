@@ -9,6 +9,7 @@ import { Portal } from "shared/ui/Portal/Portal"
 import { useCallback, useState } from "react"
 
 interface ProfileCardFooterButtonsProps {
+	isAuthUser?: boolean;
 	authData?: IUser
 	userId?: string
 	readonly?: boolean
@@ -19,8 +20,7 @@ interface ProfileCardFooterButtonsProps {
 export const ProfileCardFooterButtons = (props: ProfileCardFooterButtonsProps) => {
 	
 	const {
-		authData,
-		userId,
+		isAuthUser,
 		readonly,
 		onCancelEdit,
 		onEditProfile
@@ -64,10 +64,11 @@ export const ProfileCardFooterButtons = (props: ProfileCardFooterButtonsProps) =
 		)
 	}
 
+	// в зависимости от isAuthUser меняем начинку компонента
 	return (
 		<>
 			{
-				authData?.userId === userId && 
+				isAuthUser && 
 				<div className = {cls.footerBtns}>
 					<Button 
 						className = {cls.footerBtn}

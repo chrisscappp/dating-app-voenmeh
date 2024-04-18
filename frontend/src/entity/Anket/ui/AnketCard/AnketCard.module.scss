@@ -1,0 +1,84 @@
+.AnketCard {
+	width: 520px;
+	background: var(--info-block-bg-color);
+	padding-bottom: 70px;
+	border-radius: 10px;
+}
+
+.imgWrap {
+	height: 320px;
+	background: rgb(223, 223, 223);
+	display: flex;
+	justify-content: center;
+	border-radius: 10px;
+}
+
+.body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.infoWrap {
+	display: flex;
+	justify-content: center;
+	height: 100px;
+}
+
+.infoContainer {
+	background: none;
+	padding: 10px 15px;
+	width: 300px;
+	border-left: 1px solid var(--border-color);
+	border-right: 1px solid var(--border-color);
+	border-bottom: 1px solid var(--border-color);
+	border-radius: 0px 0px 10px 10px;
+}
+
+.name {
+	display: flex;
+	align-items: center;
+}
+
+.icon {
+	margin-left: 10px;
+	fill: var(--primary-color);
+}
+
+.about {
+	margin-top: 5px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.btns {
+	width: 300px;
+	display: flex;
+	justify-content: space-around;
+	margin-top: 30px;
+}
+
+.btn {
+	border: 7px solid #E5E5E5;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.questionIcon {
+	fill: #F9D978;
+}
+
+@media (max-width: 675px) {
+	.AnketCard {
+		width: 100%;
+	}
+	.infoContainer {
+		width: 250px;
+	}
+	.btns {
+		width: 250px;
+	}
+}

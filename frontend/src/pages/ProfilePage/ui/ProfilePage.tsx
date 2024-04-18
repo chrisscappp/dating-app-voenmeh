@@ -5,6 +5,7 @@ import { Page } from "widgets/Page"
 import { DynamicModuleLoader, ReducersList } from "shared/lib/components/DynamicModuleLoader/DynamicModuleLoader"
 import { EditableProfileCard, editableProfileReducer, getProfileState } from "feautures/EditableProfile"
 import { useSelector } from "react-redux"
+import { useParams } from "react-router"
 
 const reducers: ReducersList = {
 	editableProfile: editableProfileReducer

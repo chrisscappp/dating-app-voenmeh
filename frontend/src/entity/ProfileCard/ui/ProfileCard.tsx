@@ -1,18 +1,17 @@
-import React, { FormEvent, memo, useRef } from "react"
+import React, { FormEvent, memo, useCallback, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import cls from "./ProfileCard.module.scss"
 import { classNames } from "shared/lib/classNames/classNames"
 import { Text, TextSize } from "shared/ui/Text/Text"
 import { Avatar } from "shared/ui/Avatar/Avatar"
-import { Button, ButtonTheme } from "shared/ui/Button/Button"
+import { Button, ButtonTheme, CircleSize } from "shared/ui/Button/Button"
 import { Input } from "shared/ui/Input/Input"
-import { useSelector } from "react-redux"
-import { getUserAuthData } from "entity/User"
 import { Contact, Profile } from "../model/types"
 import { ProfileCardFooterButtons } from "./ProfileCardFooterButtons/ProfileCardFooterButtons"
 import { SelectFacultet } from "entity/SelectFacultet"
 import { SelectCourse, Courses } from "entity/SelectCourse"
+import { AvatarDetailModal } from "entity/AvatarDetail"
 import { FaluctetsItem } from "shared/consts/faluctets"
 import { ProfileCardEditingButtons } from "./ProfileCardEditingButtons/ProfileCardEditingButtons"
 import { ProfileCardAboutInfoBlock } from "./ProfileCardAboutInfoBlock/ProfileCardAboutInfoBlock"
@@ -20,10 +19,13 @@ import { ProfileCardInterestedInfoBlock } from "./ProfileCardInterestedInfoBlock
 import { ProfileCardHobbiesInfoBlock } from "./ProfileCardHobbiesInfoBlock/ProfileCardHobbiesInfoBlock"
 import { ProfileCardContactsInfoBlock } from "./ProfileCardContactsInfoBlock/ProfileCardContactsInfoBlock"
 import { ProfileCardSkeleton } from "./ProfileCardSkeleton/ProfileCardSkeleton"
+import { Portal } from "shared/ui/Portal/Portal"
+import { useNavigate } from "react-router"
+import ArrowBack from "shared/assets/icons/arrow-back.svg"
 
 interface ProfileCardProps {
+	isAuthUser?: boolean;
 	isLoading?: boolean;
-	userId?: string;
 	className?: string;
 	data?: Profile;
 	readonly?: boolean;
@@ -44,21 +46,34 @@ interface ProfileCardProps {
 export const ProfileCard = memo((props: ProfileCardProps) => {
 	
 	const {
-		isLoading, className, userId, data, onChangeAvatar,
+		isLoading, className, isAuthUser, data, onChangeAvatar,
 		readonly, onEditProfile, onChangeReadonly, onChangeFirstname,
 		onChangeLastname, onChangeFacultet, onChangeInterested, onChangeHobbies,
 		onChangeContacts, onChangeAbout, onChangeCourse, onCancelEdit
 	} = props
 
-	const authData = useSelector(getUserAuthData)
 	const { t } = useTranslation(TranslationKeys.PROFILE_PAGE)
+	const [ isOpen, setIsOpen ] = useState<boolean>()
 	const filePickerRef = useRef(null)
+	const navigate = useNavigate()
+
+	const onOpenAvatarDetail = useCallback(() => {
+		setIsOpen(true)
+	}, [])
+
+	const onCloseAvatarDetail = useCallback(() => {
+		setIsOpen(false)
+	}, [])
 
 	const handlePick = () => {
 		if (filePickerRef.current !== null) {
 			//@ts-ignore
 			filePickerRef.current.click()
 		}
+	}
+
+	const goBack = () => {
+		navigate(-1)
 	}
 
 	if (isLoading) {
@@ -71,6 +86,14 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 	
 	return (
 		<div className = {classNames(cls.ProfileCard, {}, [className])}>
+			<Button
+				circle
+				circleSize = {CircleSize.L}
+				theme = {ButtonTheme.BACKGROUND_INVERTED}
+				onClick = {goBack}
+			>
+				<ArrowBack className = {cls.arrow}/>
+			</Button>
 			<Text
 				title = {t("Информация о профиле")}
 				size = {TextSize.L}
@@ -79,7 +102,9 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 			<div className = {cls.header}>
 				<div className = {cls.mainInfo}>
 					<div className = {cls.avatarWrap}>
-						<Avatar className = {cls.avatar} avatarSrc = {data?.avatar} />
+						<span onClick = {onOpenAvatarDetail}>
+							<Avatar className = {cls.avatar} avatarSrc = {data?.avatar} />
+						</span>
 						{ !readonly && 
 							(
 								<>
@@ -159,7 +184,7 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 					</div>
 				</div>
 				{
-					authData?.userId === userId &&
+					isAuthUser &&
 					<div className = {cls.editingBtns}>
 						<ProfileCardEditingButtons
 							readonly = {readonly}
@@ -209,12 +234,21 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 				</div>
 			</div>
 			<ProfileCardFooterButtons
-				authData = {authData}
-				userId = {userId}
+				isAuthUser = {isAuthUser}
 				readonly = {readonly}
 				onCancelEdit = {onCancelEdit}
 				onEditProfile = {onEditProfile}
 			/>
+			{
+				isOpen &&
+				<Portal>
+					<AvatarDetailModal
+						isOpen = {isOpen}
+						onClose = {onCloseAvatarDetail}
+						src = {data?.avatar}
+					/>
+				</Portal>
+			}
 		</div>	
 	)
 })

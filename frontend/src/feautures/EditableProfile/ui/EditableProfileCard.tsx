@@ -23,10 +23,6 @@ interface EditableProfileCardProps {
 }
 
 export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
-	
-	const {
-		className,
-	} = props
 
 	const { id: userId } = useParams()
 	const dispatch = useAppDispatch()
@@ -124,10 +120,12 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
 		)
 	}
 
+	const isAuthUser = authData?.userId === userId
+
 	return (
 		<ProfileCard
+			isAuthUser = {isAuthUser}
 			isLoading = {isLoading}
-			userId = {userId}
 			data={formEditableData}
 			readonly = {readonly}
 			onEditProfile = {onEditProfile}

@@ -7,6 +7,7 @@ import { EditableProfileSchema } from "feautures/EditableProfile"
 import { NavigateFunction } from "react-router"
 import { ChangePasswordSchema } from "feautures/ChangePassword"
 import { DeleteAccountSchema } from "feautures/DeleteAccount"
+import { NotificationsSchema } from "feautures/Notifications"
 
 export interface StateSchema {
 	user: UserSchema,
@@ -16,7 +17,8 @@ export interface StateSchema {
 	registerForm?: RegisterSchema,
 	editableProfile?: EditableProfileSchema,
 	changePassword?: ChangePasswordSchema,
-	deleteAccount?: DeleteAccountSchema
+	deleteAccount?: DeleteAccountSchema,
+	notifications?: NotificationsSchema
 }
 
 export type StateSchemaKey = keyof StateSchema
