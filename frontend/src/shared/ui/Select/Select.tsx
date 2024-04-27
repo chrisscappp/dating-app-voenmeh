@@ -1,6 +1,6 @@
 import { classNames, Mods } from "shared/lib/classNames/classNames"
 import cls from "./Select.module.scss"
-import React, { ChangeEvent, memo, useMemo }  from "react"
+import React, { ChangeEvent, memo, useMemo, useState }  from "react"
 import { useTranslation } from "react-i18next"
 
 export interface SelectOption {
@@ -15,11 +15,13 @@ interface SelectProps {
 	value?: string;
 	onChange?: (value: string) => void;
 	readonly?: boolean;
+	customSize?: boolean;
 }
 
 export const Select = memo((props: SelectProps) => {
 
 	const { t } = useTranslation()
+	const [ size, setSize ] = useState<number>(1)
 
 	const { 
 		className, 
@@ -27,7 +29,8 @@ export const Select = memo((props: SelectProps) => {
 		options,
 		onChange,
 		value,
-		readonly
+		readonly,
+		customSize = false
 	} = props
 
 	const mods: Mods = {}
@@ -46,6 +49,10 @@ export const Select = memo((props: SelectProps) => {
 		})
 	}, [options, t])
 
+	const onChangeSize = (val: number) => {
+		setSize(val)
+	}
+
 	const onChangeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
 		onChange?.(e.target.value)
 	}
@@ -63,6 +70,9 @@ export const Select = memo((props: SelectProps) => {
 				value = {value}
 				onChange = {onChangeHandler}
 				disabled = {readonly}
+				onFocus = {() => customSize && onChangeSize(5)}
+				onBlur = {() => customSize && onChangeSize(1)}
+				size = {size}
 			>
 				{optionList}
 			</select>

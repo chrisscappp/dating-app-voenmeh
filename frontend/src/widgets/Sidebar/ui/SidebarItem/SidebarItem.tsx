@@ -10,6 +10,7 @@ interface SidebarItemProps {
 	className?: string;
 	item: SidebarItemType;
 	collapsed?: boolean;
+	isMobile?: boolean;
 }
 
 export const SidebarItem = memo((props: SidebarItemProps) => {
@@ -17,7 +18,8 @@ export const SidebarItem = memo((props: SidebarItemProps) => {
 	const {
 		className,
 		item,
-		collapsed
+		collapsed,
+		isMobile
 	} = props
 
 	const { t } = useTranslation(TranslationKeys.SIDEBAR)
@@ -34,9 +36,10 @@ export const SidebarItem = memo((props: SidebarItemProps) => {
 				theme = {AppLinkTheme.SECONDARY}
 			>
 				<item.Icon className = {cls.icon}/>
-				<span className = {cls.link}>
+				{ !isMobile && <span className = {cls.link}>
 					{t(item.text)}
-				</span>
+				</span> }
+				
 			</AppLink>
 		</span>
 		

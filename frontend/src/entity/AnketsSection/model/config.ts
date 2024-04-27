@@ -2,7 +2,6 @@ export enum SectionType {
 	FRIENDS = "friends",
 	BOYS = "boys",
 	GIRLS = "girls",
-	FOREIGNERS = "foreigners",
 	FACULTET_A = "facultet_a",
 	FACULTET_E = "facultet_e",
 	FACULTET_I = "facultet_i",
@@ -51,16 +50,6 @@ export const sectionsConfig: Record<SectionType, SectionKeys> = {
 		type: SectionType.GIRLS,
 		gradient: "linear-gradient(90deg, rgba(255,241,247,1) 0%, rgba(210,46,108,1) 100%)",
 		gradientDark: "linear-gradient(90deg, rgba(31,28,28,1) 0%, rgba(210,46,108,1) 100%)"
-	},
-	[SectionType.FOREIGNERS]: {
-		colors: {
-			dark: "#822ed2",
-			light: "#f8f1ff"
-		},
-		title: "Иностранцы",
-		type: SectionType.FOREIGNERS,
-		gradient: "linear-gradient(90deg, rgba(248,241,255,1) 0%, rgba(130,46,210,1) 100%)",
-		gradientDark: "linear-gradient(90deg, rgba(31,28,28,1) 0%, rgba(130,46,210,1) 100%)"
 	},
 	[SectionType.FACULTET_A]: {
 		colors: {

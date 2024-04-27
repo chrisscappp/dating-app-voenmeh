@@ -1,18 +1,13 @@
-import { memo, useCallback, useEffect } from "react"
+import { memo } from "react"
 import cls from "./Notifications.module.scss"
 import { classNames } from "shared/lib/classNames/classNames"
 import { Text, TextTheme } from "shared/ui/Text/Text"
-import { Input } from "shared/ui/Input/Input"
-import { useAppDispatch } from "shared/lib/hooks/useAppDispatch"
-import { useSelector } from "react-redux"
 import { Loader } from "shared/ui/Loader/Loader"
 import { Button, ButtonTheme } from "shared/ui/Button/Button"
-import { getUserAuthData } from "entity/User"
-import { fetchNotifications } from "../../model/services/fetchNotifications/fetchNotifications"
-import { removeNotifications } from "../../model/services/removeNotifications/removeNotifications"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import { Form } from "shared/ui/Form/Form"
+import React from "react"
 
 export interface NotificationsFormProps {
 	className?: string;
@@ -38,10 +33,6 @@ const NotificationsForm = (props: NotificationsFormProps) => {
 
 	if (isLoading) {
 		return <Loader/>
-	}
-
-	if (error) {
-		content = <Text text = {t(error)} theme = {TextTheme.ERROR}/>
 	}
 
 	if (notifications?.length === 0) {
@@ -75,6 +66,7 @@ const NotificationsForm = (props: NotificationsFormProps) => {
 				className = {cls.formTitle}
 				title = {t("Уведомления")}
 			/>
+			{error && <Text text = {error} theme = {TextTheme.ERROR}/>}
 			{content}
 		</Form>
 	)

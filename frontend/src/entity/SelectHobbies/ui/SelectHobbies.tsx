@@ -91,10 +91,12 @@ export const SelectHobbies = memo((props: SelectHobbiesProps) => {
 	}, [onChangeCustomHobbieHandler])
 
 	useEffect(() => {
+		window.addEventListener("keydown", onKeyDown)
 		return () => {
 			setIsError(false)
+			removeEventListener("keydown", onKeyDown)
 		}
-	}, [setIsError])
+	}, [onKeyDown, setIsError])
 
 	return (
 		<div className = {cls.selectWrap}>
@@ -105,6 +107,7 @@ export const SelectHobbies = memo((props: SelectHobbiesProps) => {
 					onChange={onChangeHandler}
 					value = {value}
 					readonly = {readonly}
+					customSize
 				/>
 				<div className = {cls.inputWrap}>
 					<Input

@@ -1,6 +1,6 @@
 import { classNames } from "shared/lib/classNames/classNames"
 import cls from "./RegisterForm.module.scss"
-import React, { memo, useCallback } from "react"
+import React, { memo, useCallback, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch"
 import { useSelector } from "react-redux"
@@ -93,8 +93,21 @@ const RegisterForm = memo(({ className, onSuccess }: RegisterFormProps) => {
 		if (res.meta.requestStatus === "fulfilled") {
 			onSuccess()
 		}
-		
 	}, [dispatch, onSuccess])
+
+	const onKeyDown = useCallback((e: KeyboardEvent) => {
+		if (e.key === "Enter") {
+			onRegister()
+		}
+	}, [onRegister])
+
+	useEffect(() => {
+		window.addEventListener("keydown", onKeyDown)
+
+		return () => {
+			removeEventListener("keydown", onKeyDown)
+		}
+	}, [onKeyDown])
 
 	if (error) {
 		return <h3>{error}</h3>
@@ -189,7 +202,7 @@ const RegisterForm = memo(({ className, onSuccess }: RegisterFormProps) => {
 				onClick = {onRegister}
 				hovered
 			>
-				{t("зарегестрироваться")}
+				{t("поехали")}
 			</Button>
 		</Form>
 	)

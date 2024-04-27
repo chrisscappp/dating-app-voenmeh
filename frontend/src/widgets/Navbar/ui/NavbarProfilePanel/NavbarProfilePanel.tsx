@@ -34,9 +34,9 @@ export const NavbarProfilePanel = memo((props: NavbarProfilePanelProps) => {
 	const isLoading = useSelector(getNotificationsIsLoading)
 	const [ isOpen, setIsOpen ] = useState<boolean>(false)
 
-	useEffect(() => {
-		dispatch(fetchNotifications())
-	}, [dispatch])
+	// useEffect(() => {
+	// 	dispatch(fetchNotifications())
+	// }, [dispatch])
 
 	const onOpenModal = useCallback(() => {
 		setIsOpen(true)

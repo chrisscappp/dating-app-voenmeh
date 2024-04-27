@@ -1,4 +1,4 @@
-import { classNames } from "shared/lib/classNames/classNames"
+import { classNames, Mods } from "shared/lib/classNames/classNames"
 import cls from "./AnketCard.module.scss"
 import DefaultImg from "shared/assets/images/avatar-default.png"
 import { Text, TextSize } from "shared/ui/Text/Text"
@@ -10,104 +10,152 @@ import { Button, ButtonTheme, CircleSize } from "shared/ui/Button/Button"
 import QuestionIcon from "shared/assets/icons/question-icon.svg"
 import CrossIcon from "shared/assets/icons/cross-icon.svg"
 import LikeIcon from "shared/assets/icons/like-icon.svg"
-import WrongIcon from "shared/assets/icons/Wrong-icon.svg"
+import WrongIcon from "shared/assets/icons/wrong-icon.svg"
+import { IUser } from "entity/User"
+import { Alert, AlertPosition, AlertTheme } from "shared/ui/Alert/Alert"
+import { CSSProperties, memo, useCallback, useState } from "react"
 
 interface AnketCardProps {
 	className?: string;
+	user?: IUser;
 }
 
-const mockData = {
-	firstname: "Вася",
-	about: "Чипсы, колы. Королева танцпола hjfghdfh gdg dfhg kdjg hdkf gdg dfg d",
-	confirm: true,
-	age: 56,
-	avatar: DefaultImg
-}
-
-export const AnketCard = (props: AnketCardProps) => {
+export const AnketCard = memo((props: AnketCardProps) => {
 
 	const {
-		className
+		className,
+		user
 	} = props
 
-	const id = "h5VWQIdqhTREGxF7fy4osLc2UJ72"
 	const navigate = useNavigate()
 	const { t } = useTranslation(TranslationKeys.ANKETS_PAGE)
+	const [ isOpenSuccess, setIsOpenSuccess ] = useState<boolean>(false)
+	const [ isOpenError, setIsOpenError ] = useState<boolean>(false)
+	const [ isDisabled, setIsDisabled ] = useState<boolean>(false)
+	const [ cardStyles, setCardStyles ] = useState<CSSProperties>()
 
 	const viewProfile = () => {
-		navigate(`/profile/${id}`)
+		navigate(`/profile/${user?.userId}`)
 		window.scrollTo({top: 0, behavior: "smooth"})
 	}
 
+	const onLikeAnket = useCallback(() => {
+		setIsOpenSuccess(true)
+		setIsDisabled(true)
+		setCardStyles({
+			background: "var(--liked-anket-bg-color)"
+		})
+		setTimeout(() => setIsOpenSuccess(false), 5000)
+	}, [])
+
+	const onDislikeAnket = useCallback(() => {
+		setIsOpenError(true)
+		setIsDisabled(true)
+		setCardStyles({
+			background: "var(--disliked-anket-bg-color)"
+		})
+		setTimeout(() => setIsOpenError(false), 5000)
+	}, [])
 	return (
-		<div className = {classNames(cls.AnketCard, {}, [className])}>
-			<div className = {cls.imgWrap}>
-				<img
-					src = {mockData.avatar}
-					width = {300}
-					height = {320}
-				/>
-			</div>
-			<div className = {cls.body}>
-				<div className = {cls.infoWrap}>
-					<div className = {cls.infoContainer}>
-						<div className = {cls.name}>
-							<Text
-								text = {`${mockData.firstname}, ${mockData.age}`}
-								size = {TextSize.ML}
-							/>
-							{mockData.confirm && 
+		<div className = {classNames(cls.AnketCardWrap, {}, [className])}>
+			<div style = {cardStyles} className = {classNames(cls.AnketCard, {}, [])}>
+				<div className = {cls.imgWrap} onClick = {viewProfile}>
+					{user?.avatar ? <img
+						width = {300}
+						height = {320}
+						style = {{
+							background: `url(${user?.avatar}) center center/cover`
+						}}
+						className = {cls.img}
+					/> : <img
+						width={300}
+						height={320}
+						src = {DefaultImg}
+					/>}
+				
+				</div>
+				<div className = {cls.body}>
+					<div className = {cls.infoWrap}>
+						<div className = {cls.infoContainer}>
+							<div className = {cls.name}>
+								<Text
+									text = {`${user?.firstname}, ${user?.age}`}
+									size = {TextSize.ML}
+								/>
+								{user?.confirm && 
 							<span title = {t("Профиль подтвержден")}>
 								<FamilyIcon className = {cls.icon}/>
 							</span>
-							}
+								}
+							</div>
+							<Text
+								className = {cls.about}
+								text = {user?.about}
+								size = {TextSize.ML}
+							/>
 						</div>
-						<Text
-							className = {cls.about}
-							text = {mockData.about}
-							size = {TextSize.ML}
-						/>
+					</div>
+					<div className = {cls.btns}>
+						<Button 
+							circle 
+							theme = {ButtonTheme.MONO}
+							circleSize = {CircleSize.L}
+							className = {cls.btn}
+							onClick = {viewProfile}
+							title = {t("Открыть профиль пользователя")}
+						>
+							<QuestionIcon className = {cls.questionIcon}/>
+						</Button>
+						<Button 
+							circle 
+							theme = {ButtonTheme.MONO} 
+							circleSize = {CircleSize.XXL}
+							className = {cls.btn}
+							onClick = {onDislikeAnket}
+							disabled = {isDisabled}
+						>
+							<CrossIcon/>
+						</Button>
+						<Button 
+							circle 
+							theme = {ButtonTheme.MONO} 
+							circleSize = {CircleSize.XXL}
+							className = {cls.btn}
+							onClick = {onLikeAnket}
+							disabled = {isDisabled}
+						>
+							<LikeIcon/>
+						</Button>
+						<Button 
+							circle 
+							theme = {ButtonTheme.MONO}
+							circleSize = {CircleSize.L}
+							className = {cls.btn}
+							title = {t("Пожаловаться на анкету")}
+						>
+							<WrongIcon/>
+						</Button>
 					</div>
 				</div>
-				<div className = {cls.btns}>
-					<Button 
-						circle 
-						theme = {ButtonTheme.MONO}
-						circleSize = {CircleSize.L}
-						className = {cls.btn}
-						onClick = {viewProfile}
-						title = {t("Открыть профиль пользователя")}
-					>
-						<QuestionIcon className = {cls.questionIcon}/>
-					</Button>
-					<Button 
-						circle 
-						theme = {ButtonTheme.MONO} 
-						circleSize = {CircleSize.XXL}
-						className = {cls.btn}
-					>
-						<CrossIcon/>
-					</Button>
-					<Button 
-						circle 
-						theme = {ButtonTheme.MONO} 
-						circleSize = {CircleSize.XXL}
-						className = {cls.btn}
-					>
-						<LikeIcon/>
-					</Button>
-					<Button 
-						circle 
-						theme = {ButtonTheme.MONO}
-						circleSize = {CircleSize.L}
-						className = {cls.btn}
-						title = {t("Пожаловаться на анкету")}
-					>
-						<WrongIcon/>
-					</Button>
-				</div>
 			</div>
-			
+			{
+				isOpenSuccess &&
+				<Alert
+					isOpen = {isOpenSuccess}
+					text = {"Лайк отправлен!"}
+					theme = {AlertTheme.SUCCESS}
+					position = {AlertPosition.BOTTOM_RIGHT}
+				/>
+			}
+			{
+				isOpenError &&
+				<Alert
+					isOpen = {isOpenError}
+					text = {"Анкета отклонена"}
+					theme = {AlertTheme.ERROR}
+					position = {AlertPosition.BOTTOM_RIGHT}
+				/>
+			}
 		</div>
 	)
-}
+})

@@ -1,4 +1,4 @@
-import React, { FormEvent, memo, useCallback, useRef, useState } from "react"
+import React, { FormEvent, memo, useCallback, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import cls from "./ProfileCard.module.scss"
@@ -22,6 +22,7 @@ import { ProfileCardSkeleton } from "./ProfileCardSkeleton/ProfileCardSkeleton"
 import { Portal } from "shared/ui/Portal/Portal"
 import { useNavigate } from "react-router"
 import ArrowBack from "shared/assets/icons/arrow-back.svg"
+import { Alert, AlertPosition, AlertTheme } from "shared/ui/Alert/Alert"
 
 interface ProfileCardProps {
 	isAuthUser?: boolean;
@@ -54,6 +55,8 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 
 	const { t } = useTranslation(TranslationKeys.PROFILE_PAGE)
 	const [ isOpen, setIsOpen ] = useState<boolean>()
+	const [ isOpenSuccessAlert, setIsOpenSuccessAlert ] = useState<boolean>(false)
+	const [ isOpenErrorAlert, setIsOpenErrorAlert ] = useState<boolean>(false)
 	const filePickerRef = useRef(null)
 	const navigate = useNavigate()
 
@@ -83,6 +86,8 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 			</div>
 		)
 	}
+
+	console.log("isOpenSuccessAlert", window.innerHeight)
 	
 	return (
 		<div className = {classNames(cls.ProfileCard, {}, [className])}>
@@ -91,6 +96,7 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 				circleSize = {CircleSize.L}
 				theme = {ButtonTheme.BACKGROUND_INVERTED}
 				onClick = {goBack}
+				className = {cls.backBtn}
 			>
 				<ArrowBack className = {cls.arrow}/>
 			</Button>
@@ -146,7 +152,7 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 							</div>
 						}
 						<Text
-							text = {`${data?.birthday}, ` + t(`${data?.sex}`)}
+							text = {`${data?.age}, ` + t(`${data?.sex}`)}
 							className = {cls.age}
 						/>
 						<div className = {cls.selectorsWrap}>
@@ -191,6 +197,8 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 							onCancelEdit = {onCancelEdit}
 							onChangeReadonly = {onChangeReadonly}
 							onEditProfile = {onEditProfile}
+							setIsOpenSuccess = {setIsOpenSuccessAlert}
+							setIsOpenError = {setIsOpenErrorAlert}
 						/>
 					</div>
 				}
@@ -248,6 +256,24 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 						src = {data?.avatar}
 					/>
 				</Portal>
+			}
+			{
+				isOpenSuccessAlert &&
+				<Alert
+					position = {AlertPosition.TOP_RIGHT}
+					theme = {AlertTheme.SUCCESS}
+					text = {"На вашу почту пришло письмо!"}
+					className = {cls.alert}
+				/>
+			}
+			{
+				isOpenErrorAlert &&
+				<Alert
+					position = {AlertPosition.TOP_RIGHT}
+					theme = {AlertTheme.ERROR}
+					text = {"Что-то пошло не так"}
+					className = {cls.alert}
+				/>
 			}
 		</div>	
 	)

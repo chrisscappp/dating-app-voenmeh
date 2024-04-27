@@ -1,6 +1,6 @@
 import { classNames } from "shared/lib/classNames/classNames"
 import cls from "./LoginForm.module.scss"
-import React, { useCallback, memo, useState } from "react"
+import React, { useCallback, memo, useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, ButtonTheme } from "shared/ui/Button/Button"
 import { Input } from "shared/ui/Input/Input"
@@ -55,6 +55,20 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
 			onSuccess()
 		}
 	}, [dispatch, password, username, onSuccess])
+
+	const onKeyDown = useCallback((e: KeyboardEvent) => {
+		if (e.key === "Enter") {
+			onAuth()
+		}
+	}, [onAuth])
+
+	useEffect(() => {
+		window.addEventListener("keydown", onKeyDown)
+
+		return () => {
+			removeEventListener("keydown", onKeyDown)
+		}
+	}, [onKeyDown])
 
 	if (isLoading) {
 		return <Loader/>

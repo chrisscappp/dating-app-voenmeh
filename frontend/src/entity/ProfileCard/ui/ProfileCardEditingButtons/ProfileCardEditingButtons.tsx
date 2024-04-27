@@ -3,7 +3,7 @@ import cls from "./ProfileCardEditingButtons.module.scss"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import { ChangePasswordModal } from "feautures/ChangePassword" // !нарушена архитектура
-import { useCallback, useState } from "react"
+import { Dispatch, memo, SetStateAction, useCallback, useState } from "react"
 import { Portal } from "shared/ui/Portal/Portal"
 
 interface ProfileCardEditingButtonsProps {
@@ -11,15 +11,19 @@ interface ProfileCardEditingButtonsProps {
 	onChangeReadonly?: () => void;
 	onCancelEdit?: () => void;
 	onEditProfile?: () => void;
+	setIsOpenSuccess?: Dispatch<SetStateAction<boolean>>;
+	setIsOpenError?: Dispatch<SetStateAction<boolean>>;
 }
 
-export const ProfileCardEditingButtons = (props: ProfileCardEditingButtonsProps) => {
+export const ProfileCardEditingButtons = memo((props: ProfileCardEditingButtonsProps) => {
 	
 	const {
 		onCancelEdit,
 		readonly,
 		onChangeReadonly,
-		onEditProfile
+		onEditProfile,
+		setIsOpenError,
+		setIsOpenSuccess
 	} = props
 
 	const { t } = useTranslation(TranslationKeys.PROFILE_PAGE)
@@ -32,6 +36,16 @@ export const ProfileCardEditingButtons = (props: ProfileCardEditingButtonsProps)
 	const onOpenModal = useCallback(() => {
 		setIsOpen(true)
 	}, [])
+
+	const onOpenSuccessAlert = useCallback(() => {
+		setIsOpenSuccess?.(true)
+		setTimeout(() => setIsOpenSuccess?.(false), 5000)
+	}, [setIsOpenSuccess])
+
+	const onOpenErrorAlert = useCallback(() => {
+		setIsOpenError?.(true)
+		setTimeout(() => setIsOpenError?.(false), 5000)
+	}, [setIsOpenError])
 
 	return (
 		<>
@@ -76,9 +90,10 @@ export const ProfileCardEditingButtons = (props: ProfileCardEditingButtonsProps)
 				<ChangePasswordModal
 					isOpen = {isOpen}
 					onClose = {onCloseModal}
+					onOpenSuccessAlert = {onOpenSuccessAlert}
+					onOpenErrorAlert = {onOpenErrorAlert}
 				/>
 			</Portal>}
-			
 		</>
 	)
-}
+})

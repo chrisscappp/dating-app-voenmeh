@@ -1,16 +1,8 @@
-import random
-import string
-from database import db
+from datetime import date
 
 
-def generateId() -> str:
-    while True:
-        idLength = 4
-        text = [random.choice(string.ascii_lowercase + string.digits + string.ascii_uppercase) for i in
-                range(idLength)]
-        text = ''.join(text)
-        for _ in db.child("user").order_by_child("id").equal_to(text).get():
-            generateId()
-        else:
-            break
-    return text
+def birthday_to_age(birthday: str) -> int:
+    list_age = birthday.split('.')
+    born = date(int(list_age[2]), int(list_age[1]), int(list_age[0]))
+    today = date.today()
+    return today.year - born.year - ((today.month, today.day) < (born.month, born.day))

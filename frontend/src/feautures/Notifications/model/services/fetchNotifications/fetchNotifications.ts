@@ -19,7 +19,11 @@ export const fetchNotifications = createAsyncThunk<
 		const authData = getUserAuthData(getState())
 
 		try {
-			const response = await extra.api.get<string[]>(`/notifications/${authData?.userId}`)
+			const response = await extra.api.get<string[]>(`/notifications/${authData?.userId}`, {
+				headers: {
+					"Content-Type": "application/json"
+				}
+			})
 			if (!response.data) {
 				throw new Error("Данные не найдены")
 			}
