@@ -1,5 +1,5 @@
 import json
-from functions import birthday_to_age
+from functions import birthday_to_age, remove_dislikes
 from options import app
 from fastapi import HTTPException
 from requests import HTTPError
@@ -32,8 +32,9 @@ def auth_user(user: UserLog):
                     or you can try again later.""":
             raise HTTPException(status_code=403, detail="Too many attempts")
     else:
+        remove_dislikes(current_user["userId"])
         data = db.child("user").order_by_child("userId").equal_to(current_user["userId"]).get()[0].val() | \
-               db.child("userInfo").order_by_child("userId").equal_to(current_user["userId"]).get()[0].val()| \
+               db.child("userInfo").order_by_child("userId").equal_to(current_user["userId"]).get()[0].val() | \
                {"age": birthday_to_age(db.child("userInfo").child(current_user["userId"]).get().val()["birthday"])}
         return User(**data)
 
@@ -69,4 +70,7 @@ def register_user(user: UserReg):
             data = list(db.child(user.sex).get().val())
             data.append(current_user["userId"])
             db.child(user.sex).set(data)
-        return db.child("user").order_by_child("userId").equal_to(current_user["userId"]).get()[0].val()
+        data = db.child("user").order_by_child("userId").equal_to(current_user["userId"]).get()[0].val() | \
+               db.child("userInfo").order_by_child("userId").equal_to(current_user["userId"]).get()[0].val() | \
+               {"age": birthday_to_age(db.child("userInfo").child(current_user["userId"]).get().val()["birthday"])}
+        return User(**data)

@@ -60,3 +60,20 @@ class UserReg(BaseModel):
     sex: str
     birthday: str
     createdAt: str
+
+
+class UserEdit(BaseModel):
+    userId: str = ""
+    firstname: str
+    lastname: str
+    sex: str
+    age: int
+    createdAt: str = ""
+    faculty: str = ""
+    course: int = 0
+    confirm: bool = False
+    about: str = ""
+    interested: list = None
+    hobbies: list = None
+    contacts: dict = None
+    avatar: str = None

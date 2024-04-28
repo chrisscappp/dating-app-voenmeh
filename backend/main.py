@@ -1,13 +1,13 @@
 import json
 
 import auth
-import profiles
-
+import profiles, likes
+from functions import birthday_to_age, remove_dislikes
 from options import app
 from fastapi import HTTPException
 from pydantic import BaseModel
 from requests import HTTPError
-from database import auth, db, User, UserInfo
+from database import auth, db, UserEdit, UserInfo
 
 
 @app.get("/profile/{user_id}")
@@ -59,7 +59,10 @@ def edit_profile(user_id: str, user: UserInfo):
             data = list(db.child("friends").get().val())
             data.remove(user_id)
             db.child("friends").set(data)
-        return db.child("userInfo").order_by_child("userId").equal_to(user_id).get()[0].val()
+        data = db.child("user").order_by_child("userId").equal_to(user_id).get()[0].val() | \
+               db.child("userInfo").order_by_child("userId").equal_to(user_id).get()[0].val() | \
+               {"age": birthday_to_age(db.child("userInfo").child(user_id).get().val()["birthday"])}
+        return UserEdit(**data)
     raise HTTPException(status_code=404)
 
 
@@ -99,6 +102,45 @@ def delete_profile(user_id: str, user: DataDelete):
         data = list(db.child(sex).get().val())
         data.remove(user_id)
         db.child(sex).set(data)
+        # удаление из лайков
+        db.child("likes").child(user_id).remove()
+        try:
+            list_likes = list(db.child("likes").get().val())
+            for person in list_likes:
+                list_likes_2 = (db.child("likes").get().val()[person])
+                if list_likes_2.count(user_id):
+                    list_likes_2.remove(user_id)
+                db.child("likes").update({person: list_likes_2})
+        except:
+            pass
+        # удаление из дизлайков
+        try:
+            list_dislikes = list(db.child("dislikes").get().val()[user_id])
+            count = 0
+            for person in list_dislikes:
+                list_dislikes.pop(count)
+                list_dislikes_2 = list(db.child("dislikes").get().val()[person["userId"]])
+                count_2 = 0
+                for person_2 in list_dislikes_2:
+                    if person_2["userId"] == user_id:
+                        list_dislikes_2.pop(count_2)
+                    count_2 += 1
+                db.child("dislikes").update({person["userId"]: list_dislikes_2})
+                count += 1
+            db.child("dislikes").update({user_id: list_dislikes})
+        except:
+            pass
+        # удаление из симпатий
+        db.child("sympathies").child(user_id).remove()
+        try:
+            list_likes = list(db.child("sympathies").get().val())
+            for person in list_likes:
+                list_likes_2 = (db.child("sympathies").get().val()[person])
+                if list_likes_2.count(user_id):
+                    list_likes_2.remove(user_id)
+                db.child("sympathies").update({person: list_likes_2})
+        except:
+            pass
         db.child("user").child(user_id).remove()
         db.child("userInfo").child(user_id).remove()
     except HTTPError as e:
