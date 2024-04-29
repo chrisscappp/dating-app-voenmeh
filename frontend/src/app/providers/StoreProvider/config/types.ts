@@ -9,10 +9,8 @@ import { ChangePasswordSchema } from "feautures/ChangePassword"
 import { DeleteAccountSchema } from "feautures/DeleteAccount"
 import { NotificationsSchema } from "feautures/Notifications"
 import { AnketsPageSchema } from "entity/Anket"
-import { MobileSchema } from "shared/lib/slices/mobile/types"
 
 export interface StateSchema {
-	mobile: MobileSchema,
 	user: UserSchema,
 	notifications: NotificationsSchema
 

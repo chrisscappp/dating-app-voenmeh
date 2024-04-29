@@ -24,6 +24,10 @@ interface AlertProps {
 	text?: string;
 	isOpen?: boolean;
 	position?: AlertPosition
+	top?: string | number;
+	right?: string | number;
+	left?: string | number;
+	bottom?: string | number;
 }
 
 export const Alert = memo((props: AlertProps) => {
@@ -33,17 +37,28 @@ export const Alert = memo((props: AlertProps) => {
 		text,
 		theme = AlertTheme.DEFAULT,
 		isOpen,
-		position = AlertPosition.TOP_LEFT
+		position = AlertPosition.TOP_LEFT,
+		top,
+		bottom,
+		left,
+		right
 	} = props
+
+	const styles: CSSProperties = {
+		top: top,
+		right: right,
+		left: left,
+		bottom: bottom
+	}
 
 	const mods: Mods = {
 		[cls[theme]]: true,
-		[cls[position]]: true,
+		[cls[position]]: (top || right || left || bottom) ? false : true,
 		[cls.isOpen]: isOpen
 	}
 
 	return (
-		<div className = {classNames(cls.Alert, mods, [className])}>
+		<div style = {styles} className = {classNames(cls.Alert, mods, [className])}>
 			<Text
 				text = {text}
 				theme = {TextTheme.PRIMARY}

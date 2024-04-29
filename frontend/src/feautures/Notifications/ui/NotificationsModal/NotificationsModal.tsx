@@ -1,5 +1,5 @@
 import { classNames } from "shared/lib/classNames/classNames"
-import React, { Suspense } from "react"
+import { Suspense } from "react"
 import { Modal } from "shared/ui/Modal/Modal"
 import { NotificationsFormAsync } from "../NotificationsForm/Notifications.async"
 import { Loader } from "shared/ui/Loader/Loader"

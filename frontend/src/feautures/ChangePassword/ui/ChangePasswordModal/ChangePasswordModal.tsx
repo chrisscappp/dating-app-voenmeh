@@ -1,5 +1,5 @@
 import { classNames } from "shared/lib/classNames/classNames"
-import React, { Suspense } from "react"
+import { Suspense } from "react"
 import { Modal } from "shared/ui/Modal/Modal"
 import { ChangePasswordFormAsync } from "../ChangePasswordForm/ChangePasswordForm.async"
 import { Loader } from "shared/ui/Loader/Loader"

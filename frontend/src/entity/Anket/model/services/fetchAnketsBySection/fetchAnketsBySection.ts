@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { ThunkConfig } from "app/providers/StoreProvider"
-import axios from "axios"
-import { IUser } from "entity/User"
+import { getUserAuthData, IUser } from "entity/User"
 
 export const fetchAnketsBySection = createAsyncThunk<
 	IUser[], 
@@ -13,13 +12,17 @@ export const fetchAnketsBySection = createAsyncThunk<
 		const {
 			extra,
 			rejectWithValue,
+			getState
 		} = thunkAPI
 
+		const authId = getUserAuthData(getState())
+	
 		try {
-			const response = await extra.api.get(`/${sectionId}`)
+			const response = await extra.api.get(`/${sectionId}/${authId}`)
 			if (!response.data) {
 				throw new Error()
 			}
+			console.log("RESPINSE", response)
 			return response.data.profiles
 		} catch (e) {
 			console.error(e)

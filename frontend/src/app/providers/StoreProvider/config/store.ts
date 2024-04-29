@@ -5,7 +5,6 @@ import { userReducer } from "entity/User"
 import { $api } from "shared/api/api"
 import { useNavigate } from "react-router"
 import { notificationsReducer } from "feautures/Notifications"
-import { mobileReducer } from "shared/lib/slices/mobile/mobileSlice"
 
 export function createReduxStore(
 	initialState?: StateSchema,
@@ -14,8 +13,7 @@ export function createReduxStore(
 	const rootReducers: ReducersMapObject<StateSchema> = {
 		...asyncReducers,
 		user: userReducer,
-		notifications: notificationsReducer,
-		mobile: mobileReducer
+		notifications: notificationsReducer
 	}
 
 	const reducerManager = createReducerManager(rootReducers)

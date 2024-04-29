@@ -14,11 +14,17 @@ const reducers: ReducersList = {
 const ProfilePage = () => {
 	
 	const state = useSelector(getProfileState)
+
+	const { id: userId } = useParams()
 	
 	return (
 		<DynamicModuleLoader reducers = {reducers} removeAfterUnmount>
 			<Page className = {classNames(cls.ProfilePage, {}, [])}>
-				{state && <EditableProfileCard/>}
+				{state && 
+					<EditableProfileCard
+						userId = {userId ? userId : ""}
+					/>
+				}
 			</Page>
 		</DynamicModuleLoader>
 		

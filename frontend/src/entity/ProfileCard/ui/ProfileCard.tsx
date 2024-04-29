@@ -1,4 +1,4 @@
-import React, { FormEvent, memo, useCallback, useMemo, useRef, useState } from "react"
+import React, { FormEvent, memo, useCallback, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import cls from "./ProfileCard.module.scss"
@@ -27,6 +27,7 @@ import { Alert, AlertPosition, AlertTheme } from "shared/ui/Alert/Alert"
 interface ProfileCardProps {
 	isAuthUser?: boolean;
 	isLoading?: boolean;
+	isAvatarAlert?: boolean;
 	className?: string;
 	data?: Profile;
 	readonly?: boolean;
@@ -47,7 +48,7 @@ interface ProfileCardProps {
 export const ProfileCard = memo((props: ProfileCardProps) => {
 	
 	const {
-		isLoading, className, isAuthUser, data, onChangeAvatar,
+		isLoading, className, isAuthUser, isAvatarAlert, data, onChangeAvatar,
 		readonly, onEditProfile, onChangeReadonly, onChangeFirstname,
 		onChangeLastname, onChangeFacultet, onChangeInterested, onChangeHobbies,
 		onChangeContacts, onChangeAbout, onChangeCourse, onCancelEdit
@@ -86,8 +87,6 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 			</div>
 		)
 	}
-
-	console.log("isOpenSuccessAlert", window.innerHeight)
 	
 	return (
 		<div className = {classNames(cls.ProfileCard, {}, [className])}>
@@ -272,6 +271,15 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 					position = {AlertPosition.TOP_RIGHT}
 					theme = {AlertTheme.ERROR}
 					text = {"Что-то пошло не так"}
+					className = {cls.alert}
+				/>
+			}
+			{
+				isAvatarAlert &&
+				<Alert
+					position = {AlertPosition.TOP_RIGHT}
+					theme = {AlertTheme.ERROR}
+					text = {"Выберите файл меньше 4мб"}
 					className = {cls.alert}
 				/>
 			}
