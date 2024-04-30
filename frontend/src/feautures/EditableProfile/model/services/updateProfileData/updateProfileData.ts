@@ -32,7 +32,7 @@ export const updateProfileData = createAsyncThunk<
 				}
 			})
 
-			console.log("RESPONSE", response.data)
+			console.log("RESPONSE ss", response.data)
 			
 			if (!response.data) {
 				throw new Error()
