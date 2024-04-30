@@ -7,14 +7,27 @@ from options import app
 from fastapi import HTTPException
 from pydantic import BaseModel
 from requests import HTTPError
-from database import auth, db, UserEdit, UserInfo
+from database import auth, db, UserEdit, UserInfo, Like, UserEdit2
+from fastapi.responses import JSONResponse
 
 
-@app.get("/profile/{user_id}")
-def get_profile(user_id: str):
-    current_user = db.child("userInfo").order_by_child("userId").equal_to(user_id).get()
+@app.post("/profile")
+def get_profile(users: Like):
+    current_user = db.child("userInfo").order_by_child("userId").equal_to(users.otheruserId).get()
     for _ in current_user:
-        return current_user[0].val()
+        data = db.child("user").order_by_child("userId").equal_to(users.otheruserId).get()[0].val() | \
+               db.child("userInfo").order_by_child("userId").equal_to(users.otheruserId).get()[0].val() | \
+               {"age": birthday_to_age(db.child("userInfo").child(users.otheruserId).get().val()["birthday"])}
+        if users.userId == users.otheruserId:
+            return UserEdit(**data)
+        try:
+            list_sympathies = list(db.child("sympathies").get().val()[users.userId])
+        except:
+            list_sympathies = []
+        if list_sympathies.count(users.otheruserId):
+            return UserEdit(**data)
+        else:
+            return UserEdit2(**data)
     raise HTTPException(status_code=404)
 
 

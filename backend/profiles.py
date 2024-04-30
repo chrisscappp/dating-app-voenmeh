@@ -2,7 +2,7 @@ from functions import birthday_to_age
 from options import app
 from pydantic import BaseModel
 from database import db, User
-from fastapi import Request
+
 
 class profiles_list(BaseModel):
     profiles: list = []
