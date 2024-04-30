@@ -80,6 +80,8 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 		navigate(-1)
 	}
 
+	console.log("location", document.title)
+
 	if (isLoading) {
 		return (
 			<div className = {classNames(cls.ProfileCard, {}, [className])}>

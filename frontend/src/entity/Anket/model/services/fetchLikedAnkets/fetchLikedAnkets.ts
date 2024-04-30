@@ -1,14 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { ThunkConfig } from "app/providers/StoreProvider"
 import { getUserAuthData, IUser } from "entity/User"
+import { AnketsPesponse } from "../../types/likedAnkets"
 
-export const fetchAnketsBySection = createAsyncThunk<
+export const fetchLikedAnkets = createAsyncThunk<
 	IUser[], 
-	string, 
+	void, 
 	ThunkConfig<string>
 >(
-	"ankets/fetchAnketsBySection",
-	async (sectionId, thunkAPI) => {
+	"ankets/fetchLikedAnkets",
+	async (_, thunkAPI) => {
 		const {
 			extra,
 			rejectWithValue,
@@ -18,11 +19,11 @@ export const fetchAnketsBySection = createAsyncThunk<
 		const authData = getUserAuthData(getState())
 	
 		try {
-			const response = await extra.api.get(`/${sectionId}/${authData?.userId}`)
+			const response = await extra.api.get(`/likedAnkets/${authData?.userId}`)
 			if (!response.data) {
 				throw new Error()
 			}
-			console.log("RESPINSE", response)
+
 			return response.data.profiles
 		} catch (e) {
 			console.error(e)

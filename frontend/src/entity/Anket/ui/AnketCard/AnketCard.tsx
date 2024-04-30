@@ -5,17 +5,16 @@ import FamilyIcon from "shared/assets/icons/family-icon.svg"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import { IUser } from "entity/User"
-import { memo, useCallback } from "react"
+import { memo, useCallback, useRef } from "react"
 import TinderCard from "react-tinder-card"
 import { Card } from "shared/ui/Card/Card"
-import { SwippedButtons } from "entity/SwippedButtons"
-import { useNavigate } from "react-router"
 
 interface AnketCardProps {
 	className?: string;
 	user?: IUser;
 	onLikeAnket?: () => void;
 	onDislikeAnket?: () => void;
+	swiped?: boolean;
 }
 
 type Direction = "left" | "right" | "up" | "down"
@@ -26,12 +25,15 @@ export const AnketCard = memo((props: AnketCardProps) => {
 		className,
 		user,
 		onDislikeAnket,
-		onLikeAnket
+		onLikeAnket,
+		swiped = false
 	} = props
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const cardRef = useRef() as any
 	const { t } = useTranslation(TranslationKeys.ANKETS_PAGE)
 
-	const swiped = useCallback((direction: Direction) => {
+	const swipe = useCallback((direction: Direction) => {
 		if (direction === "right") {
 			onLikeAnket?.()
 		} else {
@@ -39,10 +41,16 @@ export const AnketCard = memo((props: AnketCardProps) => {
 		}
 	}, [onDislikeAnket, onLikeAnket])
 
+	const outOfFrame = () => {
+		cardRef?.current?.restoreCard()
+	}
+
 	return (
 		<TinderCard
+			ref = {cardRef}
 			className = {classNames(cls.swipe, {}, ["pressable"])}
-			onSwipe = {(direction) => swiped(direction)}
+			onSwipe = {(direction) => swiped && swipe(direction)}
+			onCardLeftScreen = {() => swiped && outOfFrame()}
 			preventSwipe={["up", "down"]}
 		>
 			<Card className = {classNames(cls.card, {}, [])}>
