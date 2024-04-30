@@ -8,6 +8,7 @@ import { Text, TextSize, TextTheme } from "shared/ui/Text/Text"
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch"
 import { useSelector } from "react-redux"
 import { 
+	getLoginFormEmail,
 	getLoginFormError, 
 	getLoginFormIsLoading, 
 	getLoginFormPassword, 
@@ -31,6 +32,7 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
 	const { t } = useTranslation(TranslationKeys.MAIN_PAGE)
 	const dispatch = useAppDispatch()
 	const username = useSelector(getLoginFormUsername)
+	const email = useSelector(getLoginFormEmail)
 	const password = useSelector(getLoginFormPassword)
 	const isLoading = useSelector(getLoginFormIsLoading)
 	const error = useSelector(getLoginFormError)
@@ -43,6 +45,7 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
 
 	const onChangeUsername = useCallback((value: string) => {
 		dispatch(loginFormActions.setUsername(value))
+		dispatch(loginFormActions.setEmail(value))
 	}, [dispatch])
 
 	const onChangePassword = useCallback((value: string) => {
@@ -50,11 +53,11 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
 	}, [dispatch])
 
 	const onAuth = useCallback(async () => {
-		const res = await dispatch(loginByUsername({email: "", login: username, password}))
+		const res = await dispatch(loginByUsername({email: email, login: username, password}))
 		if (res.meta.requestStatus === "fulfilled") {
 			onSuccess()
 		}
-	}, [dispatch, password, username, onSuccess])
+	}, [dispatch, email, username, password, onSuccess])
 
 	const onKeyDown = useCallback((e: KeyboardEvent) => {
 		if (e.key === "Enter") {

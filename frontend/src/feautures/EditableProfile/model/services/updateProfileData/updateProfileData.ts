@@ -16,21 +16,30 @@ export const updateProfileData = createAsyncThunk<
 			getState
 		} = thunkAPI
 
+		
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const formData = getProfileForm(getState())
 
 		//const errors = validateProfileData(formData)
 		//if (errors.length) {
 		//	return rejectWithValue(errors)
 		//}
+		const copy = JSON.parse(JSON.stringify(formData))
 
-		console.log("FORMDATA", formData)
+		for (const key in copy) {
+			if (copy[key] === null) {
+				copy[key] = undefined
+			}
+		}
 		
 		try {
-			const response = await extra.api.put<Profile>(`/edit/${userId}`, formData, {
+			console.log("BEFORE")
+			const response = await extra.api.put<Profile>(`/edit/${userId}`, copy, {
 				headers: {
 					"Content-Type": "application/json"
 				}
 			})
+			console.log("AFTER")
 
 			console.log("RESPONSE ss", response.data)
 			

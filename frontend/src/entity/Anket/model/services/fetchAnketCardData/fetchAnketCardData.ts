@@ -19,15 +19,10 @@ export const fetchAnketCardData = createAsyncThunk<
 
 		const authData = getUserAuthData(getState())
 
-		const requestObj: {
-			userId: string,
-			otheruserId : string
-		} = {
+		const requestObj = {
 			userId: authData ? authData.userId : "",
 			otheruserId: profileId
 		}
-
-		console.log("requestObj", requestObj)
 
 		try {
 			const response = await extra.api.post<Profile>("/profile", requestObj, {
@@ -38,6 +33,8 @@ export const fetchAnketCardData = createAsyncThunk<
 			if (!response.data) {
 				throw new Error("Данные не найдены")
 			}
+
+			console.log("RESPONSE", response)
 		
 			return response.data
 		} catch (e: unknown) {

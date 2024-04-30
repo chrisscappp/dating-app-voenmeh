@@ -80,7 +80,7 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 		navigate(-1)
 	}
 
-	console.log("location", document.title)
+	const test = data?.contacts || data?.contacts === null
 
 	if (isLoading) {
 		return (
@@ -232,15 +232,19 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 						readonly = {readonly}
 					/>
 				</div>
-				<div className = {cls.infoBlock}>
-					<ProfileCardContactsInfoBlock
-						title = {t("Контакты")}
-						areaPlaceholder = {t("Вы можете оставить свои контакты для тех, с кем построите взаимную симпатию")}
-						data = {data?.contacts}
-						onChange = {onChangeContacts}
-						readonly = {readonly}
-					/>
-				</div>
+				{
+					test &&
+					<div className = {cls.infoBlock}>
+						<ProfileCardContactsInfoBlock
+							title = {t("Контакты")}
+							areaPlaceholder = {t("Вы можете оставить свои контакты для тех, с кем построите взаимную симпатию")}
+							data = {data?.contacts}
+							onChange = {onChangeContacts}
+							readonly = {readonly}
+						/>
+					</div>
+				}
+				
 			</div>
 			<ProfileCardFooterButtons
 				isAuthUser = {isAuthUser}
