@@ -9,6 +9,7 @@ export interface Contact {
 
 //fixed
 export interface Profile {
+	//birthday?: string;
 	firstname?: string;
 	lastname?: string;
 	age?: number;

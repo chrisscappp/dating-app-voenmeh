@@ -2,7 +2,7 @@ from functions import birthday_to_age
 from options import app
 from pydantic import BaseModel
 from database import db, User
-from fastapi import Request
+
 
 class profiles_list(BaseModel):
     profiles: list = []
@@ -48,27 +48,27 @@ def profiles_female(user_id: str):
     return get_profiles("female", user_id)
 
 
-@app.get("/facultet_a/{user_id}")
+@app.get("/facultet_A/{user_id}")
 def profiles_A(user_id: str):
     return get_profiles("А", user_id)
 
 
-@app.get("/facultet_o/{user_id}")
+@app.get("/facultet_O/{user_id}")
 def profiles_O(user_id: str):
     return get_profiles("О", user_id)
 
 
-@app.get("/facultet_r/{user_id}")
+@app.get("/facultet_R/{user_id}")
 def profiles_R(user_id: str):
     return get_profiles("Р", user_id)
 
 
-@app.get("/facultet_i/{user_id}")
+@app.get("/facultet_I/{user_id}")
 def profiles_I(user_id: str):
     return get_profiles("И", user_id)
 
 
-@app.get("/facultet_e/{user_id}")
+@app.get("/facultet_E/{user_id}")
 def profiles_E(user_id: str):
     return get_profiles("Е", user_id)
 

@@ -5,7 +5,6 @@ import { Page } from "widgets/Page"
 import { DynamicModuleLoader, ReducersList } from "shared/lib/components/DynamicModuleLoader/DynamicModuleLoader"
 import { useStore } from "react-redux"
 import cls from "./AnketsPageDetail.module.scss"
-import { SwippedButtons } from "entity/SwippedButtons"
 
 const reducers: ReducersList = {
 	ankets: anketsPageReducer

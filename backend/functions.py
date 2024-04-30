@@ -28,3 +28,4 @@ def remove_dislikes(userId: str):
         db.child("dislikes").update({userId: list_dislikes})
     except:
         pass
+

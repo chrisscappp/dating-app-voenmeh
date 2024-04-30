@@ -4,7 +4,7 @@ from options import app
 from fastapi import HTTPException
 from requests import HTTPError
 
-from database import auth, db, User, UserInfo, UserLog, UserReg
+from database import auth, db, UserEdit, User, UserLog, UserReg
 
 
 @app.post("/auth")
@@ -73,4 +73,4 @@ def register_user(user: UserReg):
         data = db.child("user").order_by_child("userId").equal_to(current_user["userId"]).get()[0].val() | \
                db.child("userInfo").order_by_child("userId").equal_to(current_user["userId"]).get()[0].val() | \
                {"age": birthday_to_age(db.child("userInfo").child(current_user["userId"]).get().val()["birthday"])}
-        return User(**data)
+        return UserEdit(**data)

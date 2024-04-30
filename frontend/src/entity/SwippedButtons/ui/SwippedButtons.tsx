@@ -1,4 +1,4 @@
-import { memo } from "react"
+import { memo, useCallback } from "react"
 import { Button, ButtonTheme, CircleSize } from "shared/ui/Button/Button"
 import cls from "./SwippedButtons.module.scss"
 import { useTranslation } from "react-i18next"
@@ -8,64 +8,109 @@ import CrossIcon from "shared/assets/icons/cross-icon.svg"
 import LikeIcon from "shared/assets/icons/like-icon.svg"
 import WrongIcon from "shared/assets/icons/wrong-icon.svg"
 import { classNames } from "shared/lib/classNames/classNames"
+import { useNavigate } from "react-router"
+import { useMobile } from "shared/lib/hooks/useMobile"
+import { useAppDispatch } from "shared/lib/hooks/useAppDispatch"
+import { dislikeAnketCard, getAnketsPageTopStack, likeAnketCard } from "entity/Anket"
+import { useSelector } from "react-redux"
 
 interface SwippedButtonsProps {
-	viewProfile?: () => void; 
 	className?: string;
-	onLikeAnket?: () => void;
-	onDislikeAnket?: () => void;
+	mountCross?: boolean,
+	mountQuestion?: boolean,
+	mountLike?: boolean,
+	mountWrong?: boolean,
+	swipe?: (dir: string) => void;
 }
 
 export const SwippedButtons = memo((props: SwippedButtonsProps) => {
 
 	const { 
 		className, 
-		viewProfile,
-		onDislikeAnket,
-		onLikeAnket
+		mountCross = true,
+		mountLike,
+		mountQuestion,
+		mountWrong,
+		swipe
 	} = props
 
 	const { t } = useTranslation(TranslationKeys.ANKETS_PAGE)
 
+	const navigate = useNavigate()
+	const mobile = useMobile()
+	const dispatch = useAppDispatch()
+	const topStack = useSelector(getAnketsPageTopStack)
+
+	const viewProfile = () => {
+		navigate(`/profile/${topStack}`)
+		window.scrollTo({top: 0, behavior: "smooth"})
+	}
+
+	const onLikeAnket = useCallback(async () => {
+		const response = await dispatch(likeAnketCard(topStack ? topStack : ""))
+		if (response.meta.requestStatus === "fulfilled") {
+			!mobile && swipe?.("right")
+		}
+	}, [dispatch, mobile, swipe, topStack])
+
+	const onDislikeAnket = useCallback(async () => {
+		const response = await dispatch(dislikeAnketCard(topStack ? topStack : ""))
+		if (response.meta.requestStatus === "fulfilled") {
+			!mobile && swipe?.("left")
+		}
+	}, [dispatch, mobile, swipe, topStack])
+
 	return (
 		<div className = {classNames(cls.btns, {}, [className])}>
-			<Button 
-				circle 
-				theme = {ButtonTheme.MONO}
-				circleSize = {CircleSize.L}
-				className = {cls.btn}
-				onClick = {viewProfile}
-				title = {t("Открыть профиль пользователя")}
-			>
-				<QuestionIcon className = {cls.questionIcon}/>
-			</Button>
-			<Button 
-				circle 
-				theme = {ButtonTheme.MONO} 
-				circleSize = {CircleSize.XXL}
-				className = {cls.btn}
-				onClick = {onDislikeAnket}
-			>
-				<CrossIcon/>
-			</Button>
-			<Button 
-				circle 
-				theme = {ButtonTheme.MONO} 
-				circleSize = {CircleSize.XXL}
-				className = {cls.btn}
-				onClick = {onLikeAnket}
-			>
-				<LikeIcon/>
-			</Button>
-			<Button 
-				circle 
-				theme = {ButtonTheme.MONO}
-				circleSize = {CircleSize.L}
-				className = {cls.btn}
-				title = {t("Пожаловаться на анкету")}
-			>
-				<WrongIcon/>
-			</Button>
+			{
+				mountQuestion && 
+				<Button 
+					circle 
+					theme = {ButtonTheme.MONO}
+					circleSize = {CircleSize.L}
+					className = {cls.btn}
+					onClick = {viewProfile}
+					title = {t("Открыть профиль пользователя")}
+				>
+					<QuestionIcon className = {cls.questionIcon}/>
+				</Button>
+			}
+			{
+				mountCross && 
+				<Button 
+					circle 
+					theme = {ButtonTheme.MONO} 
+					circleSize = {CircleSize.XXL}
+					className = {cls.btn}
+					onClick = {onDislikeAnket}
+				>
+					<CrossIcon/>
+				</Button>
+			}
+			{
+				mountLike &&
+				<Button 
+					circle 
+					theme = {ButtonTheme.MONO} 
+					circleSize = {CircleSize.XXL}
+					className = {cls.btn}
+					onClick = {onLikeAnket}
+				>
+					<LikeIcon/>
+				</Button>
+			}
+			{
+				mountWrong &&
+				<Button 
+					circle 
+					theme = {ButtonTheme.MONO}
+					circleSize = {CircleSize.L}
+					className = {cls.btn}
+					title = {t("Пожаловаться на анкету")}
+				>
+					<WrongIcon/>
+				</Button>
+			}
 		</div>
 	)
 })

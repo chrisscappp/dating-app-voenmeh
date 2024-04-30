@@ -1,10 +1,10 @@
 import { PayloadAction, createEntityAdapter, createSlice } from "@reduxjs/toolkit"
-import { fetchAnketsBySection } from "../services/fetchAnketsBySection/fetchAnketsBySection"
-import { likeAnketCard } from "../services/likeAnket/likeAnket"
-import { AnketsPageSchema } from "../types/ankets"
+import { fetchAnketsBySection } from "../../services/fetchAnketsBySection/fetchAnketsBySection"
+import { likeAnketCard } from "../../services/likeAnket/likeAnket"
+import { AnketsPageSchema, RequestAnkets } from "../../types/ankets"
 import { IUser } from "entity/User"
 import { StateSchema } from "app/providers/StoreProvider"
-import { dislikeAnketCard } from "../services/dislikeAnket/dislikeAnket"
+import { dislikeAnketCard } from "../../services/dislikeAnket/dislikeAnket"
 
 const anketsAdapter = createEntityAdapter({
 	selectId: (anket: IUser) => anket.userId,
@@ -54,8 +54,10 @@ export const anketsPageSlice = createSlice({
 				state.isLiked = false
 				state.error = undefined
 			})
-			.addCase(likeAnketCard.fulfilled, (state) => {
+			.addCase(likeAnketCard.fulfilled, (state, action: PayloadAction<RequestAnkets>) => {
 				state.isLiked = true
+				anketsAdapter.removeOne(state, action.payload.otheruserId)
+				state.topStack = state.ids[state.ids.length - 1]
 				state.error = undefined
 			})
 			.addCase(likeAnketCard.rejected, (state, action) => {
@@ -67,8 +69,10 @@ export const anketsPageSlice = createSlice({
 				state.isDisliked = false
 				state.error = undefined
 			})
-			.addCase(dislikeAnketCard.fulfilled, (state) => {
+			.addCase(dislikeAnketCard.fulfilled, (state, action: PayloadAction<RequestAnkets>) => {
 				state.isDisliked = true
+				anketsAdapter.removeOne(state, action.payload.otheruserId)
+				state.topStack = state.ids[state.ids.length - 1]
 				state.error = undefined
 			})
 			.addCase(dislikeAnketCard.rejected, (state, action) => {

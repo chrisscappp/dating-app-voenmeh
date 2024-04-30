@@ -33,7 +33,7 @@ class UserInfo(BaseModel):
     firstname: str
     lastname: str
     sex: str
-    birthday: str
+    #birthday: str = ""
     createdAt: str = ""
     faculty: str = ""
     course: int = 0
@@ -77,3 +77,24 @@ class UserEdit(BaseModel):
     hobbies: list = None
     contacts: dict = None
     avatar: str = None
+
+
+class UserEdit2(BaseModel):
+    userId: str = ""
+    firstname: str
+    lastname: str
+    sex: str
+    age: int
+    createdAt: str = ""
+    faculty: str = ""
+    course: int = 0
+    confirm: bool = False
+    about: str = ""
+    interested: list = None
+    hobbies: list = None
+    avatar: str = None
+
+
+class Like(BaseModel):
+    userId: str
+    otheruserId: str
