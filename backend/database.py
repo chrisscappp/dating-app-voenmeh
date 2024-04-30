@@ -33,7 +33,7 @@ class UserInfo(BaseModel):
     firstname: str
     lastname: str
     sex: str
-    birthday: str
+    birthday: str = ""
     createdAt: str = ""
     faculty: str = ""
     course: int = 0
