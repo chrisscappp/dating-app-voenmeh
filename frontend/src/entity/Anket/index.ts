@@ -1,1 +1,10 @@
 export { fetchAnketCardData } from "./model/services/fetchAnketCardData/fetchAnketCardData"
+export { AnketCard } from "./ui/AnketCard/AnketCard"
+export { AnketCardList } from "./ui/AnketCardList/AnketCardList"
+
+export { AnketsPageSchema } from "./model/types/ankets"
+export { getAnketsList } from "./model/slice/anketsSlice"
+export { getAnketsPageError } from "./model/selectors/getAnketsPageError/getAnketsPageError"
+export { getAnketsPageIsLoading } from "./model/selectors/getAnketsPageIsLoading/getAnketsPageIsLoading"
+export { anketsPageReducer } from "./model/slice/anketsSlice"
+export { fetchAnketsBySection } from "./model/services/fetchAnketsBySection/fetchAnketsBySection"

@@ -1,13 +1,11 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { ChangePasswordForm, ChangePasswordSchema } from "../types/changePassword"
-import { Profile } from "entity/ProfileCard"
 import { updateUserPassword } from "../services/updateUserPassword"
 
 const initialState: ChangePasswordSchema = {
 	isLoading: false,
 	form: {
-		newPassword: "",
-		oldPassword: ""
+		password: ""
 	}
 }
 
@@ -15,11 +13,8 @@ export const changePasswordSlice = createSlice({
 	name: "changePasswordProfile",
 	initialState,
 	reducers: {
-		setOldPassword: (state, action: PayloadAction<string>) => {
-			state.form.oldPassword = action.payload
-		},
-		setNewPassword: (state, action: PayloadAction<string>) => {
-			state.form.newPassword = action.payload
+		setPassword: (state, action: PayloadAction<string>) => {
+			state.form.password = action.payload
 		},
 	},
 	extraReducers: (builder) => {

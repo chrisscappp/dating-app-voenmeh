@@ -6,6 +6,7 @@ import { Courses } from "../model/types"
 import { Input } from "shared/ui/Input/Input"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
+import { useMobile } from "shared/lib/hooks/useMobile"
 
 interface SelectCourseProps {
 	className?: string;
@@ -35,12 +36,15 @@ export const SelectCourse = memo((props: SelectCourseProps) => {
 	} = props
 
 	const { t } = useTranslation(TranslationKeys.PROFILE_PAGE)
+	const mobile = useMobile()
 
 	const onChangeHandler = useCallback((value: string) => {
 		onChange?.(value as Courses)
 	}, [onChange])
 
-	const mods: Mods = {}
+	const selectMods: Mods = {
+		[cls.mobile]: mobile
+	}
 
 	return (
 		<div className = {classNames(cls.selectWrap, {}, [className])}>
@@ -51,7 +55,7 @@ export const SelectCourse = memo((props: SelectCourseProps) => {
 				readonly
 			/>
 			<Select
-				className = {classNames(cls.selectCourse, mods, [])}
+				className = {classNames(cls.selectCourse, selectMods, [])}
 				options={faluctetOptions}
 				onChange={onChangeHandler}
 				value = {value}

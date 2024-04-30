@@ -5,6 +5,7 @@ import { Page } from "widgets/Page"
 import { DynamicModuleLoader, ReducersList } from "shared/lib/components/DynamicModuleLoader/DynamicModuleLoader"
 import { EditableProfileCard, editableProfileReducer, getProfileState } from "feautures/EditableProfile"
 import { useSelector } from "react-redux"
+import { useParams } from "react-router"
 
 const reducers: ReducersList = {
 	editableProfile: editableProfileReducer
@@ -13,11 +14,17 @@ const reducers: ReducersList = {
 const ProfilePage = () => {
 	
 	const state = useSelector(getProfileState)
+
+	const { id: userId } = useParams()
 	
 	return (
 		<DynamicModuleLoader reducers = {reducers} removeAfterUnmount>
 			<Page className = {classNames(cls.ProfilePage, {}, [])}>
-				{state && <EditableProfileCard/>}
+				{state && 
+					<EditableProfileCard
+						userId = {userId ? userId : ""}
+					/>
+				}
 			</Page>
 		</DynamicModuleLoader>
 		

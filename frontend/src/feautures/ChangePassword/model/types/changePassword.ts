@@ -1,6 +1,5 @@
 export interface ChangePasswordForm {
-	oldPassword: string;
-	newPassword: string;
+	password: string;
 }
 
 export interface ChangePasswordSchema {

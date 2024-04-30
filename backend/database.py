@@ -18,7 +18,14 @@ db = firebase.database()
 
 class User(BaseModel):
     email: str
+    login: str
     userId: str
+    avatar: str = None
+    firstname: str = None
+    lastname: str = None
+    about: str = None
+    confirm: bool = False
+    age: int
 
 
 class UserInfo(BaseModel):
@@ -27,6 +34,40 @@ class UserInfo(BaseModel):
     lastname: str
     sex: str
     birthday: str
+    createdAt: str = ""
+    faculty: str = ""
+    course: int = 0
+    confirm: bool = False
+    about: str = ""
+    interested: list = None
+    hobbies: list = None
+    contacts: dict = None
+    avatar: str = None
+
+
+class UserLog(BaseModel):
+    email: str = None
+    login: str = None
+    password: str
+
+
+class UserReg(BaseModel):
+    email: str
+    login: str
+    password: str
+    firstname: str
+    lastname: str
+    sex: str
+    birthday: str
+    createdAt: str
+
+
+class UserEdit(BaseModel):
+    userId: str = ""
+    firstname: str
+    lastname: str
+    sex: str
+    age: int
     createdAt: str = ""
     faculty: str = ""
     course: int = 0

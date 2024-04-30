@@ -18,8 +18,12 @@ export const updateUserPassword = createAsyncThunk<
 
 		const formData = getChangePasswordForm(getState())
 
+		if (!formData?.password) {
+			return rejectWithValue("Форма пуста")
+		}
+
 		try {
-			const response = await extra.api.put<ChangePasswordForm>(`/edit/${userId}`, formData, {
+			const response = await extra.api.put<ChangePasswordForm>(`/changePassword/${userId}`, formData, {
 				headers: {
 					"Content-Type": "application/json"
 				}

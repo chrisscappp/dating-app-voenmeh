@@ -1,6 +1,6 @@
 import { classNames } from "shared/lib/classNames/classNames"
 import cls from "./Form.module.scss"
-import { ReactNode } from "react"
+import React, { ReactNode } from "react"
 
 interface FormProps {
 	className?: string;

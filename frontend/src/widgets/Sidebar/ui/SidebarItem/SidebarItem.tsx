@@ -10,6 +10,7 @@ interface SidebarItemProps {
 	className?: string;
 	item: SidebarItemType;
 	collapsed?: boolean;
+	isMobile?: boolean;
 }
 
 export const SidebarItem = memo((props: SidebarItemProps) => {
@@ -17,21 +18,30 @@ export const SidebarItem = memo((props: SidebarItemProps) => {
 	const {
 		className,
 		item,
-		collapsed
+		collapsed,
+		isMobile
 	} = props
 
 	const { t } = useTranslation(TranslationKeys.SIDEBAR)
 	
+	const onScrollTop = () => {
+		window.scrollTo({ top: 0, behavior: "smooth" })
+	}
+
 	return (
-		<AppLink 
-			className = {classNames(cls.SidebarItem, {[cls.collapsed]: !collapsed}, [className])}
-			to = {item.path}
-			theme = {AppLinkTheme.SECONDARY}
-		>
-			<item.Icon className = {cls.icon}/>
-			<span className = {cls.link}>
-				{t(item.text)}
-			</span>
-		</AppLink>
+		<span onClick = {onScrollTop}>
+			<AppLink 
+				className = {classNames(cls.SidebarItem, {[cls.collapsed]: !collapsed}, [className])}
+				to = {item.path}
+				theme = {AppLinkTheme.SECONDARY}
+			>
+				<item.Icon className = {cls.icon}/>
+				{ !isMobile && <span className = {cls.link}>
+					{t(item.text)}
+				</span> }
+				
+			</AppLink>
+		</span>
+		
 	)
 })

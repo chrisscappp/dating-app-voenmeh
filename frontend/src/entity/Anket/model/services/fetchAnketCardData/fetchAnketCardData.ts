@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { ThunkConfig } from "app/providers/StoreProvider/index"
+import axios from "axios"
 import { Profile } from "entity/ProfileCard"
 
 export const fetchAnketCardData = createAsyncThunk<

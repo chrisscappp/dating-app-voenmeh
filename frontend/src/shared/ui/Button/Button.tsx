@@ -12,7 +12,8 @@ export enum ButtonTheme {
 	BACKGROUND = "background",
 	BACKGROUND_INVERTED = "backgroundInverted",
 	BACKGROUND_INVERTED_TEXT = "backgroundInvertedText",
-	ACCESS = "access"
+	ACCESS = "access",
+	MONO = "mono"
 }
 
 export enum ButtonSize {
@@ -26,7 +27,8 @@ export enum CircleSize {
 	S = "circle_s",
 	M = "circle_m",
 	L = "circle_l",
-	XL = "circle_xl"
+	XL = "circle_xl",
+	XXL = "circle_xxl"
 }
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -59,7 +61,7 @@ export const Button = memo((props: ButtonProps) => {
 	const mods: Mods = {
 		[cls[theme]]: true,
 		[cls.circle]: circle,
-		[cls[size]]: true,
+		[cls[size]]: !circle ? true : false,
 		[cls[circleSize]]: circle,
 		[cls.disabled]: disabled,
 		[cls.hovered]: hovered

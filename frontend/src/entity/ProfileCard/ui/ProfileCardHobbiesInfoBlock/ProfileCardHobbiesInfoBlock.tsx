@@ -3,7 +3,7 @@ import cls from "./ProfileCardHobbiesInfoBlock.module.scss"
 import { SelectHobbies } from "entity/SelectHobbies"
 import { TextArea } from "shared/ui/TextArea/TextArea"
 import BucketIcon from "shared/assets/icons/bucket-icon.svg"
-import { useCallback, useMemo, useState } from "react"
+import { memo, useCallback, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { classNames, Mods } from "shared/lib/classNames/classNames"
 import { InfoBlockProps } from "../../model/types"
@@ -13,7 +13,7 @@ interface ProfileCardAboutInfoBlockProps extends InfoBlockProps {
 	data?: string[]
 }
 
-export const ProfileCardHobbiesInfoBlock = (props: ProfileCardAboutInfoBlockProps) => {
+export const ProfileCardHobbiesInfoBlock = memo((props: ProfileCardAboutInfoBlockProps) => {
 	
 	const {
 		areaPlaceholder,
@@ -38,9 +38,9 @@ export const ProfileCardHobbiesInfoBlock = (props: ProfileCardAboutInfoBlockProp
 		} else {
 			return ""
 		}
-		
 	}, [data, t])
 
+	console.log("isError", isError)
 	const mods: Mods = {
 		[cls.errorArea]: isError
 	}
@@ -76,4 +76,4 @@ export const ProfileCardHobbiesInfoBlock = (props: ProfileCardAboutInfoBlockProp
 			/>}
 		</div>
 	)
-}
+})

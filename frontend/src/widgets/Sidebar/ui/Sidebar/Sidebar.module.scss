@@ -10,11 +10,15 @@
 }
 
 .iconsWrap {
-	margin-top: 100px;
 	border-radius: 10px;
 	width: 50px;
 	height: 360px;
 	background: var(--inst-panel-background);
+}
+
+.test {
+	position: absolute;
+	bottom: 0;
 }
 
 .icons {
@@ -50,6 +54,24 @@
 	.icons {
 		align-items: start;
 		margin-left: 20px;
+	}
+}
+
+.mobile {
+	width: 100%;
+	min-height: 70px;
+	display: block;
+	padding-top: 10px;
+	.icons {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.sideBarItem {
+		margin-top: 0;
 	}
 }
 

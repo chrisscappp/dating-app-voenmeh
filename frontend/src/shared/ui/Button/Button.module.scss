@@ -1,6 +1,9 @@
 .Button {
 	cursor: pointer;
 	color: var(--button-primary);
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	padding: 6px 20px;
 	border-radius: 5px;
 	font-family: "Roboto", sans-serif;
@@ -32,9 +35,14 @@
 }
 
 .access {
-	background: #2AFF59;
+	background: var(--access-color);
 	color: var(--secondary-color);
 	border: none;
+}
+
+.mono {
+	background: #ffffff;
+	color: var(--overlay-color);
 }
 
 .outline {
@@ -90,6 +98,11 @@
 .circle_xl {
 	width: var(--button-xl-height);
 	height: var(--button-xl-height);
+}
+
+.circle_xxl {
+	width: var(--button-xxl-height);
+	height: var(--button-xxl-height);
 }
 
 .size_s {

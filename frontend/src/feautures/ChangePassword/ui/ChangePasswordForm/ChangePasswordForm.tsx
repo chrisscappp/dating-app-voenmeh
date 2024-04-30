@@ -1,4 +1,4 @@
-import { memo, useCallback } from "react"
+import React, { memo, useCallback, useEffect } from "react"
 import cls from "./ChangePasswordForm.module.scss"
 import { classNames } from "shared/lib/classNames/classNames"
 import { Text, TextTheme } from "shared/ui/Text/Text"
@@ -18,13 +18,17 @@ import { Form } from "shared/ui/Form/Form"
 export interface ChangePasswordFormProps {
 	className?: string;
 	onClose?: () => void;
+	onOpenSuccessAlert?: () => void;
+	onOpenErrorAlert?: () => void;
 }
 
 const ChangePasswordForm = (props: ChangePasswordFormProps) => {
 
 	const {
 		className,
-		onClose
+		onClose,
+		onOpenErrorAlert,
+		onOpenSuccessAlert
 	} = props
 
 	const dispatch = useAppDispatch()
@@ -33,20 +37,33 @@ const ChangePasswordForm = (props: ChangePasswordFormProps) => {
 	const isLoading = useSelector(getChangePasswordIsLoading)
 	const error = useSelector(getChangePasswordError)
 
-	const onChangeOldPassword = useCallback((value: string) => {
-		dispatch(changePasswordActions.setOldPassword(value))
-	}, [dispatch])
-
-	const onChangeNewPassword = useCallback((value: string) => {
-		dispatch(changePasswordActions.setNewPassword(value))
+	const onChangePassword = useCallback((value: string) => {
+		dispatch(changePasswordActions.setPassword(value))
 	}, [dispatch])
 
 	const onSavePassword = useCallback(async () => {
 		const res = await dispatch(updateUserPassword(authData ? authData.userId : ""))
 		if (res.meta.requestStatus === "fulfilled") {
+			onOpenSuccessAlert?.()
+			onClose?.()
+		} else {
+			onOpenErrorAlert?.()
 			onClose?.()
 		}
-	}, [authData, dispatch, onClose])
+	}, [authData, dispatch, onClose, onOpenErrorAlert, onOpenSuccessAlert])
+
+	const onKeyDown = useCallback((e: KeyboardEvent) => {
+		if (e.key === "Enter") {
+			onSavePassword()
+		}
+	}, [onSavePassword])
+
+	useEffect(() => {
+		window.addEventListener("keydown", onKeyDown)
+		return () => {
+			removeEventListener("keydown", onKeyDown)
+		}
+	}, [onKeyDown])
 
 	if (isLoading) {
 		return (
@@ -64,16 +81,12 @@ const ChangePasswordForm = (props: ChangePasswordFormProps) => {
 			/>
 			{error && <Text theme = {TextTheme.ERROR} text = {error}/>}
 			<Input
+				autoFocus
 				className = {cls.input}
 				placeholder = {"введите старый пароль"}
-				value = {formData?.oldPassword}
-				onChange = {onChangeOldPassword}
-			/>
-			<Input
-				className = {cls.input}
-				placeholder = {"введите новый пароль"}
-				value = {formData?.newPassword}
-				onChange = {onChangeNewPassword}
+				type = "password"
+				value = {formData?.password}
+				onChange = {onChangePassword}
 			/>
 			<Button
 				className = {cls.btn}

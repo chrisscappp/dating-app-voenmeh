@@ -1,0 +1,48 @@
+.wrapper {
+	padding: 40px 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.header {
+	width: 100%;
+	padding: 40px;
+	background: var(--info-block-bg-color);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 5px;
+}
+
+.cardContainer {
+	display: flex;
+	justify-content: center;
+	margin-top: 5vh;
+}
+
+.skeletons {
+	padding: 0px 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.error {
+	margin-top: 40px;
+}
+
+.card {
+	margin-top: 40px;
+}
+
+.skeletons {
+	margin-top: 40px;
+}
+
+.emptyText {
+	margin-top: 30px;
+}
+

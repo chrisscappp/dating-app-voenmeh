@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next"
 import { SelectInterested } from "entity/SelectInterested"
 import { TextArea } from "shared/ui/TextArea/TextArea"
 import BucketIcon from "shared/assets/icons/bucket-icon.svg"
-import { useCallback, useMemo } from "react"
+import { memo, useCallback, useMemo } from "react"
 import { InfoBlockProps } from "../../model/types"
 
 interface ProfileCardInterestedInfoBlockProps extends InfoBlockProps {
@@ -12,7 +12,7 @@ interface ProfileCardInterestedInfoBlockProps extends InfoBlockProps {
 	data?: string[]
 }
 
-export const ProfileCardInterestedInfoBlock = (props: ProfileCardInterestedInfoBlockProps) => {
+export const ProfileCardInterestedInfoBlock = memo((props: ProfileCardInterestedInfoBlockProps) => {
 	
 	const {
 		areaPlaceholder,
@@ -67,4 +67,4 @@ export const ProfileCardInterestedInfoBlock = (props: ProfileCardInterestedInfoB
 			/>}
 		</div>
 	)
-}
+})

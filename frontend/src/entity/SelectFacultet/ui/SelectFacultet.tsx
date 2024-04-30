@@ -1,11 +1,13 @@
 import { classNames, Mods } from "shared/lib/classNames/classNames"
 import cls from "./SelectFaluctet.module.scss"
-import React, { memo, useCallback}  from "react"
+import React, { memo, useCallback, useEffect, useState}  from "react"
 import { Select, SelectOption } from "shared/ui/Select/Select"
 import { FaluctetsItem } from "shared/consts/faluctets"
 import { Input } from "shared/ui/Input/Input"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
+import { MOBILE_WIDTH } from "shared/consts/common"
+import { useMobile } from "shared/lib/hooks/useMobile"
 
 interface SelectSexProps {
 	className?: string;
@@ -35,12 +37,15 @@ export const SelectFacultet = memo((props: SelectSexProps) => {
 	} = props
 
 	const { t } = useTranslation(TranslationKeys.PROFILE_PAGE)
+	const mobile = useMobile()
 
 	const onChangeHandler = useCallback((value: string) => {
 		onChange?.(value as FaluctetsItem)
 	}, [onChange])
 
-	const mods: Mods = {}
+	const selectMods: Mods = {
+		[cls.mobile]: mobile
+	}
 
 	return (
 		<div className = {cls.selectWrap}>
@@ -51,7 +56,7 @@ export const SelectFacultet = memo((props: SelectSexProps) => {
 				readonly
 			/>
 			<Select
-				className = {classNames(cls.selectFaluctet, mods, [className])}
+				className = {classNames(cls.selectFaluctet, selectMods, [className])}
 				options={faluctetOptions}
 				onChange={onChangeHandler}
 				value = {value}

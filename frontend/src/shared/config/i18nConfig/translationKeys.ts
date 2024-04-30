@@ -6,5 +6,7 @@ export enum TranslationKeys {
 	SIDEBAR = "sidebar",
 	PROFILE_PAGE = "profilePage",
 	DELETE_ACCOUNT_FORM = "deleteAccount",
-	SECTIONS_PAGE = "sectionsPage"
+	SECTIONS_PAGE = "sectionsPage",
+	NOTIFICATIONS_MODAL = "notifications",
+	ANKETS_PAGE = "anketsPage"
 }

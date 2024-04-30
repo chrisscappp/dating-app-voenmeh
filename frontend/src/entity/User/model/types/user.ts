@@ -1,6 +1,13 @@
 export interface IUser {
 	userId: string,
-	idToken: string
+	avatar?: string;
+    firstname?: string;
+    lastname?: string;
+    about?: string;
+    confirm?: boolean;
+    age?: number;
+	email?: string;
+    login?: string;
 }
 
 export interface UserSchema {

@@ -1,0 +1,32 @@
+.btns {
+	position: absolute;
+	width: 300px;
+	display: flex;
+	justify-content: space-around;
+	top: 110vh;
+}
+
+.btn {
+	border: 7px solid #E5E5E5;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.questionIcon {
+	fill: #F9D978;
+}
+
+@media (max-width: 675px) {
+	.btns {
+		width: 250px;
+		top: 130vh;
+	}
+}
+
+@media (max-width: 500px) {
+	.btns {
+		width: 250px;
+		top: 140vh;
+	}
+}

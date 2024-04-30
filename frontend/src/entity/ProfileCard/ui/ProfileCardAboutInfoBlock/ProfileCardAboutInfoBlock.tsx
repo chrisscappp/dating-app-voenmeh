@@ -4,12 +4,13 @@ import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import { TextArea } from "shared/ui/TextArea/TextArea"
 import { InfoBlockProps } from "../../model/types"
+import { memo } from "react"
 
 interface ProfileCardAboutInfoBlockProps extends InfoBlockProps {
 	onChange?: (value: string) => void;
 }
 
-export const ProfileCardAboutInfoBlock = (props: ProfileCardAboutInfoBlockProps) => {
+export const ProfileCardAboutInfoBlock = memo((props: ProfileCardAboutInfoBlockProps) => {
 
 	const {
 		onChange,
@@ -36,4 +37,4 @@ export const ProfileCardAboutInfoBlock = (props: ProfileCardAboutInfoBlockProps)
 			/>
 		</div>
 	)
-}
+})

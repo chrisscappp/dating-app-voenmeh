@@ -1,5 +1,5 @@
 import { classNames } from "shared/lib/classNames/classNames"
-import React, { Suspense } from "react"
+import { Suspense } from "react"
 import { Modal } from "shared/ui/Modal/Modal"
 import { ChangePasswordFormAsync } from "../ChangePasswordForm/ChangePasswordForm.async"
 import { Loader } from "shared/ui/Loader/Loader"
@@ -10,13 +10,23 @@ interface ChangePasswordModalProps {
 	className?: string;
 	isOpen: boolean;
 	onClose: () => void;
+	onOpenSuccessAlert?: () => void;
+	onOpenErrorAlert?: () => void;
 }
 
 const initialReducers: ReducersList = {
 	changePassword: changePasswordReducer
 }
 
-export const ChangePasswordModal = ({ className, isOpen, onClose }: ChangePasswordModalProps) => {
+export const ChangePasswordModal = (props: ChangePasswordModalProps) => {
+
+	const {
+		isOpen,
+		onClose,
+		className,
+		onOpenErrorAlert,
+		onOpenSuccessAlert
+	} = props
 
 	return (
 		<DynamicModuleLoader reducers={initialReducers} removeAfterUnmount>
@@ -28,6 +38,8 @@ export const ChangePasswordModal = ({ className, isOpen, onClose }: ChangePasswo
 				<Suspense fallback = {<Loader/>}>
 					<ChangePasswordFormAsync
 						onClose = {onClose}
+						onOpenErrorAlert = {onOpenErrorAlert}
+						onOpenSuccessAlert = {onOpenSuccessAlert}
 					/>
 				</Suspense>
 			</Modal>

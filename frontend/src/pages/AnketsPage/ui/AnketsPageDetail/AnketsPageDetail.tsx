@@ -1,17 +1,40 @@
-import React, { memo } from "react"
+import { AnketCardList, anketsPageReducer } from "entity/Anket"
+import React, { memo, useEffect, useState } from "react"
 import { useParams } from "react-router"
 import { Page } from "widgets/Page"
+import { DynamicModuleLoader, ReducersList } from "shared/lib/components/DynamicModuleLoader/DynamicModuleLoader"
+import { useStore } from "react-redux"
+import cls from "./AnketsPageDetail.module.scss"
+import { SwippedButtons } from "entity/SwippedButtons"
+
+const reducers: ReducersList = {
+	ankets: anketsPageReducer
+}
 
 const AnketsPage = () => {
 	
-	const { sectionType: section } = useParams()
+	const { sectionType: section } = useParams<{ sectionType: string }>()
+	const [ anketsInited, setAnketsInited ] = useState<boolean>(false)
 
-	console.log("PAEAM", section)
-
+	const store = useStore()
+	useEffect(() => {
+		const state: ReducersList = store.getState()
+		
+		if (state.ankets) {
+			setAnketsInited(true)
+		}
+	}, [store])
+	
 	return (
-		<Page>
-			{section}
-		</Page>
+		<DynamicModuleLoader reducers = {reducers} removeAfterUnmount>
+			<Page className = {cls.content}>
+				{anketsInited && 
+					<AnketCardList
+						sectionId = {section}
+					/>
+				}
+			</Page>
+		</DynamicModuleLoader>
 	)
 }
 
