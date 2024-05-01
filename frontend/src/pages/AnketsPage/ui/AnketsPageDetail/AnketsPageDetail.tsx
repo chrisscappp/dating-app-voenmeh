@@ -1,4 +1,4 @@
-import { AnketCardList, anketsPageReducer } from "entity/Anket"
+import { InteractAnketCardList, interactAnketsReducer } from "entity/Anket"
 import React, { memo, useEffect, useState } from "react"
 import { useParams } from "react-router"
 import { Page } from "widgets/Page"
@@ -7,7 +7,7 @@ import { useStore } from "react-redux"
 import cls from "./AnketsPageDetail.module.scss"
 
 const reducers: ReducersList = {
-	ankets: anketsPageReducer
+	interactAnkets: interactAnketsReducer
 }
 
 const AnketsPage = () => {
@@ -19,7 +19,7 @@ const AnketsPage = () => {
 	useEffect(() => {
 		const state: ReducersList = store.getState()
 		
-		if (state.ankets) {
+		if (state.interactAnkets) {
 			setAnketsInited(true)
 		}
 	}, [store])
@@ -28,7 +28,7 @@ const AnketsPage = () => {
 		<DynamicModuleLoader reducers = {reducers} removeAfterUnmount>
 			<Page className = {cls.content}>
 				{anketsInited && 
-					<AnketCardList
+					<InteractAnketCardList
 						sectionId = {section}
 					/>
 				}

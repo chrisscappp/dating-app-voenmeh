@@ -33,7 +33,8 @@ class UserInfo(BaseModel):
     firstname: str
     lastname: str
     sex: str
-    #birthday: str = ""
+    age: int = 0
+    birthday: str = ""
     createdAt: str = ""
     faculty: str = ""
     course: int = 0
@@ -68,6 +69,7 @@ class UserEdit(BaseModel):
     lastname: str
     sex: str
     age: int
+    birthday: str
     createdAt: str = ""
     faculty: str = ""
     course: int = 0

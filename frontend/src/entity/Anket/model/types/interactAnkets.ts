@@ -1,7 +1,7 @@
 import { EntityState } from "@reduxjs/toolkit"
 import { IUser } from "entity/User"
 
-export interface AnketsPageSchema extends EntityState<IUser, string> {
+export interface InteractAnketsSchema extends EntityState<IUser, string> {
 	isLoading: boolean;
 	error?: string;
 	isLiked?: boolean;

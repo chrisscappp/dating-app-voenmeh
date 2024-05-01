@@ -9,7 +9,8 @@ import { useTranslation } from "react-i18next"
 import { classNames, Mods } from "shared/lib/classNames/classNames"
 
 interface ProfileCardContactsInfoBlockProps extends InfoBlockProps {
-	data?: Contact
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	data?: any
 	onChange?: (value: Contact) => void;
 }
 

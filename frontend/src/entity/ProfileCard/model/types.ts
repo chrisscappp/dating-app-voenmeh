@@ -9,7 +9,6 @@ export interface Contact {
 
 //fixed
 export interface Profile {
-	//birthday?: string;
 	firstname?: string;
 	lastname?: string;
 	age?: number;
@@ -22,6 +21,8 @@ export interface Profile {
 	hobbies?: string[];
 	contacts?: Contact;
 	avatar?: string;
+	userId?: string;
+	birthday?: string;
 }
 
 export interface InfoBlockProps {

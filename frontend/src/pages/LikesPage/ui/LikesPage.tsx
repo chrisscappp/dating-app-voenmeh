@@ -1,30 +1,22 @@
-import React, { memo, useEffect, useState } from "react"
+import React, { memo } from "react"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import { Text, TextSize, TextTheme } from "shared/ui/Text/Text"
 import { Page } from "widgets/Page"
 import cls from "./LikesPage.module.scss"
 import { DynamicModuleLoader, ReducersList } from "shared/lib/components/DynamicModuleLoader/DynamicModuleLoader"
-import { likedAnketsReducer, LikedAnketsList } from "entity/Anket"
-import { useStore } from "react-redux"
+import { AnketsList, anketsListReducer } from "entity/Anket"
+import { useAnketsListInited } from "shared/lib/hooks/useAnketsListInited"
+import { AnketsEndpoints } from "shared/config/anketsListConfig/anketsListConfig"
 
 const reducers: ReducersList = {
-	likedAnkets: likedAnketsReducer
+	anketsList: anketsListReducer
 }
 
 const LikesPage = () => {
 
 	const { t } = useTranslation()
-	const [ anketsInited, setAnketsInited ] = useState<boolean>(false)
-
-	const store = useStore()
-	useEffect(() => {
-		const state: ReducersList = store.getState()
-		
-		if (state.likedAnkets) {
-			setAnketsInited(true)
-		}
-	}, [store])
+	const inited = useAnketsListInited()
 	
 	return (
 		<DynamicModuleLoader reducers={reducers} removeAfterUnmount>
@@ -37,7 +29,12 @@ const LikesPage = () => {
 					/>
 				</div>
 				{
-					anketsInited && <LikedAnketsList/>
+					inited && 
+					<AnketsList
+						endpoint = {AnketsEndpoints.LIKE_ANKETS}
+						questionBtn
+						crossBtn
+					/>
 				}
 			</Page>
 		</DynamicModuleLoader>

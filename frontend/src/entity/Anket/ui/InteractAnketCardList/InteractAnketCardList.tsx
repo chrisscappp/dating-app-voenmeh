@@ -2,29 +2,28 @@ import { classNames } from "shared/lib/classNames/classNames"
 import cls from "./InteractAnketCardList.module.scss"
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch"
 import { useSelector } from "react-redux"
-import { getAnketsPageIsLoading } from "../../model/selectors/getAnketsPageIsLoading/getAnketsPageIsLoading"
-import { getAnketsPageError } from "../../model/selectors/getAnketsPageError/getAnketsPageError"
+import { getInteractAnketsIsLoading } from "../../model/selectors/getInteractAnketsIsLoading/getInteractAnketsIsLoading"
+import { getInteractAnketsError } from "../../model/selectors/getInteractAnketsError/getInteractAnketsError"
 import { memo, useState } from "react"
-import { fetchAnketsBySection } from "../../model/services/fetchAnketsBySection/fetchAnketsBySection"
+import { fetchAnkets } from "../../model/services/fetchAnkets/fetchAnkets"
 import { Text, TextSize, TextTheme } from "shared/ui/Text/Text"
 import { Skeleton } from "shared/ui/Skeleton/Skeleton"
 import { isSectionId } from "shared/lib/typeGuards/isSectionId"
-import { getAnketsList } from "../../model/slice/anketsSlice/anketsSlice"
+import { getInteractAnketsList } from "../../model/slice/interactAnketsSlice/interactAnketsSlice"
 import { useInitialEffect } from "shared/lib/hooks/useInitialEffect"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import { Alert, AlertTheme } from "shared/ui/Alert/Alert"
-import { getAnketsPageTopStack } from "../../model/selectors/getAnketsPageTopStack/getAnketsPageTopStack"
+import { getInteractAnketsTopStack } from "../../model/selectors/getInteractAnketsTopStack/getInteractAnketsTopStack"
 import { InteractAnketCard } from "feautures/InteractAnketCard" // нарушение FSD
-import { Button, ButtonTheme } from "shared/ui/Button/Button"
-import { useNavigate } from "react-router"
+import { EmptyAnkets } from "../EmptyAnkets/EmptyAnkets"
 
 interface AnketCardProps {
 	className?: string;
 	sectionId?: string; 
 }
 
-export const AnketCardList = memo((props: AnketCardProps) => {
+export const InteractAnketCardList = memo((props: AnketCardProps) => {
 
 	const {
 		className,
@@ -33,17 +32,16 @@ export const AnketCardList = memo((props: AnketCardProps) => {
 
 	const { t } = useTranslation(TranslationKeys.ANKETS_PAGE)
 	const dispatch = useAppDispatch()
-	const ankets = useSelector(getAnketsList.selectAll)
-	const isLoading = useSelector(getAnketsPageIsLoading)
-	const error = useSelector(getAnketsPageError)
-	const topStack = useSelector(getAnketsPageTopStack)
-	const navigate = useNavigate()
+	const ankets = useSelector(getInteractAnketsList.selectAll)
+	const isLoading = useSelector(getInteractAnketsIsLoading)
+	const error = useSelector(getInteractAnketsError)
+	const topStack = useSelector(getInteractAnketsTopStack)
 	const [swipeRight, setSwipeRight] = useState<boolean>(false)
 	const [swipeLeft, setSwipeLeft] = useState<boolean>(false)
 
 	useInitialEffect(() => {
 		if (isSectionId(sectionId)) {
-			dispatch(fetchAnketsBySection(sectionId))
+			dispatch(fetchAnkets(sectionId))
 		}
 	})
 
@@ -75,7 +73,7 @@ export const AnketCardList = memo((props: AnketCardProps) => {
 
 	if (error) {
 		return (
-			<div className = {classNames(cls.AnketCardList, {}, [className])}>
+			<div className = {classNames(cls.InteractAnketCardList, {}, [className])}>
 				<Text 
 					className = {cls.error}
 					text = {error} 
@@ -109,22 +107,7 @@ export const AnketCardList = memo((props: AnketCardProps) => {
 							/>
 						)
 					})
-						: (
-							<div className = {cls.emptyList}>
-								<Text 
-									text = {"Список анкет пуст :("} 
-									size = {TextSize.ML}
-									className = {cls.emptyText}
-								/>
-								<Button
-									theme = {ButtonTheme.BACKGROUND_INVERTED}
-									className = {cls.emptyBtn}
-									onClick = {() => navigate("/ankets")}
-								>
-									{t("к разделам")}
-								</Button>
-							</div>
-						)
+						: <EmptyAnkets/>
 				}
 				{
 					swipeRight &&

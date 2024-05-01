@@ -7,8 +7,10 @@ import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import { DeleteAccountModal } from "feautures/DeleteAccount" //! нарушение архитектуры
 import { Portal } from "shared/ui/Portal/Portal"
 import { memo, useCallback, useState } from "react"
+import { SwippedButtons } from "entity/SwippedButtons"
 
 interface ProfileCardFooterButtonsProps {
+	viewButtons?: boolean;
 	isAuthUser?: boolean;
 	authData?: IUser
 	userId?: string
@@ -20,6 +22,7 @@ interface ProfileCardFooterButtonsProps {
 export const ProfileCardFooterButtons = memo((props: ProfileCardFooterButtonsProps) => {
 	
 	const {
+		viewButtons,
 		isAuthUser,
 		readonly,
 		onCancelEdit,
@@ -61,6 +64,18 @@ export const ProfileCardFooterButtons = memo((props: ProfileCardFooterButtonsPro
 					{t("отменить изменения")}
 				</Button>
 			</>
+		)
+	}
+
+	console.log("viewButtons", viewButtons)
+
+	if (!viewButtons) {
+		return (
+			<SwippedButtons
+				mountCross
+				mountLike
+
+			/>
 		)
 	}
 
