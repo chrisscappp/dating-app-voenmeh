@@ -23,6 +23,7 @@ import { Portal } from "shared/ui/Portal/Portal"
 import { useNavigate } from "react-router"
 import ArrowBack from "shared/assets/icons/arrow-back.svg"
 import { Alert, AlertPosition, AlertTheme } from "shared/ui/Alert/Alert"
+import AvatarImgDefault from "shared/assets/images/avatar-default.png"
 
 interface ProfileCardProps {
 	isAuthUser?: boolean;
@@ -80,7 +81,7 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 		navigate(-1)
 	}
 
-	const test = data?.contacts || data?.contacts === null
+	const viewContacts = data?.contacts || data?.contacts === null
 
 	if (isLoading) {
 		return (
@@ -110,7 +111,15 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 				<div className = {cls.mainInfo}>
 					<div className = {cls.avatarWrap}>
 						<span onClick = {onOpenAvatarDetail}>
-							<Avatar className = {cls.avatar} avatarSrc = {data?.avatar} />
+							{data?.avatar !== null ? 
+								<Avatar className = {cls.avatar} avatarSrc = {data?.avatar} /> 
+								:
+								<img
+									src = {AvatarImgDefault}
+									width={100}
+									height={125}
+								/>
+							}
 						</span>
 						{ !readonly && 
 							(
@@ -233,7 +242,7 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 					/>
 				</div>
 				{
-					test &&
+					viewContacts &&
 					<div className = {cls.infoBlock}>
 						<ProfileCardContactsInfoBlock
 							title = {t("Контакты")}
@@ -247,6 +256,7 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 				
 			</div>
 			<ProfileCardFooterButtons
+				viewButtons = {viewContacts as boolean}
 				isAuthUser = {isAuthUser}
 				readonly = {readonly}
 				onCancelEdit = {onCancelEdit}

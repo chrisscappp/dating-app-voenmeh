@@ -1,20 +1,20 @@
 import { PayloadAction, createEntityAdapter, createSlice } from "@reduxjs/toolkit"
 import { fetchAnkets } from "../../services/fetchAnkets/fetchAnkets"
-import { LikedAnketsSchema } from "../../types/likedAnkets"
 import { IUser } from "entity/User"
 import { StateSchema } from "app/providers/StoreProvider"
+import { SymphatyAnketsSchema } from "../../types/symphatyAnkets"
 
-const likedAnketsAdapter = createEntityAdapter({
+const symphatyAnketsAdapter = createEntityAdapter({
 	selectId: (anket: IUser) => anket.userId,
 })
 
-export const getLikedAnkets = likedAnketsAdapter.getSelectors<StateSchema>(
-	(state) => state.likedAnkets || likedAnketsAdapter.getInitialState()
+export const getSymphatyAnkets = symphatyAnketsAdapter.getSelectors<StateSchema>(
+	(state) => state.symphatyAnkets || symphatyAnketsAdapter.getInitialState()
 )
 
-export const likedAnketsSlice = createSlice({
-	name: "likedAnketsSlice",
-	initialState: likedAnketsAdapter.getInitialState<LikedAnketsSchema>({
+export const symphatyAnketsSlice = createSlice({
+	name: "symphatyAnketsSlice",
+	initialState: symphatyAnketsAdapter.getInitialState<SymphatyAnketsSchema>({
 		isLoading: false,
 		error: undefined,
 		ids: [],
@@ -22,7 +22,7 @@ export const likedAnketsSlice = createSlice({
 	}),
 	reducers: {
 		dislikeAnket: (state, id: PayloadAction<string>) => {
-			likedAnketsAdapter.removeOne(state, id)
+			symphatyAnketsAdapter.removeOne(state, id)
 		}
 	},
 	extraReducers: (builder) => {
@@ -35,7 +35,7 @@ export const likedAnketsSlice = createSlice({
 			.addCase(fetchAnkets.fulfilled, (state, action: PayloadAction<IUser[]>) => {
 				state.isLoading = false
 				if (action.payload?.length > 0) {
-					likedAnketsAdapter.setAll(state, action.payload)
+					symphatyAnketsAdapter.setAll(state, action.payload)
 				}
 			})
 			.addCase(fetchAnkets.rejected, (state, action) => {
@@ -45,5 +45,5 @@ export const likedAnketsSlice = createSlice({
 	}
 })
 
-export const { actions: likedAnketsActions } = likedAnketsSlice
-export const { reducer: likedAnketsReducer } = likedAnketsSlice
+export const { actions: symphatyAnketsActions } = symphatyAnketsSlice
+export const { reducer: symphatyAnketsReducer } = symphatyAnketsSlice

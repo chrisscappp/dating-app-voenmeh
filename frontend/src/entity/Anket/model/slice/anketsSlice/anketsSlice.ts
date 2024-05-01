@@ -1,5 +1,5 @@
 import { PayloadAction, createEntityAdapter, createSlice } from "@reduxjs/toolkit"
-import { fetchAnketsBySection } from "../../services/fetchAnketsBySection/fetchAnketsBySection"
+import { fetchAnkets } from "../../services/fetchAnkets/fetchAnkets"
 import { likeAnketCard } from "../../services/likeAnket/likeAnket"
 import { AnketsPageSchema, RequestAnkets } from "../../types/ankets"
 import { IUser } from "entity/User"
@@ -34,18 +34,18 @@ export const anketsPageSlice = createSlice({
 	extraReducers: (builder) => {
 		builder
 			// fetch ankets
-			.addCase(fetchAnketsBySection.pending, (state) => {
+			.addCase(fetchAnkets.pending, (state) => {
 				state.isLoading = true
 				state.error = undefined
 			})
-			.addCase(fetchAnketsBySection.fulfilled, (state, action: PayloadAction<IUser[]>) => {
+			.addCase(fetchAnkets.fulfilled, (state, action: PayloadAction<IUser[]>) => {
 				state.isLoading = false
 				if (action.payload?.length > 0) {
 					anketsAdapter.setAll(state, action.payload)
 					state.topStack = action.payload[action.payload.length - 1].userId
 				}
 			})
-			.addCase(fetchAnketsBySection.rejected, (state, action) => {
+			.addCase(fetchAnkets.rejected, (state, action) => {
 				state.isLoading = false
 				state.error = action.payload
 			})

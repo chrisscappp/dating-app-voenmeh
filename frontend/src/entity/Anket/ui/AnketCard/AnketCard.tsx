@@ -1,4 +1,4 @@
-import { classNames } from "shared/lib/classNames/classNames"
+import { classNames, Mods } from "shared/lib/classNames/classNames"
 import cls from "./AnketCard.module.scss"
 import { Text, TextSize } from "shared/ui/Text/Text"
 import FamilyIcon from "shared/assets/icons/family-icon.svg"
@@ -45,47 +45,89 @@ export const AnketCard = memo((props: AnketCardProps) => {
 		cardRef?.current?.restoreCard()
 	}
 
-	return (
-		<TinderCard
-			ref = {cardRef}
-			className = {classNames(cls.swipe, {}, ["pressable"])}
-			onSwipe = {(direction) => swiped && swipe(direction)}
-			onCardLeftScreen = {() => swiped && outOfFrame()}
-			preventSwipe={["up", "down"]}
-		>
-			<Card className = {classNames(cls.card, {}, [])}>
-				<img
-					width = {300}
-					height = {320}
-					style = {{
-						background: `url(${user?.avatar}) center center/cover`
-					}}
-					className = {cls.img}
-					aria-disabled
-				/>
-				<div className = {cls.body}>
-					<div className = {cls.infoWrap}>
-						<div className = {cls.infoContainer}>
-							<div className = {cls.name}>
+	const cardMods: Mods = {
+		[cls.grab]: swiped
+	}
+
+	if (swiped) {
+		return (
+			<TinderCard
+				ref = {cardRef}
+				className = {classNames(cls.swipe, {}, ["pressable"])}
+				onSwipe = {(direction) => swipe(direction)}
+				onCardLeftScreen = {() => outOfFrame()}
+				preventSwipe={["up", "down"]}
+			>
+				<Card className = {classNames(cls.card, cardMods, [])}>
+					<img
+						width = {300}
+						height = {320}
+						style = {{
+							background: `url(${user?.avatar}) center center/cover`
+						}}
+						className = {cls.img}
+						aria-disabled
+					/>
+					<div className = {cls.body}>
+						<div className = {cls.infoWrap}>
+							<div className = {cls.infoContainer}>
+								<div className = {cls.name}>
+									<Text
+										text = {`${user?.firstname}, ${user?.age}`}
+										size = {TextSize.ML}
+									/>
+									{user?.confirm && 
+								<span title = {t("Профиль подтвержден")}>
+									<FamilyIcon className = {cls.icon}/>
+								</span>
+									}
+								</div>
 								<Text
-									text = {`${user?.firstname}, ${user?.age}`}
+									className = {cls.about}
+									text = {user?.about}
 									size = {TextSize.ML}
 								/>
-								{user?.confirm && 
-							<span title = {t("Профиль подтвержден")}>
-								<FamilyIcon className = {cls.icon}/>
-							</span>
-								}
 							</div>
-							<Text
-								className = {cls.about}
-								text = {user?.about}
-								size = {TextSize.ML}
-							/>
 						</div>
 					</div>
+				</Card>
+			</TinderCard>
+		)
+	}
+
+	return (
+		<Card className = {classNames(cls.card, cardMods, [])}>
+			<img
+				width = {300}
+				height = {320}
+				style = {{
+					background: `url(${user?.avatar}) center center/cover`
+				}}
+				className = {cls.img}
+				aria-disabled
+			/>
+			<div className = {cls.body}>
+				<div className = {cls.infoWrap}>
+					<div className = {cls.infoContainer}>
+						<div className = {cls.name}>
+							<Text
+								text = {`${user?.firstname}, ${user?.age}`}
+								size = {TextSize.ML}
+							/>
+							{user?.confirm && 
+								<span title = {t("Профиль подтвержден")}>
+									<FamilyIcon className = {cls.icon}/>
+								</span>
+							}
+						</div>
+						<Text
+							className = {cls.about}
+							text = {user?.about}
+							size = {TextSize.ML}
+						/>
+					</div>
 				</div>
-			</Card>
-		</TinderCard>
+			</div>
+		</Card>
 	)
 })

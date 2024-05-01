@@ -1,39 +1,39 @@
-import React, { memo, useCallback } from "react"
+import React, { memo } from "react"
 import { useTranslation } from "react-i18next"
-import cls from "./LikedAnketsList.module.scss"
+import cls from "./SymphatyAnketsList.module.scss"
 import { classNames } from "shared/lib/classNames/classNames"
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch"
 import { fetchAnkets } from "../../model/services/fetchAnkets/fetchAnkets"
 import { useInitialEffect } from "shared/lib/hooks/useInitialEffect"
-import { getLikedAnkets, likedAnketsActions } from "../../model/slice/likedAnketsSlice/likedAnketsSlice"
+import { getSymphatyAnkets, symphatyAnketsActions } from "../../model/slice/symphatySlice/symphatySlice"
 import { useSelector } from "react-redux"
-import { getLikedAnketsError } from "../../model/selectors/getLikedAnketsError/getLikedAnketsError"
-import { getLikedAnketsIsLoading } from "../../model/selectors/getLikedAnketsIsLoading/getLikedAnketsIsLoading"
 import { Skeleton } from "shared/ui/Skeleton/Skeleton"
 import { Text, TextSize, TextTheme } from "shared/ui/Text/Text"
 import { EmptyAnkets } from "../EmptyAnkets/EmptyAnkets"
 import { AnketCard } from "../AnketCard/AnketCard"
 import { SwippedButtons } from "entity/SwippedButtons"
+import { getSymphatyAnketsError } from "../../model/selectors/getSymphatyAnketsError/getSymphatyAnketsError"
+import { getSymphatyAnketsIsLoading } from "../../model/selectors/getSymphatyAnketsIsLoading/getSymphatyAnketsIsLoading"
 
-export const LikedAnketsList = memo(() => {
+export const SymphatyAnketsList = memo(() => {
 
 	const { t } = useTranslation()
 	const dispatch = useAppDispatch()
-	const likedAnkets = useSelector(getLikedAnkets.selectAll)
-	const error = useSelector(getLikedAnketsError)
-	const isLoading = useSelector(getLikedAnketsIsLoading)
+	const symphatyAnkets = useSelector(getSymphatyAnkets.selectAll)
+	const error = useSelector(getSymphatyAnketsError)
+	const isLoading = useSelector(getSymphatyAnketsIsLoading)
 
 	useInitialEffect(() => {
-		dispatch(fetchAnkets("likedAnkets"))
+		dispatch(fetchAnkets("sympathies"))
 	})
 
-	const onDislikeAnket = useCallback((id: string) => {
-		dispatch(likedAnketsActions.dislikeAnket(id))
-	}, [dispatch])
+	// const onDislikeAnket = useCallback((id: string) => {
+	// 	dispatch(likedAnketsActions.dislikeAnket(id))
+	// }, [dispatch])
 
 	if (isLoading) {
 		return (
-			<div className = {classNames(cls.LikedAnketsList, {}, [])}>
+			<div className = {classNames(cls.SymphatyAnketsList, {}, [])}>
 				<Skeleton
 					width = {500}
 					height = {550}
@@ -57,7 +57,7 @@ export const LikedAnketsList = memo(() => {
 	}
 
 	if (error) {
-		<div className = {classNames(cls.LikedAnketsList, {}, [])}>
+		<div className = {classNames(cls.SymphatyAnketsList, {}, [])}>
 			<Text
 				size = {TextSize.ML}
 				theme = {TextTheme.ERROR}
@@ -67,8 +67,8 @@ export const LikedAnketsList = memo(() => {
 	}
 	
 	return (
-		<div className = {classNames(cls.LikedAnketsList, {}, [])}>
-			{likedAnkets ? likedAnkets.map(item => {
+		<div className = {classNames(cls.SymphatyAnketsList, {}, [])}>
+			{symphatyAnkets ? symphatyAnkets.map(item => {
 				return (
 					<div className = {cls.card} key = {item.login}>
 						<AnketCard
@@ -77,10 +77,9 @@ export const LikedAnketsList = memo(() => {
 						<SwippedButtons
 							mountCross	
 							mountQuestion
-							mountWrong
+							mountLike
 							viewId = {item.userId}
 							className = {cls.btns}
-							callback = {onDislikeAnket}
 						/>
 					</div>
 				)

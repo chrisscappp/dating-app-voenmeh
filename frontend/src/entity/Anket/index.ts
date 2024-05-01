@@ -10,10 +10,15 @@ export { getAnketsPageError } from "./model/selectors/getAnketsPageError/getAnke
 export { getAnketsPageIsLoading } from "./model/selectors/getAnketsPageIsLoading/getAnketsPageIsLoading"
 export { getAnketsPageTopStack } from "./model/selectors/getAnketsPageTopStack/getAnketsPageTopStack"
 export { anketsPageReducer, anketsPageActions } from "./model/slice/anketsSlice/anketsSlice"
-export { fetchAnketsBySection } from "./model/services/fetchAnketsBySection/fetchAnketsBySection"
+
+export { fetchAnkets } from "./model/services/fetchAnkets/fetchAnkets"
 
 // liked ankets list
 export { getLikedAnkets, likedAnketsActions, likedAnketsReducer } from "./model/slice/likedAnketsSlice/likedAnketsSlice"
-export { fetchLikedAnkets } from "./model/services/fetchLikedAnkets/fetchLikedAnkets"
 export { LikedAnketsSchema } from "./model/types/likedAnkets"
 export { LikedAnketsList } from "./ui/LikedAnketsList/LikedAnketsList"
+
+// symphaty ankets list
+export { SymphatyAnketsSchema } from "./model/types/symphatyAnkets"
+export { getSymphatyAnkets, symphatyAnketsActions, symphatyAnketsReducer } from "./model/slice/symphatySlice/symphatySlice"
+export { SymphatyAnketsList } from "./ui/SymphatyAnketsList/SymphatyAnketsList"

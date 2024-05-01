@@ -8,7 +8,7 @@ import { NavigateFunction } from "react-router"
 import { ChangePasswordSchema } from "feautures/ChangePassword"
 import { DeleteAccountSchema } from "feautures/DeleteAccount"
 import { NotificationsSchema } from "feautures/Notifications"
-import { AnketsPageSchema, LikedAnketsSchema } from "entity/Anket"
+import { AnketsPageSchema, LikedAnketsSchema, SymphatyAnketsSchema } from "entity/Anket"
 
 export interface StateSchema {
 	user: UserSchema,
@@ -21,7 +21,8 @@ export interface StateSchema {
 	changePassword?: ChangePasswordSchema,
 	deleteAccount?: DeleteAccountSchema,
 	ankets?: AnketsPageSchema,
-	likedAnkets?: LikedAnketsSchema
+	likedAnkets?: LikedAnketsSchema,
+	symphatyAnkets?: SymphatyAnketsSchema
 }
 
 export type StateSchemaKey = keyof StateSchema

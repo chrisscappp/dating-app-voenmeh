@@ -21,7 +21,11 @@ interface SwippedButtonsProps {
 	mountLike?: boolean,
 	mountWrong?: boolean,
 	swipe?: (dir: string) => void;
+	callback?: (id: string) => void;
+	viewId?: string;
 }
+
+// говнокод
 
 export const SwippedButtons = memo((props: SwippedButtonsProps) => {
 
@@ -31,7 +35,9 @@ export const SwippedButtons = memo((props: SwippedButtonsProps) => {
 		mountLike,
 		mountQuestion,
 		mountWrong,
-		swipe
+		swipe,
+		callback,
+		viewId
 	} = props
 
 	const { t } = useTranslation(TranslationKeys.ANKETS_PAGE)
@@ -42,23 +48,24 @@ export const SwippedButtons = memo((props: SwippedButtonsProps) => {
 	const topStack = useSelector(getAnketsPageTopStack)
 
 	const viewProfile = () => {
-		navigate(`/profile/${topStack}`)
+		navigate(`/profile/${viewId ? viewId : topStack}`)
 		window.scrollTo({top: 0, behavior: "smooth"})
 	}
 
 	const onLikeAnket = useCallback(async () => {
-		const response = await dispatch(likeAnketCard(topStack ? topStack : ""))
+		const response = await dispatch(likeAnketCard(topStack ? topStack : viewId ? viewId : ""))
 		if (response.meta.requestStatus === "fulfilled") {
 			!mobile && swipe?.("right")
 		}
-	}, [dispatch, mobile, swipe, topStack])
+	}, [dispatch, mobile, swipe, topStack, viewId])
 
 	const onDislikeAnket = useCallback(async () => {
-		const response = await dispatch(dislikeAnketCard(topStack ? topStack : ""))
+		const response = await dispatch(dislikeAnketCard(topStack ? topStack : viewId ? viewId : ""))
 		if (response.meta.requestStatus === "fulfilled") {
 			!mobile && swipe?.("left")
+			callback?.(viewId ? viewId : "")
 		}
-	}, [dispatch, mobile, swipe, topStack])
+	}, [callback, dispatch, mobile, swipe, topStack, viewId])
 
 	return (
 		<div className = {classNames(cls.btns, {}, [className])}>

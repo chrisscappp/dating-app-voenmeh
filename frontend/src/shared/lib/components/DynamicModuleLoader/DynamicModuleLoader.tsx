@@ -21,7 +21,7 @@ export const DynamicModuleLoader: FC<DynamicModuleLoaderProps> = (props) => {
 	const {
 		children,
 		reducers,
-		removeAfterUnmount
+		removeAfterUnmount = false
 	} = props
 
 	//@ts-ignore
