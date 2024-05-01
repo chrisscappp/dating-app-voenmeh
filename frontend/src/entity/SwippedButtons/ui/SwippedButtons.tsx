@@ -11,7 +11,7 @@ import { classNames } from "shared/lib/classNames/classNames"
 import { useNavigate } from "react-router"
 import { useMobile } from "shared/lib/hooks/useMobile"
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch"
-import { dislikeAnketCard, getAnketsPageTopStack, likeAnketCard } from "entity/Anket"
+import { dislikeAnketCard, getInteractAnketsTopStack, likeAnketCard } from "entity/Anket"
 import { useSelector } from "react-redux"
 
 interface SwippedButtonsProps {
@@ -45,7 +45,7 @@ export const SwippedButtons = memo((props: SwippedButtonsProps) => {
 	const navigate = useNavigate()
 	const mobile = useMobile()
 	const dispatch = useAppDispatch()
-	const topStack = useSelector(getAnketsPageTopStack)
+	const topStack = useSelector(getInteractAnketsTopStack)
 
 	const viewProfile = () => {
 		navigate(`/profile/${viewId ? viewId : topStack}`)

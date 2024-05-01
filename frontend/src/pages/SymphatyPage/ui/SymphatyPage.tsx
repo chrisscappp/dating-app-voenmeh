@@ -1,30 +1,22 @@
-import React, { memo, useEffect, useState } from "react"
+import React, { memo } from "react"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import { Text, TextSize, TextTheme } from "shared/ui/Text/Text"
 import { Page } from "widgets/Page"
 import cls from "./SymphatyPage.module.scss"
 import { DynamicModuleLoader, ReducersList } from "shared/lib/components/DynamicModuleLoader/DynamicModuleLoader"
-import { SymphatyAnketsList, symphatyAnketsReducer} from "entity/Anket"
-import { useStore } from "react-redux"
+import { AnketsList, anketsListReducer } from "entity/Anket"
+import { useAnketsListInited } from "shared/lib/hooks/useAnketsListInited"
+import { AnketsEndpoints } from "shared/config/anketsListConfig/anketsListConfig"
 
 const reducers: ReducersList = {
-	symphatyAnkets: symphatyAnketsReducer
+	anketsList: anketsListReducer
 }
 
 const SymphatyPage = () => {
 
 	const { t } = useTranslation()
-	const [ anketsInited, setAnketsInited ] = useState<boolean>(false)
-
-	const store = useStore()
-	useEffect(() => {
-		const state: ReducersList = store.getState()
-		
-		if (state.symphatyAnkets) {
-			setAnketsInited(true)
-		}
-	}, [store])
+	const inited = useAnketsListInited()
 	
 	return (
 		<DynamicModuleLoader reducers={reducers} removeAfterUnmount>
@@ -37,7 +29,13 @@ const SymphatyPage = () => {
 					/>
 				</div>
 				{
-					anketsInited && <SymphatyAnketsList/>
+					inited &&
+					<AnketsList
+						endpoint = {AnketsEndpoints.SYMPHATY_ANKETS}
+						questionBtn
+						crossBtn
+						likeBtn
+					/>
 				}
 			</Page>
 		</DynamicModuleLoader>

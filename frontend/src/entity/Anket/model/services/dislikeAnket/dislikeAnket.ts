@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { ThunkConfig } from "app/providers/StoreProvider/index"
-import { RequestAnkets } from "../../types/ankets"
+import { RequestAnkets } from "../../types/interactAnkets"
 import { getUserAuthData } from "entity/User"
 
 export const dislikeAnketCard = createAsyncThunk<
