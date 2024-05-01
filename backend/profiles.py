@@ -2,6 +2,7 @@ from functions import birthday_to_age
 from options import app
 from pydantic import BaseModel
 from database import db, User
+from random import shuffle
 
 
 class profiles_list(BaseModel):
@@ -34,6 +35,7 @@ def get_profiles(name: str, user_id: str):
             data = db.child("user").order_by_child("userId").equal_to(person).get()[0].val() | \
                 db.child("userInfo").order_by_child("userId").equal_to(person).get()[0].val() | \
                 {"age": birthday_to_age(db.child("userInfo").child(person).get().val()["birthday"])}
+            shuffle(persons.profiles)
             persons.profiles.append(User(**data))
     return persons
 
@@ -86,6 +88,12 @@ def likes(user_id: str):
         list_likes = []
     persons = profiles_list()
     for person in list_likes:
+        try:
+            list_likes_2 = db.child("likes").get().val()[person]
+        except:
+            list_likes_2 = []
+        if list_likes_2.count(user_id):
+            continue
         data = db.child("user").order_by_child("userId").equal_to(person).get()[0].val() | \
                db.child("userInfo").order_by_child("userId").equal_to(person).get()[0].val() | \
                {"age": birthday_to_age(db.child("userInfo").child(person).get().val()["birthday"])}
@@ -95,10 +103,19 @@ def likes(user_id: str):
 
 @app.get("/sympathies/{user_id}")
 def sympathies(user_id: str):
+    try:
+        list_likes = db.child("likes").get().val()[user_id]
+    except:
+        list_likes = []
     persons = profiles_list()
     for person in db.child("likes").get().val():
-        list_likes_2 = (db.child("likes").get().val()[person])
+        try:
+            list_likes_2 = (db.child("likes").get().val()[person])
+        except:
+            list_likes_2 = []
         if list_likes_2.count(user_id):
+            if list_likes.count(person):
+                continue
             data = db.child("user").order_by_child("userId").equal_to(person).get()[0].val() | \
                    db.child("userInfo").order_by_child("userId").equal_to(person).get()[0].val() | \
                    {"age": birthday_to_age(db.child("userInfo").child(person).get().val()["birthday"])}
@@ -106,7 +123,7 @@ def sympathies(user_id: str):
     return persons
 
 
-@app.get("/friends/{user_id}")
+@app.get("/myFriends/{user_id}")
 def friends(user_id: str):
     try:
         list_likes = db.child("likes").get().val()[user_id]
@@ -115,7 +132,10 @@ def friends(user_id: str):
     persons = profiles_list()
     for person in list_likes:
         for person_2 in db.child("likes").get().val():
-            list_likes_2 = (db.child("likes").get().val()[person])
+            try:
+                list_likes_2 = (db.child("likes").get().val()[person])
+            except:
+                list_likes_2 = []
             if list_likes_2.count(user_id):
                 data = db.child("user").order_by_child("userId").equal_to(person).get()[0].val() | \
                        db.child("userInfo").order_by_child("userId").equal_to(person).get()[0].val() | \

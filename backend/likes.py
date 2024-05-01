@@ -78,3 +78,13 @@ def disliked(data: Like):
         db.child("dislikes").update({data.otheruserId: list_dislikes})
         return data
 
+
+class Contacts(BaseModel):
+    telegram: str = ""
+    vk: str = ""
+
+
+@app.get("/userContacts/{user_id}")
+def user_contacts(user_id: str):
+    data = db.child(f"userInfo/{user_id}").get().val()["contacts"]
+    return Contacts(**data)
