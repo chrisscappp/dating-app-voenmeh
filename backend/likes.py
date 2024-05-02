@@ -27,6 +27,7 @@ def liked(data: Like):
                 except:
                     list_sympathies = []
                 list_sympathies.append(data.userId)
+                data.sympathy = True
                 db.child("sympathies").update({data.otheruserId: list_sympathies})
                 try:
                     notes = db.child("notifications").get().val()[data.otheruserId]

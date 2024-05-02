@@ -98,3 +98,4 @@ class UserEdit2(BaseModel):
 class Like(BaseModel):
     userId: str
     otheruserId: str
+    sympathy: bool = False
