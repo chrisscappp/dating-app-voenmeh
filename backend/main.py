@@ -45,7 +45,9 @@ def edit_profile(user_id: str, user: UserInfo):
             list_faculties.remove(user.faculty)
             for faculty in list_faculties:
                 if not db.child(faculty).order_by_value().equal_to(user_id).get().val() == []:
-                    db.child(faculty).order_by_value().equal_to(user_id).remove()
+                    faculties = list(db.child(faculty).get().val())
+                    faculties.remove(user_id)
+                    db.child(faculty).set(faculties)
             if db.child(user.faculty).order_by_value().equal_to(user_id).get().val() == []:
                 data = [user_id]
                 try:
@@ -95,7 +97,7 @@ def delete_profile(user_id: str, user: DataDelete):
         # удаление из списка факультетов
         try:
             faculty = db.child("userInfo").child(user_id).get().val()["faculty"]
-            if not faculty is "":
+            if not faculty == "":
                 data = list(db.child(faculty).get().val())
                 data.remove(user_id)
                 db.child(faculty).set(data)

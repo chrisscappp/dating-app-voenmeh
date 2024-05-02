@@ -56,6 +56,7 @@ def liked(data: Like):
 
 
 @app.post("/dislikeAnket")
+@app.post("/dislikeAnket")
 def disliked(data: Like):
     try:
         list_dislikes = list(db.child("dislikes").get().val()[data.userId])
