@@ -28,7 +28,7 @@ export const likeAnketCard = createAsyncThunk<
 		} catch (e: unknown) {
 			const err = e as Error
 			console.error(err)
-			return rejectWithValue("Произошла ошибка при попытке лайка анкеты. Попробуйте ещё раз...")
+			return rejectWithValue("Произошла ошибка при попытке лайка анкеты. Попробуйте ещё раз")
 		}	
 	},
 )

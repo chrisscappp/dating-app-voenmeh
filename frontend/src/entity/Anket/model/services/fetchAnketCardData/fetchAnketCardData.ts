@@ -33,8 +33,6 @@ export const fetchAnketCardData = createAsyncThunk<
 			if (!response.data) {
 				throw new Error("Данные не найдены")
 			}
-
-			console.log("RESPONSE", response)
 		
 			return response.data
 		} catch (e: unknown) {

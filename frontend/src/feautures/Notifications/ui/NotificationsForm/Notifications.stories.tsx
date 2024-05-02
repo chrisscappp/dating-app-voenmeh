@@ -3,7 +3,6 @@ import NotificationsForm from "./NotificationsForm"
 import { Themes } from "app/providers/ThemeProvider"
 import { ThemeDecorator } from "shared/config/storybookConfig/themeDecorator/themeDecorator"
 import React from "react"
-import { StoreDecorator } from "shared/config/storybookConfig/storeDecorator/StoreDecorator"
 
 const meta: Meta<typeof NotificationsForm> = {
 	title: "feature/NotificationsForm",
@@ -15,13 +14,13 @@ type Story = StoryObj<typeof NotificationsForm>;
 
 export const DefaultNotificationsForm: Story = {
 	args: {
-		notifications: ["asd", "bcd"]
+		notifications: [{message: "asdas", notificationId: 1}]
 	},
 }
 
 export const DefaultNotificationsFormDark: Story = {
 	args: {
-		notifications: ["asd", "ddfgd"]
+		notifications: [{message: "asdfds", notificationId: 2}]
 	},
 	decorators: [
 		ThemeDecorator(Themes.DARK)

@@ -5,6 +5,7 @@ import { InteractAnketsSchema, RequestAnkets } from "../../types/interactAnkets"
 import { IUser } from "entity/User"
 import { StateSchema } from "app/providers/StoreProvider"
 import { dislikeAnketCard } from "../../services/dislikeAnket/dislikeAnket"
+import { TOP_STACK_KEY } from "shared/consts/localStorageKeys"
 
 const interactAnketsAdapter = createEntityAdapter({
 	selectId: (anket: IUser) => anket.userId,
@@ -42,7 +43,7 @@ export const interactAnketsSlice = createSlice({
 				state.isLoading = false
 				if (action.payload?.length > 0) {
 					interactAnketsAdapter.setAll(state, action.payload)
-					state.topStack = action.payload[action.payload.length - 1].userId
+					state.topStack = state.ids[state.ids.length - 1]
 				}
 			})
 			.addCase(fetchAnkets.rejected, (state, action) => {

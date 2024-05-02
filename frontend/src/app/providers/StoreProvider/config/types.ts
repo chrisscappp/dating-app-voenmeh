@@ -9,6 +9,7 @@ import { ChangePasswordSchema } from "feautures/ChangePassword"
 import { DeleteAccountSchema } from "feautures/DeleteAccount"
 import { NotificationsSchema } from "feautures/Notifications"
 import { InteractAnketsSchema, AnketsListSchema } from "entity/Anket"
+import { WrongAnketSchema } from "feautures/WrongAnket"
 
 export interface StateSchema {
 	user: UserSchema,
@@ -21,7 +22,8 @@ export interface StateSchema {
 	changePassword?: ChangePasswordSchema,
 	deleteAccount?: DeleteAccountSchema,
 	interactAnkets?: InteractAnketsSchema,
-	anketsList?: AnketsListSchema
+	anketsList?: AnketsListSchema,
+	wrongAnket?: WrongAnketSchema
 }
 
 export type StateSchemaKey = keyof StateSchema

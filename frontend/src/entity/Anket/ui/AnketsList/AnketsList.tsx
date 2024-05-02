@@ -50,10 +50,6 @@ export const AnketsList = memo((props: AnketsListProps) => {
 		dispatch(fetchAnkets(endpoint))
 	})
 
-	// const onDislikeAnket = useCallback((id: string) => {
-	// 	dispatch(likedAnketsActions.dislikeAnket(id))
-	// }, [dispatch])
-
 	if (isLoading) {
 		return (
 			<div className = {classNames(cls.AnketsList, {}, [className])}>
@@ -91,7 +87,7 @@ export const AnketsList = memo((props: AnketsListProps) => {
 	
 	return (
 		<div className = {classNames(cls.AnketsList, {}, [className])}>
-			{ankets ? ankets.map(item => {
+			{ankets.length > 0 ? ankets.map(item => {
 				return (
 					<div className = {cls.card} key = {item.login}>
 						<AnketCard
@@ -102,6 +98,8 @@ export const AnketsList = memo((props: AnketsListProps) => {
 							mountQuestion = {questionBtn}
 							mountLike = {likeBtn}
 							mountWrong = {wrongBtn}
+							mountTelegram = {telegramBtn}
+							mountVK = {vkBtn}
 							viewId = {item.userId}
 							className = {cls.btns}
 						/>

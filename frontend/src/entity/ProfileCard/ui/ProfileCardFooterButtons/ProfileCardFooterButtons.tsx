@@ -7,7 +7,6 @@ import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import { DeleteAccountModal } from "feautures/DeleteAccount" //! нарушение архитектуры
 import { Portal } from "shared/ui/Portal/Portal"
 import { memo, useCallback, useState } from "react"
-import { SwippedButtons } from "entity/SwippedButtons"
 
 interface ProfileCardFooterButtonsProps {
 	viewButtons?: boolean;
@@ -67,19 +66,21 @@ export const ProfileCardFooterButtons = memo((props: ProfileCardFooterButtonsPro
 		)
 	}
 
-	console.log("viewButtons", viewButtons)
-
 	if (!viewButtons) {
 		return (
-			<SwippedButtons
-				mountCross
-				mountLike
-
-			/>
+			<div className = {cls.backBtnWrap}>
+				<Button 
+					theme = {ButtonTheme.BACKGROUND_INVERTED} 
+					onClick = {() => navigate(-1)}
+					className = {cls.backBtn}
+				>
+					назад
+				</Button>
+			</div>
+			
 		)
 	}
 
-	// в зависимости от isAuthUser меняем начинку компонента
 	return (
 		<>
 			{

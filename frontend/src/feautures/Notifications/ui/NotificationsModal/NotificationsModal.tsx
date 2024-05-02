@@ -3,12 +3,13 @@ import { Suspense } from "react"
 import { Modal } from "shared/ui/Modal/Modal"
 import { NotificationsFormAsync } from "../NotificationsForm/Notifications.async"
 import { Loader } from "shared/ui/Loader/Loader"
+import { NotificationType } from "../../model/types/types"
 
 interface NotificationsModalProps {
 	className?: string;
 	isOpen: boolean;
 	onClose: () => void;
-	notifications: string[];
+	notifications: NotificationType[];
 	error: string;
 	isLoading: boolean;
 	removeNotifications: () => void

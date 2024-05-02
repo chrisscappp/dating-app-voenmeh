@@ -8,10 +8,11 @@ import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import { Form } from "shared/ui/Form/Form"
 import React from "react"
+import { NotificationType } from "../../model/types/types"
 
 export interface NotificationsFormProps {
 	className?: string;
-	notifications: string[];
+	notifications: NotificationType[];
 	error: string;
 	isLoading: boolean;
 	removeNotifications: () => void;
@@ -36,19 +37,19 @@ const NotificationsForm = (props: NotificationsFormProps) => {
 	}
 
 	if (notifications?.length === 0) {
-		content = <Text text = {t("Уведомлений нет")} className = {cls.empty}/>
+		content = <Text text = {t("Уведомлений пока нет")} className = {cls.empty}/>
 	} else {
 		content = (
 			<>
-				{notifications?.map(item => {
+				{notifications.length > 0 ? notifications?.map((item) => {
 					return (
 						<Text
-							key = {item}
-							text = {item}
+							key = {item.notificationId}
+							text = {item.message}
 							className = {cls.item}
 						/>
 					)
-				})}
+				}) : null}
 				<Button
 					className = {cls.btn}
 					onClick = {removeNotifications}

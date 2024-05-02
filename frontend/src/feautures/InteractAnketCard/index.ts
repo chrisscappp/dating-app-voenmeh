@@ -1,1 +1,0 @@
-export { InteractAnketCard } from "./ui/InteractAnketCard/InteractAnketCard"

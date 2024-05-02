@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import { Alert, AlertTheme } from "shared/ui/Alert/Alert"
 import { getInteractAnketsTopStack } from "../../model/selectors/getInteractAnketsTopStack/getInteractAnketsTopStack"
-import { InteractAnketCard } from "feautures/InteractAnketCard" // нарушение FSD
+import { InteractAnketCard } from "../InteractAnketCard/InteractAnketCard"
 import { EmptyAnkets } from "../EmptyAnkets/EmptyAnkets"
 
 interface AnketCardProps {
@@ -115,7 +115,7 @@ export const InteractAnketCardList = memo((props: AnketCardProps) => {
 						isOpen = {swipeRight}
 						right = {20}
 						bottom = {60}
-						text = {t("Лайк отправлен!")}
+						text = {t("Лайк отправлен")}
 						theme = {AlertTheme.SUCCESS}
 					/>
 				}

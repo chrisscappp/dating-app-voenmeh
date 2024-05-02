@@ -1,9 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { ThunkConfig } from "app/providers/StoreProvider/index"
 import { getUserAuthData } from "entity/User"
+import { NotificationType } from "../../types/types"
 
 export const removeNotifications = createAsyncThunk<
-	string[], 
+	NotificationType[], 
 	void, 
 	ThunkConfig<string>
 >(
@@ -19,7 +20,7 @@ export const removeNotifications = createAsyncThunk<
 		const authData = getUserAuthData(getState())
 
 		try {
-			const response = await extra.api.delete<string[]>(`/notifications/${authData?.userId}`)
+			const response = await extra.api.put(`/notificationsRemove/${authData?.userId}`)
 			if (!response.data) {
 				throw new Error("Данные не найдены")
 			}

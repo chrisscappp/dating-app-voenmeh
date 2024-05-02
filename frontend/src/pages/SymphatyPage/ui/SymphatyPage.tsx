@@ -15,7 +15,7 @@ const reducers: ReducersList = {
 
 const SymphatyPage = () => {
 
-	const { t } = useTranslation()
+	const { t } = useTranslation(TranslationKeys.ANKETS_PAGE)
 	const inited = useAnketsListInited()
 	
 	return (

@@ -1,5 +1,10 @@
+export interface NotificationType {
+	message: string;
+	notificationId: number;
+}
+
 export interface NotificationsSchema {
-	notifications: string[]
+	notifications?: NotificationType[]
 	error?: string;
 	isLoading: boolean;
 }

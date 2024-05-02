@@ -24,6 +24,7 @@ import { useNavigate } from "react-router"
 import ArrowBack from "shared/assets/icons/arrow-back.svg"
 import { Alert, AlertPosition, AlertTheme } from "shared/ui/Alert/Alert"
 import AvatarImgDefault from "shared/assets/images/avatar-default.png"
+import FamilyIcon from "shared/assets/icons/family-icon.svg"
 
 interface ProfileCardProps {
 	isAuthUser?: boolean;
@@ -81,7 +82,7 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 		navigate(-1)
 	}
 
-	const viewContacts = data?.contacts || data?.contacts === null
+	const viewFlag = data?.contacts || data?.contacts === null
 
 	if (isLoading) {
 		return (
@@ -144,10 +145,17 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 					</div>
 					<div className = {cls.headerText}>
 						{readonly ?
-							<Text
-								size = {TextSize.L}
-								text = {`${data?.firstname} ${data?.lastname}`}
-							/>
+							<div className = {cls.nameWrap}>
+								<Text
+									size = {TextSize.L}
+									text = {`${data?.firstname} ${viewFlag ? data?.lastname : ""}`}
+								/>
+								{data?.confirm && 
+								<span title = {t("Этот аккаунт подтвержден!")} className = {cls.family}>
+									<FamilyIcon/>
+								</span>
+								}
+							</div>
 							:
 							<div className = {cls.name}>
 								<Input
@@ -242,7 +250,7 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 					/>
 				</div>
 				{
-					viewContacts &&
+					viewFlag &&
 					<div className = {cls.infoBlock}>
 						<ProfileCardContactsInfoBlock
 							title = {t("Контакты")}
@@ -256,7 +264,7 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 				
 			</div>
 			<ProfileCardFooterButtons
-				viewButtons = {viewContacts as boolean}
+				viewButtons = {viewFlag as boolean}
 				isAuthUser = {isAuthUser}
 				readonly = {readonly}
 				onCancelEdit = {onCancelEdit}

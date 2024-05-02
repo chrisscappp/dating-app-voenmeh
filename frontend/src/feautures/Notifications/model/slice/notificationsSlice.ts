@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { NotificationsSchema } from "../types/types"
+import { NotificationsSchema, NotificationType } from "../types/types"
 import { fetchNotifications } from "../services/fetchNotifications/fetchNotifications"
 import { removeNotifications } from "../services/removeNotifications/removeNotifications"
 
@@ -20,7 +20,7 @@ export const notificationsSlice = createSlice({
 				state.isLoading = true
 				state.error = undefined
 			})
-			.addCase(fetchNotifications.fulfilled, (state, action: PayloadAction<string[]>) => {
+			.addCase(fetchNotifications.fulfilled, (state, action) => {
 				state.isLoading = false
 				state.error = undefined
 				state.notifications = action.payload
@@ -34,7 +34,7 @@ export const notificationsSlice = createSlice({
 				state.isLoading = true
 				state.error = undefined
 			})
-			.addCase(removeNotifications.fulfilled, (state, action: PayloadAction<string[]>) => {
+			.addCase(removeNotifications.fulfilled, (state, action) => {
 				state.isLoading = false
 				state.error = undefined
 				state.notifications = action.payload

@@ -10,9 +10,11 @@ export { getInteractAnketsIsLoading } from "./model/selectors/getInteractAnketsI
 export { getInteractAnketsTopStack } from "./model/selectors/getInteractAnketsTopStack/getInteractAnketsTopStack"
 export { interactAnketsActions, interactAnketsReducer, getInteractAnketsList } from "./model/slice/interactAnketsSlice/interactAnketsSlice"
 
-export { fetchAnkets } from "./model/services/fetchAnkets/fetchAnkets"
+
 
 // ankets list
 export { AnketsListSchema } from "./model/types/anketsList"
 export { anketsListActions, anketsListReducer, getAnketsList } from "./model/slice/anketsSlice/anketsSlice"
 export { AnketsList } from "./ui/AnketsList/AnketsList"
+export { fetchAnkets } from "./model/services/fetchAnkets/fetchAnkets"
+export { fetchAnketContacts } from "./model/services/fetchAnketContacts/fetchAnketContacts"

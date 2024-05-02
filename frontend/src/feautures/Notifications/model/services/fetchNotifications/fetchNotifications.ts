@@ -1,9 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { ThunkConfig } from "app/providers/StoreProvider/index"
 import { getUserAuthData } from "entity/User"
+import { NotificationType } from "../../types/types"
 
 export const fetchNotifications = createAsyncThunk<
-	string[], 
+	NotificationType[], 
 	void, 
 	ThunkConfig<string>
 >(
@@ -19,16 +20,17 @@ export const fetchNotifications = createAsyncThunk<
 		const authData = getUserAuthData(getState())
 
 		try {
-			const response = await extra.api.get<string[]>(`/notifications/${authData?.userId}`, {
+			const response = await extra.api.get(`/notificationsList/${authData?.userId}`, {
 				headers: {
 					"Content-Type": "application/json"
 				}
 			})
+
 			if (!response.data) {
 				throw new Error("Данные не найдены")
 			}
 		
-			return response.data
+			return response.data.notifications
 		} catch (e: unknown) {
 			const err = e as Error
 			console.error(err)
