@@ -6,6 +6,7 @@ export interface AnketsListSchema extends EntityState<IUser, string> {
 	isLoading: boolean;
 	error?: string;
 	contacts?: Contact;
+	likedAnket?: IUser;
 }
 
 export interface AnketsPesponse {
@@ -15,4 +16,5 @@ export interface AnketsPesponse {
 export interface RequestAnkets {
 	userId: string;
 	otheruserId: string;
+	sympathy?: boolean;
 }

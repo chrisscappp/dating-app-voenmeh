@@ -4,7 +4,7 @@ import { useAppDispatch } from "shared/lib/hooks/useAppDispatch"
 import { useSelector } from "react-redux"
 import { getInteractAnketsIsLoading } from "../../model/selectors/getInteractAnketsIsLoading/getInteractAnketsIsLoading"
 import { getInteractAnketsError } from "../../model/selectors/getInteractAnketsError/getInteractAnketsError"
-import { memo, useState } from "react"
+import { memo, useCallback, useState } from "react"
 import { fetchAnkets } from "../../model/services/fetchAnkets/fetchAnkets"
 import { Text, TextSize, TextTheme } from "shared/ui/Text/Text"
 import { Skeleton } from "shared/ui/Skeleton/Skeleton"
@@ -13,10 +13,11 @@ import { getInteractAnketsList } from "../../model/slice/interactAnketsSlice/int
 import { useInitialEffect } from "shared/lib/hooks/useInitialEffect"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
-import { Alert, AlertTheme } from "shared/ui/Alert/Alert"
 import { getInteractAnketsTopStack } from "../../model/selectors/getInteractAnketsTopStack/getInteractAnketsTopStack"
 import { InteractAnketCard } from "../InteractAnketCard/InteractAnketCard"
 import { EmptyAnkets } from "../EmptyAnkets/EmptyAnkets"
+import { SymphatyModal } from "feautures/Symphaty"
+import { Portal } from "shared/ui/Portal/Portal"
 
 interface AnketCardProps {
 	className?: string;
@@ -36,8 +37,15 @@ export const InteractAnketCardList = memo((props: AnketCardProps) => {
 	const isLoading = useSelector(getInteractAnketsIsLoading)
 	const error = useSelector(getInteractAnketsError)
 	const topStack = useSelector(getInteractAnketsTopStack)
-	const [swipeRight, setSwipeRight] = useState<boolean>(false)
-	const [swipeLeft, setSwipeLeft] = useState<boolean>(false)
+	const [ isOpenModal, setIsOpenModal ] = useState<boolean>(false)
+
+	const onOpenModal = useCallback(() => {
+		setIsOpenModal(true)
+	}, [])
+
+	const onCloseModal = useCallback(() => {
+		setIsOpenModal(false)
+	}, [])
 
 	useInitialEffect(() => {
 		if (isSectionId(sectionId)) {
@@ -58,13 +66,13 @@ export const InteractAnketCardList = memo((props: AnketCardProps) => {
 				<Skeleton
 					className = {cls.card}
 					width = {520}
-					height = {400}
+					height = {500}
 					border = {"10px"}
 				/>
 				<Skeleton
 					className = {cls.card}
 					width = {520}
-					height = {80}
+					height = {100}
 					border = {"10px"}
 				/>
 			</div>
@@ -101,33 +109,21 @@ export const InteractAnketCardList = memo((props: AnketCardProps) => {
 								key = {item.login}
 								user = {item}
 								className = {cls.card}
-								setSwipeLeft = {setSwipeLeft}
-								setSwipeRight = {setSwipeRight}
 								topStack = {topStack}
+								onOpenModal = {onOpenModal}
 							/>
 						)
 					})
 						: <EmptyAnkets/>
 				}
 				{
-					swipeRight &&
-					<Alert
-						isOpen = {swipeRight}
-						right = {20}
-						bottom = {60}
-						text = {t("Лайк отправлен")}
-						theme = {AlertTheme.SUCCESS}
+					isOpenModal &&
+				<Portal>
+					<SymphatyModal
+						isOpen = {isOpenModal}
+						onClose = {onCloseModal}
 					/>
-				}
-				{
-					swipeLeft &&
-					<Alert
-						isOpen = {swipeLeft}
-						left = {105}
-						bottom = {60}
-						text = {t("Анкета отклонена")}
-						theme = {AlertTheme.ERROR}
-					/>
+				</Portal>
 				}
 			</div>
 		</>

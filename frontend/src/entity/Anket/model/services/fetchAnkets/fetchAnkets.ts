@@ -22,8 +22,7 @@ export const fetchAnkets = createAsyncThunk<
 			if (!response.data) {
 				throw new Error()
 			}
-			console.log(`/${sectionId}/${authData?.userId}`)
-			console.log("RESPONSE", response)
+			
 			return response.data.profiles
 		} catch (e) {
 			console.error(e)

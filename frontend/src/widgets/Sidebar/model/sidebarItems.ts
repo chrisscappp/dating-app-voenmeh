@@ -29,7 +29,7 @@ export const sidebarItemList: SidebarItemType[] = [
 	},
 	{
 		Icon: SupportIcon,
-		path: "https://vk.com/chrisscapp",
+		path: "",
 		text: "Тех поддержка"
 	}
 ]

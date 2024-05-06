@@ -1,11 +1,11 @@
-import React, { memo } from "react"
+import React, { memo, useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
 import cls from "./AnketsList.module.scss"
 import { classNames } from "shared/lib/classNames/classNames"
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch"
 import { fetchAnkets } from "../../model/services/fetchAnkets/fetchAnkets"
 import { useInitialEffect } from "shared/lib/hooks/useInitialEffect"
-import { getAnketsList, anketsListActions } from "../../model/slice/anketsSlice/anketsSlice"
+import { getAnketsList } from "../../model/slice/anketsSlice/anketsSlice"
 import { useSelector } from "react-redux"
 import { Skeleton } from "shared/ui/Skeleton/Skeleton"
 import { Text, TextSize, TextTheme } from "shared/ui/Text/Text"
@@ -15,6 +15,8 @@ import { SwippedButtons } from "entity/SwippedButtons"
 import { getAnketsListError } from "../../model/selectors/getAnketsListError/getAnketsListError"
 import { getAnketsListIsLoading } from "../../model/selectors/getAnketsListIsLoading/getAnketsListIsLoading"
 import { AnketsEndpoints } from "shared/config/anketsListConfig/anketsListConfig"
+import { Portal } from "shared/ui/Portal/Portal"
+import { SymphatyModal } from "feautures/Symphaty"
 
 interface AnketsListProps {
 	className?: string;
@@ -45,6 +47,15 @@ export const AnketsList = memo((props: AnketsListProps) => {
 	const ankets = useSelector(getAnketsList.selectAll)
 	const error = useSelector(getAnketsListError)
 	const isLoading = useSelector(getAnketsListIsLoading)
+	const [ isOpenModal, setIsOpenModal ] = useState<boolean>(false)
+
+	const onOpenModal = useCallback(() => {
+		setIsOpenModal(true)
+	}, [])
+
+	const onCloseModal = useCallback(() => {
+		setIsOpenModal(false)
+	}, [])
 
 	useInitialEffect(() => {
 		dispatch(fetchAnkets(endpoint))
@@ -102,12 +113,22 @@ export const AnketsList = memo((props: AnketsListProps) => {
 							mountVK = {vkBtn}
 							viewId = {item.userId}
 							className = {cls.btns}
+							onOpenModal = {onOpenModal}
 						/>
 					</div>
 				)
 			}) 
 				:
 				<EmptyAnkets/>
+			}
+			{
+				isOpenModal &&
+				<Portal>
+					<SymphatyModal
+						isOpen = {isOpenModal}
+						onClose = {onCloseModal}
+					/>
+				</Portal>
 			}
 		</div>
 	)

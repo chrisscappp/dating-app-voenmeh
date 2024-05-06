@@ -23,7 +23,7 @@ export const likeAnketCard = createAsyncThunk<
 				userId: authData ? authData.userId : ""
 			}
 			const response = await extra.api.post<RequestAnkets>("/likeAnket", requestBody)
-		
+
 			return response.data
 		} catch (e: unknown) {
 			const err = e as Error

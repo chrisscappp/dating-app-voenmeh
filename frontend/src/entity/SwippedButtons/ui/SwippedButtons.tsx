@@ -11,9 +11,8 @@ import TelegramIcon from "shared/assets/icons/telegram-icon.svg"
 import VKIcon from "shared/assets/icons/vk-icon.svg"
 import { classNames } from "shared/lib/classNames/classNames"
 import { useNavigate } from "react-router"
-import { useMobile } from "shared/lib/hooks/useMobile"
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch"
-import { dislikeAnketCard, getInteractAnketsTopStack, likeAnketCard } from "entity/Anket"
+import { dislikeAnketCard, getInteractAnketsTopStack, likeAnketCard, RequestAnkets } from "entity/Anket"
 import { useSelector } from "react-redux"
 import { fetchAnketContacts } from "entity/Anket"
 import { Contact } from "entity/ProfileCard"
@@ -28,8 +27,8 @@ interface SwippedButtonsProps {
 	mountWrong?: boolean,
 	mountTelegram?: boolean,
 	mountVK?: boolean;
-	swipe?: (dir: string) => void;
 	viewId?: string;
+	onOpenModal?: () => void;
 }
 
 // говнокод
@@ -44,14 +43,13 @@ export const SwippedButtons = memo((props: SwippedButtonsProps) => {
 		mountWrong,
 		mountTelegram,
 		mountVK,
-		swipe,
-		viewId
+		viewId,
+		onOpenModal
 	} = props
 
 	const { t } = useTranslation(TranslationKeys.ANKETS_PAGE)
 
 	const navigate = useNavigate()
-	const mobile = useMobile()
 	const dispatch = useAppDispatch()
 	const topStack = useSelector(getInteractAnketsTopStack)
 	const [ isOpenWrong, setIsOpenWrong ] = useState<boolean>(false)
@@ -100,16 +98,16 @@ export const SwippedButtons = memo((props: SwippedButtonsProps) => {
 	const onLikeAnket = useCallback(async () => {
 		const response = await dispatch(likeAnketCard(topStack ? topStack : viewId ? viewId : ""))
 		if (response.meta.requestStatus === "fulfilled") {
-			!mobile && swipe?.("right")
+			const payload = response.payload as RequestAnkets
+			if (payload.sympathy) {
+				onOpenModal?.()
+			}
 		}
-	}, [dispatch, mobile, swipe, topStack, viewId])
+	}, [dispatch, onOpenModal, topStack, viewId])
 
 	const onDislikeAnket = useCallback(async () => {
 		const response = await dispatch(dislikeAnketCard(topStack ? topStack : viewId ? viewId : ""))
-		if (response.meta.requestStatus === "fulfilled") {
-			!mobile && swipe?.("left")
-		}
-	}, [dispatch, mobile, swipe, topStack, viewId])
+	}, [dispatch, topStack, viewId])
 
 	return (
 		<div className = {classNames(cls.btns, {}, [className])}>
@@ -203,6 +201,5 @@ export const SwippedButtons = memo((props: SwippedButtonsProps) => {
 				</Portal>
 			}
 		</div>
-		
 	)
 })

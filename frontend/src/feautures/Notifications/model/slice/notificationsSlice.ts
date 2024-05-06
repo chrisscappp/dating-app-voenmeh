@@ -37,7 +37,7 @@ export const notificationsSlice = createSlice({
 			.addCase(removeNotifications.fulfilled, (state, action) => {
 				state.isLoading = false
 				state.error = undefined
-				state.notifications = action.payload
+				state.notifications = []
 			})
 			.addCase(removeNotifications.rejected, (state, action) => {
 				state.isLoading = false

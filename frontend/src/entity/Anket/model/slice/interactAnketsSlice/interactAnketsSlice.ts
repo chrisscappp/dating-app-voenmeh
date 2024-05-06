@@ -57,6 +57,7 @@ export const interactAnketsSlice = createSlice({
 			})
 			.addCase(likeAnketCard.fulfilled, (state, action: PayloadAction<RequestAnkets>) => {
 				state.isLiked = true
+				state.likedAnket = state.entities[action.payload.otheruserId]
 				interactAnketsAdapter.removeOne(state, action.payload.otheruserId)
 				state.topStack = state.ids[state.ids.length - 1]
 				state.error = undefined

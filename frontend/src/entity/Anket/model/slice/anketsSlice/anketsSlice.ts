@@ -51,6 +51,7 @@ export const anketsListSlice = createSlice({
 				state.error = undefined
 			})
 			.addCase(likeAnketCard.fulfilled, (state, action: PayloadAction<RequestAnkets>) => {
+				state.likedAnket = state.entities[action.payload.otheruserId]
 				anketsListAdapter.removeOne(state, action.payload.otheruserId)
 				state.error = undefined
 			})
