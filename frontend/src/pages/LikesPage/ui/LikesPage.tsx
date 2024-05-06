@@ -15,7 +15,7 @@ const reducers: ReducersList = {
 
 const LikesPage = () => {
 
-	const { t } = useTranslation()
+	const { t } = useTranslation(TranslationKeys.ANKETS_PAGE)
 	const inited = useAnketsListInited()
 	
 	return (

@@ -1,12 +1,8 @@
 from datetime import date
 from options import app
 from pydantic import BaseModel
-from database import db, User
-
-
-class Like(BaseModel):
-    userId: str
-    otheruserId: str
+from database import db, Like
+from functions import birthday_to_age
 
 
 @app.post("/likeAnket")
@@ -31,7 +27,27 @@ def liked(data: Like):
                 except:
                     list_sympathies = []
                 list_sympathies.append(data.userId)
+                data.sympathy = True
                 db.child("sympathies").update({data.otheruserId: list_sympathies})
+                try:
+                    notes = db.child("notifications").get().val()[data.otheruserId]
+                except:
+                    notes = []
+                note = db.child("userInfo").child(data.userId).get().val()
+                notification = {"notificationId": len(notes) + 1,
+                                "message": f"У вас взаимная симпатия с {note['firstname']}, {birthday_to_age(note['birthday'])}!"}
+                notes.append(notification)
+                db.child("notifications").child(data.otheruserId).set(notes)
+            else:
+                try:
+                    notes = db.child("notifications").get().val()[data.otheruserId]
+                except:
+                    notes = []
+                note = db.child("userInfo").child(data.userId).get().val()
+                notification = {"notificationId": len(notes) + 1,
+                                "message": f"{note['firstname']}, {birthday_to_age(note['birthday'])} лайкнул вашу анкету!"}
+                notes.append(notification)
+                db.child("notifications").child(data.otheruserId).set(notes)
         except:
             pass
         list_likes.append(data.otheruserId)
@@ -77,3 +93,35 @@ def disliked(data: Like):
                               "date": str(date.today())})
         db.child("dislikes").update({data.otheruserId: list_dislikes})
         return data
+
+
+class Contacts(BaseModel):
+    telegram: str = ""
+    vk: str = ""
+
+
+@app.get("/userContacts/{user_id}")
+def user_contacts(user_id: str):
+    data = db.child(f"userInfo/{user_id}").get().val()["contacts"]
+    return Contacts(**data)
+
+
+class Notes(BaseModel):
+    notifications: list = []
+
+
+@app.get("/notificationsList/{user_id}")
+def notifications_list(user_id: str):
+    try:
+        notes = list(db.child("notifications").child(user_id).get().val())
+    except:
+        notes = []
+    data = Notes()
+    data.notifications = notes
+    return data
+
+
+@app.put("/notificationsRemove/{user_id}")
+def notifications_remove(user_id: str):
+    db.child("notifications").remove(user_id)
+    return user_id

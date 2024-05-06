@@ -8,5 +8,6 @@ export enum TranslationKeys {
 	DELETE_ACCOUNT_FORM = "deleteAccount",
 	SECTIONS_PAGE = "sectionsPage",
 	NOTIFICATIONS_MODAL = "notifications",
+	WRONG_ANKET_MODAL = "wrongAnket",
 	ANKETS_PAGE = "anketsPage"
 }

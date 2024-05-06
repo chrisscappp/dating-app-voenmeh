@@ -6,6 +6,15 @@
 	position: relative;
 }
 
+.nameWrap {
+	display: flex;
+	align-items: center;
+}
+
+.family {
+	margin-left: 10px;
+}
+
 .arrow {
 	fill: var(--secondary-color);
 }

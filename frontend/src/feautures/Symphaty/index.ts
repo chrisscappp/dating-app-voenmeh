@@ -1,0 +1,1 @@
+export { SymphatyModal } from "./ui/SymphatyModal/SymphatyModal"

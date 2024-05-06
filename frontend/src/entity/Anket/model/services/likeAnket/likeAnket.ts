@@ -23,12 +23,12 @@ export const likeAnketCard = createAsyncThunk<
 				userId: authData ? authData.userId : ""
 			}
 			const response = await extra.api.post<RequestAnkets>("/likeAnket", requestBody)
-		
+
 			return response.data
 		} catch (e: unknown) {
 			const err = e as Error
 			console.error(err)
-			return rejectWithValue("Произошла ошибка при попытке лайка анкеты. Попробуйте ещё раз...")
+			return rejectWithValue("Произошла ошибка при попытке лайка анкеты. Попробуйте ещё раз")
 		}	
 	},
 )

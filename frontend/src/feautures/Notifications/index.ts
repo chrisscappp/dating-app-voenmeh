@@ -1,4 +1,4 @@
-export { NotificationsSchema } from "./model/types/types" 
+export { NotificationsSchema, NotificationType } from "./model/types/types" 
 export { notificationsReducer } from "./model/slice/notificationsSlice"
 export { getNotificationsError } from "./model/selectors/getNotificationsError/getNotificationsError"
 export { getNotificationsIsLoading } from "./model/selectors/getNotificationsIsLoading/getNotificationsIsLoading"

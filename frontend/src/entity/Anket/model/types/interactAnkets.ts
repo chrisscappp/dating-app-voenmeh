@@ -7,6 +7,7 @@ export interface InteractAnketsSchema extends EntityState<IUser, string> {
 	isLiked?: boolean;
 	isDisliked?: boolean;
 	topStack?: string;
+	likedAnket?: IUser;
 }
 
 export interface AnketsPesponse {
@@ -16,4 +17,5 @@ export interface AnketsPesponse {
 export interface RequestAnkets {
 	userId: string;
 	otheruserId: string;
+	sympathy?: boolean;
 }

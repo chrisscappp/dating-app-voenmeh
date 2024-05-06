@@ -22,10 +22,11 @@ export const fetchAnkets = createAsyncThunk<
 			if (!response.data) {
 				throw new Error()
 			}
+			
 			return response.data.profiles
 		} catch (e) {
 			console.error(e)
-			return rejectWithValue("Произошла ошибка при попытке получения анкет :(")
+			return rejectWithValue("Произошла ошибка при попытке получения анкет")
 		}	
 	},
 )

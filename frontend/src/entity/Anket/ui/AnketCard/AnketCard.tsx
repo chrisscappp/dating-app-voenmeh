@@ -8,6 +8,7 @@ import { IUser } from "entity/User"
 import { memo, useCallback, useRef } from "react"
 import TinderCard from "react-tinder-card"
 import { Card } from "shared/ui/Card/Card"
+import DefaultAvatar from "shared/assets/images/avatar-default.png"
 
 interface AnketCardProps {
 	className?: string;
@@ -63,7 +64,7 @@ export const AnketCard = memo((props: AnketCardProps) => {
 						width = {300}
 						height = {320}
 						style = {{
-							background: `url(${user?.avatar}) center center/cover`
+							background: `url(${user?.avatar !== null ? user?.avatar : DefaultAvatar}) center center/cover`
 						}}
 						className = {cls.img}
 						aria-disabled
@@ -77,7 +78,7 @@ export const AnketCard = memo((props: AnketCardProps) => {
 										size = {TextSize.ML}
 									/>
 									{user?.confirm && 
-								<span title = {t("Профиль подтвержден")}>
+								<span title = {t("Этот аккаунт подтвержден")}>
 									<FamilyIcon className = {cls.icon}/>
 								</span>
 									}
@@ -101,7 +102,7 @@ export const AnketCard = memo((props: AnketCardProps) => {
 				width = {300}
 				height = {320}
 				style = {{
-					background: `url(${user?.avatar}) center center/cover`
+					background: `url(${user?.avatar !== null ? user?.avatar : DefaultAvatar}) center center/cover`
 				}}
 				className = {cls.img}
 				aria-disabled
@@ -115,7 +116,7 @@ export const AnketCard = memo((props: AnketCardProps) => {
 								size = {TextSize.ML}
 							/>
 							{user?.confirm && 
-								<span title = {t("Профиль подтвержден")}>
+								<span title = {t("Этот аккаунт подтвержден")}>
 									<FamilyIcon className = {cls.icon}/>
 								</span>
 							}

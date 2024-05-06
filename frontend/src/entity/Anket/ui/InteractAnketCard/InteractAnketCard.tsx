@@ -1,59 +1,47 @@
-import { Dispatch, memo, SetStateAction, useCallback } from "react"
+import { Dispatch, memo, SetStateAction, useCallback, useEffect, useState } from "react"
 import cls from "./InteractAnketCard.module.scss"
 import { IUser } from "entity/User"
-import { likeAnketCard, dislikeAnketCard, AnketCard } from "entity/Anket"
-import { useMobile } from "shared/lib/hooks/useMobile"
+import { AnketCard } from "../AnketCard/AnketCard"
+import { dislikeAnketCard } from "../../model/services/dislikeAnket/dislikeAnket"
+import { likeAnketCard } from "../../model/services/likeAnket/likeAnket"
 import { SwippedButtons } from "entity/SwippedButtons"
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch"
 import { classNames } from "shared/lib/classNames/classNames"
+import { RequestAnkets } from "entity/Anket/model/types/interactAnkets"
 
 interface InteractAnketCardProps {
 	className?: string;
 	user?: IUser;
 	topStack?: string;
-	setSwipeRight?: Dispatch<SetStateAction<boolean>>;
-	setSwipeLeft?: Dispatch<SetStateAction<boolean>>;
+	setTmpId?: Dispatch<SetStateAction<string>>;
+	onOpenModal?: () => void;
 }
 
 export const InteractAnketCard = memo((props: InteractAnketCardProps) => {
 	
 	const {
 		className,
-		setSwipeLeft,
-		setSwipeRight,
 		user,
-		topStack
+		topStack,
+		setTmpId,
+		onOpenModal
 	} = props
 
 	const dispatch = useAppDispatch()
-	const mobile = useMobile()
-
-	const swipe = useCallback(async (dir: string) => {
-		if (dir === "right") {
-			setSwipeLeft?.(false)
-			setSwipeRight?.(true)
-			setTimeout(() => setSwipeRight?.(false), 3000)
-		}
-		if (dir === "left") {
-			setSwipeRight?.(false)
-			setSwipeLeft?.(true)
-			setTimeout(() => setSwipeLeft?.(false), 3000)
-		}
-	}, [setSwipeLeft, setSwipeRight])
 
 	const onDislikeAnket = useCallback(async () => {
 		const response = await dispatch(dislikeAnketCard(topStack ? topStack : ""))
-		if (response.meta.requestStatus === "fulfilled") {
-			!mobile && swipe("left")
-		}
-	}, [dispatch, mobile, swipe, topStack])
+	}, [dispatch, topStack])
 
 	const onLikeAnket = useCallback(async () => {
 		const response = await dispatch(likeAnketCard(topStack ? topStack : ""))
 		if (response.meta.requestStatus === "fulfilled") {
-			!mobile && swipe("right")
+			const res = response.payload as RequestAnkets
+			if (res.sympathy) {
+				await onOpenModal?.()
+			}
 		}
-	}, [dispatch, mobile, swipe, topStack])
+	}, [dispatch, onOpenModal, topStack])
 
 	return (
 		<div className = {classNames(cls.interact, {}, [className])}>
@@ -68,8 +56,9 @@ export const InteractAnketCard = memo((props: InteractAnketCardProps) => {
 				mountLike
 				mountQuestion
 				mountWrong
-				swipe = {swipe}
 				className = {cls.btns}
+				viewId = {user?.userId}
+				onOpenModal = {onOpenModal}
 			/>
 		</div>
 	)

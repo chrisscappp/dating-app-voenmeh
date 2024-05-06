@@ -2,7 +2,11 @@ import { PayloadAction, createEntityAdapter, createSlice } from "@reduxjs/toolki
 import { fetchAnkets } from "../../services/fetchAnkets/fetchAnkets"
 import { IUser } from "entity/User"
 import { StateSchema } from "app/providers/StoreProvider"
-import { AnketsListSchema } from "../../types/anketsList"
+import { AnketsListSchema, RequestAnkets } from "../../types/anketsList"
+import { likeAnketCard } from "../../services/likeAnket/likeAnket"
+import { dislikeAnketCard } from "../../services/dislikeAnket/dislikeAnket"
+import { fetchAnketContacts } from "../../services/fetchAnketContacts/fetchAnketContacts"
+import { Contact } from "entity/ProfileCard"
 
 const anketsListAdapter = createEntityAdapter({
 	selectId: (anket: IUser) => anket.userId,
@@ -40,6 +44,39 @@ export const anketsListSlice = createSlice({
 			})
 			.addCase(fetchAnkets.rejected, (state, action) => {
 				state.isLoading = false
+				state.error = action.payload
+			})
+			// liked anket
+			.addCase(likeAnketCard.pending, (state) => {
+				state.error = undefined
+			})
+			.addCase(likeAnketCard.fulfilled, (state, action: PayloadAction<RequestAnkets>) => {
+				state.likedAnket = state.entities[action.payload.otheruserId]
+				anketsListAdapter.removeOne(state, action.payload.otheruserId)
+				state.error = undefined
+			})
+			.addCase(likeAnketCard.rejected, (state, action) => {
+				state.error = action.payload
+			})
+			// dislike anket
+			.addCase(dislikeAnketCard.pending, (state) => {
+				state.error = undefined
+			})
+			.addCase(dislikeAnketCard.fulfilled, (state, action: PayloadAction<RequestAnkets>) => {
+				anketsListAdapter.removeOne(state, action.payload.otheruserId)
+				state.error = undefined
+			})
+			.addCase(dislikeAnketCard.rejected, (state, action) => {
+				state.error = action.payload
+			})
+			// fetch anket contacts
+			.addCase(fetchAnketContacts.pending, (state) => {
+				state.error = undefined
+			})
+			.addCase(fetchAnketContacts.fulfilled, (state, action: PayloadAction<Contact>) => {
+				state.error = undefined
+			})
+			.addCase(fetchAnketContacts.rejected, (state, action) => {
 				state.error = action.payload
 			})
 	}
