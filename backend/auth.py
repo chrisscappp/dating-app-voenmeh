@@ -74,3 +74,30 @@ def register_user(user: UserReg):
                db.child("userInfo").order_by_child("userId").equal_to(current_user["userId"]).get()[0].val() | \
                {"age": birthday_to_age(db.child("userInfo").child(current_user["userId"]).get().val()["birthday"])}
         return UserEdit(**data)
+
+
+@app.post("/forget_password")
+def forget_password(user: UserLog):
+    user_id = list(db.child("user").order_by_child("email").equal_to(user.email).get().val())[0]
+    email = db.child("user").child(user_id).get().val()["email"]
+    auth.send_password_reset_email(email)
+    return user_id
+
+
+@app.post("/verify")
+def verify(user: UserLog):
+    try:
+        current_user = auth.sign_in_with_email_and_password(user.email, user.password)
+        current_user = auth.refresh(current_user['refreshToken'])
+        auth.send_email_verification(current_user['idToken'])
+    except HTTPError as e:
+        error_json = e.args[1]
+        error = json.loads(error_json)['error']['message']
+        if error == "INVALID_EMAIL":
+            raise HTTPException(status_code=403, detail="Invalid email")
+        if error == "INVALID_LOGIN_CREDENTIALS":
+            raise HTTPException(status_code=403, detail="Invalid login credentials")
+        if error == """TOO_MANY_ATTEMPTS_TRY_LATER : Access to this account has been temporarily disabled due
+                    to many failed login attempts. You can immediately restore it by resetting your password
+                    or you can try again later.""":
+            raise HTTPException(status_code=403, detail="Too many attempts")

@@ -6,7 +6,8 @@ export enum TextTheme {
 	PRIMARY = "primary",
 	SECONDARY = "secondary",
 	GREY = "grey",
-	ERROR = "error"
+	ERROR = "error",
+	SUCCESS = "success"
 }
 
 export enum TextSize {

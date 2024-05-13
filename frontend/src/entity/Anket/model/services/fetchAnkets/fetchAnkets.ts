@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { ThunkConfig } from "app/providers/StoreProvider"
 import { getUserAuthData, IUser } from "entity/User"
+import { TOP_STACK_KEY } from "shared/consts/localStorageKeys"
 
 export const fetchAnkets = createAsyncThunk<
 	IUser[], 
@@ -18,7 +19,11 @@ export const fetchAnkets = createAsyncThunk<
 		const authData = getUserAuthData(getState())
 	
 		try {
-			const response = await extra.api.get(`/${sectionId}/${authData?.userId}`)
+			const response = await extra.api.get(`/${sectionId}/${authData?.userId}`, {
+				headers: {
+					"topStack": `${localStorage.getItem(TOP_STACK_KEY) || ""}`
+				}
+			})
 			if (!response.data) {
 				throw new Error()
 			}
