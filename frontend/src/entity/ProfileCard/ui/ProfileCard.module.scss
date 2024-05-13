@@ -3,10 +3,24 @@
 	border-radius: 5px;
 	background: var(--info-block-bg-color);
 	padding: 45px 30px 45px 30px;
+	position: relative;
+}
+
+.nameWrap {
+	display: flex;
+	align-items: center;
+}
+
+.family {
+	margin-left: 10px;
 }
 
 .arrow {
 	fill: var(--secondary-color);
+}
+
+.backBtn {
+	margin-bottom: 20px;
 }
 
 .headerTitle {
@@ -99,6 +113,10 @@
 	width: 0;
 	height: 0;
 	opacity: 0;
+}
+
+.alert {
+	margin-top: 20px;
 }
 
 @media (max-width: 1130px) {

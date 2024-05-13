@@ -1,113 +1,134 @@
-import { classNames } from "shared/lib/classNames/classNames"
+import { classNames, Mods } from "shared/lib/classNames/classNames"
 import cls from "./AnketCard.module.scss"
-import DefaultImg from "shared/assets/images/avatar-default.png"
 import { Text, TextSize } from "shared/ui/Text/Text"
 import FamilyIcon from "shared/assets/icons/family-icon.svg"
-import { useNavigate } from "react-router"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
-import { Button, ButtonTheme, CircleSize } from "shared/ui/Button/Button"
-import QuestionIcon from "shared/assets/icons/question-icon.svg"
-import CrossIcon from "shared/assets/icons/cross-icon.svg"
-import LikeIcon from "shared/assets/icons/like-icon.svg"
-import WrongIcon from "shared/assets/icons/Wrong-icon.svg"
+import { IUser } from "entity/User"
+import { memo, useCallback, useRef } from "react"
+import TinderCard from "react-tinder-card"
+import { Card } from "shared/ui/Card/Card"
+import DefaultAvatar from "shared/assets/images/avatar-default.png"
 
 interface AnketCardProps {
 	className?: string;
+	user?: IUser;
+	onLikeAnket?: () => void;
+	onDislikeAnket?: () => void;
+	swiped?: boolean;
 }
 
-const mockData = {
-	firstname: "Вася",
-	about: "Чипсы, колы. Королева танцпола hjfghdfh gdg dfhg kdjg hdkf gdg dfg d",
-	confirm: true,
-	age: 56,
-	avatar: DefaultImg
-}
+type Direction = "left" | "right" | "up" | "down"
 
-export const AnketCard = (props: AnketCardProps) => {
+export const AnketCard = memo((props: AnketCardProps) => {
 
 	const {
-		className
+		className,
+		user,
+		onDislikeAnket,
+		onLikeAnket,
+		swiped = false
 	} = props
 
-	const id = "h5VWQIdqhTREGxF7fy4osLc2UJ72"
-	const navigate = useNavigate()
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const cardRef = useRef() as any
 	const { t } = useTranslation(TranslationKeys.ANKETS_PAGE)
 
-	const viewProfile = () => {
-		navigate(`/profile/${id}`)
-		window.scrollTo({top: 0, behavior: "smooth"})
+	const swipe = useCallback((direction: Direction) => {
+		if (direction === "right") {
+			onLikeAnket?.()
+		} else {
+			onDislikeAnket?.()
+		}
+	}, [onDislikeAnket, onLikeAnket])
+
+	const outOfFrame = () => {
+		cardRef?.current?.restoreCard()
+	}
+
+	const cardMods: Mods = {
+		[cls.grab]: swiped
+	}
+
+	if (swiped) {
+		return (
+			<TinderCard
+				ref = {cardRef}
+				className = {classNames(cls.swipe, {}, ["pressable"])}
+				onSwipe = {(direction) => swipe(direction)}
+				onCardLeftScreen = {() => outOfFrame()}
+				preventSwipe={["up", "down"]}
+			>
+				<Card className = {classNames(cls.card, cardMods, [])}>
+					<img
+						width = {300}
+						height = {320}
+						style = {{
+							background: `url(${user?.avatar !== null ? user?.avatar : DefaultAvatar}) center center/cover`
+						}}
+						className = {cls.img}
+						aria-disabled
+					/>
+					<div className = {cls.body}>
+						<div className = {cls.infoWrap}>
+							<div className = {cls.infoContainer}>
+								<div className = {cls.name}>
+									<Text
+										text = {`${user?.firstname}, ${user?.age}`}
+										size = {TextSize.ML}
+									/>
+									{user?.confirm && 
+								<span title = {t("Этот аккаунт подтвержден")}>
+									<FamilyIcon className = {cls.icon}/>
+								</span>
+									}
+								</div>
+								<Text
+									className = {cls.about}
+									text = {user?.about}
+									size = {TextSize.ML}
+								/>
+							</div>
+						</div>
+					</div>
+				</Card>
+			</TinderCard>
+		)
 	}
 
 	return (
-		<div className = {classNames(cls.AnketCard, {}, [className])}>
-			<div className = {cls.imgWrap}>
-				<img
-					src = {mockData.avatar}
-					width = {300}
-					height = {320}
-				/>
-			</div>
+		<Card className = {classNames(cls.card, cardMods, [])}>
+			<img
+				width = {300}
+				height = {320}
+				style = {{
+					background: `url(${user?.avatar !== null ? user?.avatar : DefaultAvatar}) center center/cover`
+				}}
+				className = {cls.img}
+				aria-disabled
+			/>
 			<div className = {cls.body}>
 				<div className = {cls.infoWrap}>
 					<div className = {cls.infoContainer}>
 						<div className = {cls.name}>
 							<Text
-								text = {`${mockData.firstname}, ${mockData.age}`}
+								text = {`${user?.firstname}, ${user?.age}`}
 								size = {TextSize.ML}
 							/>
-							{mockData.confirm && 
-							<span title = {t("Профиль подтвержден")}>
-								<FamilyIcon className = {cls.icon}/>
-							</span>
+							{user?.confirm && 
+								<span title = {t("Этот аккаунт подтвержден")}>
+									<FamilyIcon className = {cls.icon}/>
+								</span>
 							}
 						</div>
 						<Text
 							className = {cls.about}
-							text = {mockData.about}
+							text = {user?.about}
 							size = {TextSize.ML}
 						/>
 					</div>
 				</div>
-				<div className = {cls.btns}>
-					<Button 
-						circle 
-						theme = {ButtonTheme.MONO}
-						circleSize = {CircleSize.L}
-						className = {cls.btn}
-						onClick = {viewProfile}
-						title = {t("Открыть профиль пользователя")}
-					>
-						<QuestionIcon className = {cls.questionIcon}/>
-					</Button>
-					<Button 
-						circle 
-						theme = {ButtonTheme.MONO} 
-						circleSize = {CircleSize.XXL}
-						className = {cls.btn}
-					>
-						<CrossIcon/>
-					</Button>
-					<Button 
-						circle 
-						theme = {ButtonTheme.MONO} 
-						circleSize = {CircleSize.XXL}
-						className = {cls.btn}
-					>
-						<LikeIcon/>
-					</Button>
-					<Button 
-						circle 
-						theme = {ButtonTheme.MONO}
-						circleSize = {CircleSize.L}
-						className = {cls.btn}
-						title = {t("Пожаловаться на анкету")}
-					>
-						<WrongIcon/>
-					</Button>
-				</div>
 			</div>
-			
-		</div>
+		</Card>
 	)
-}
+})

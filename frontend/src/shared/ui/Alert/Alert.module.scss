@@ -1,0 +1,46 @@
+.Alert {
+	border-radius: 5px;
+	padding: auto;
+	width: 300px;
+	height: 70px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+}
+
+.top_left {
+	top: 0;
+	left: 20px;
+}
+
+.top_right {
+	top: 0;
+	right: 20px;
+}
+
+.bottom_left {
+	bottom: 0;
+	left: 20px;
+}
+
+.bottom_right {
+	bottom: 0;
+	right: 20px;
+}
+
+.default {
+	background: var(--inverted-bg-color);
+}
+
+.success {
+	background: var(--alert-success-bg-color);
+}
+
+.warning {
+	background: var(--alert-warning-bg-color);
+}
+
+.error {
+	background: var(--alert-error-bg-color);
+}

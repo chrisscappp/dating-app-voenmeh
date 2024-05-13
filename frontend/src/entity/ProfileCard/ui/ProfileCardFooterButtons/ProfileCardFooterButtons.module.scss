@@ -11,6 +11,16 @@
 	height: 55px;
 }
 
+.backBtnWrap {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.backBtn {
+	width: 300px;
+}
+
 @media (max-width: 785px) {
 	.footerBtn {
 		margin-top: 15px;

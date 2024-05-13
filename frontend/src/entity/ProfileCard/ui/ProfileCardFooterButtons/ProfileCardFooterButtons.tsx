@@ -6,9 +6,10 @@ import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import { DeleteAccountModal } from "feautures/DeleteAccount" //! нарушение архитектуры
 import { Portal } from "shared/ui/Portal/Portal"
-import { useCallback, useState } from "react"
+import { memo, useCallback, useState } from "react"
 
 interface ProfileCardFooterButtonsProps {
+	viewButtons?: boolean;
 	isAuthUser?: boolean;
 	authData?: IUser
 	userId?: string
@@ -17,9 +18,10 @@ interface ProfileCardFooterButtonsProps {
 	onEditProfile?: () => void;
 }
 
-export const ProfileCardFooterButtons = (props: ProfileCardFooterButtonsProps) => {
+export const ProfileCardFooterButtons = memo((props: ProfileCardFooterButtonsProps) => {
 	
 	const {
+		viewButtons,
 		isAuthUser,
 		readonly,
 		onCancelEdit,
@@ -64,7 +66,21 @@ export const ProfileCardFooterButtons = (props: ProfileCardFooterButtonsProps) =
 		)
 	}
 
-	// в зависимости от isAuthUser меняем начинку компонента
+	if (!viewButtons) {
+		return (
+			<div className = {cls.backBtnWrap}>
+				<Button 
+					theme = {ButtonTheme.BACKGROUND_INVERTED} 
+					onClick = {() => navigate(-1)}
+					className = {cls.backBtn}
+				>
+					назад
+				</Button>
+			</div>
+			
+		)
+	}
+
 	return (
 		<>
 			{
@@ -104,4 +120,4 @@ export const ProfileCardFooterButtons = (props: ProfileCardFooterButtonsProps) =
 			}
 		</>
 	)
-}
+})

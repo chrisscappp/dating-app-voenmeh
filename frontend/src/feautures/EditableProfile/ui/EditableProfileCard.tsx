@@ -1,7 +1,6 @@
-import React, { FormEvent, memo, useCallback, useEffect } from "react"
+import React, { FormEvent, memo, useCallback, useState } from "react"
 import { useSelector } from "react-redux"
 import { Contact, ProfileCard } from "entity/ProfileCard"
-import { useParams } from "react-router"
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch"
 import { getProfileData } from "../model/selectors/getProfileData/getProfileData"
 import { getProfileForm } from "../model/selectors/getProfileForm/getProfileForm"
@@ -17,14 +16,16 @@ import { updateProfileData } from "../model/services/updateProfileData/updatePro
 import cls from "./EditableProfileCard.module.scss"
 import { Text, TextAlign } from "shared/ui/Text/Text"
 import { Button, ButtonTheme } from "shared/ui/Button/Button"
+import { useInitialEffect } from "shared/lib/hooks/useInitialEffect"
 
 interface EditableProfileCardProps {
 	className?: string;
+	userId: string;
 }
 
 export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
 
-	const { id: userId } = useParams()
+	const { userId } = props
 	const dispatch = useAppDispatch()
 
 	const formData = useSelector(getProfileData)
@@ -33,10 +34,16 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
 	const readonly = useSelector(getProfileReadonly)
 	const error = useSelector(getProfileError)
 	const authData = useSelector(getUserAuthData)
+	const [ isAlert, setIsAlert ] = useState<boolean>()
 
-	useEffect(() => {
+	useInitialEffect(() => {
 		dispatch(fetchAnketCardData(userId ? userId : ""))
-	}, [dispatch, userId])
+	})
+
+	const onOpenAlert = useCallback(() => {
+		setIsAlert(true)
+		setTimeout(() => setIsAlert(false), 5000)
+	}, [])
 
 	const onEditProfile = useCallback(async () => {
 		if (JSON.stringify(formData) !== JSON.stringify(formEditableData)) {
@@ -70,9 +77,9 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
 			}
 			file.readAsDataURL(target.files[0])
 		} else {
-			alert("Выберите файл меньше 4мб")
+			onOpenAlert()
 		}
-	}, [dispatch])
+	}, [dispatch, onOpenAlert])
 
 	const onChangeFacultet = useCallback((value: FaluctetsItem) => {
 		dispatch(editableProfileActions.updateProfileField({ faculty: value }))
@@ -126,6 +133,7 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
 		<ProfileCard
 			isAuthUser = {isAuthUser}
 			isLoading = {isLoading}
+			isAvatarAlert = {isAlert}
 			data={formEditableData}
 			readonly = {readonly}
 			onEditProfile = {onEditProfile}

@@ -48,6 +48,8 @@ export const registerByUsername = createAsyncThunk<IUser, void, ThunkConfig<Form
 			if (!response.data) {
 				throw new Error()
 			}
+
+			console.log("RESPONSE", response.data)
 			
 			localStorage.setItem(USER_LOCALSTORAGE_KEY, JSON.stringify(response.data))
 			dispatch(userActions.setAuthData(response.data))

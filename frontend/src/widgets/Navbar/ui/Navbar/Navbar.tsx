@@ -93,6 +93,7 @@ export const Navbar = memo((props: NavbarProps) => {
 					onClose = {handleCloseRegisterModal}
 				/>
 			}
+			
 		</div>
 	)
 })

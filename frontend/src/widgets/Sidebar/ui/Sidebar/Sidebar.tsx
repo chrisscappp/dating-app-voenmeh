@@ -10,6 +10,8 @@ import { useAppDispatch } from "shared/lib/hooks/useAppDispatch"
 import { userActions } from "entity/User"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
+import { useMobile } from "shared/lib/hooks/useMobile"
+import { useInView } from "react-intersection-observer"
 
 interface SidebarProps {
 	className?: string;
@@ -18,38 +20,27 @@ interface SidebarProps {
 export const Sidebar = memo((props: SidebarProps) => {
 	
 	const [ isHover, bindHover ] = useHover()
-	const [ scrollValue, setScrollValue ] = useState<number>(0)
 	const [ isIconsFixed, setIsIconsFixed ] = useState<boolean>(true)
 	const [ isIconsStatic, setIsIconsStatic ] = useState<boolean>(false)
+	const mobile = useMobile()
 	const dispatch = useAppDispatch()
 	const { t } = useTranslation(TranslationKeys.SIDEBAR)
+
+	const { ref, inView } = useInView()
 
 	const {
 		className
 	} = props
 
-	const onSetScrollValue = (value: number) => {
-		setScrollValue(value)
-	}
-
 	useEffect(() => {
-		window.addEventListener("scroll", () => onSetScrollValue(pageYOffset))
-		return (
-			window.removeEventListener("scroll", () => onSetScrollValue(pageYOffset))
-		)
-	}, [])
-
-	useEffect(() => {
-		//console.log("SCROLL VAL", scrollValue)
-		//console.log("window", window.outerHeight)
-		if (scrollValue >= window.screen.height) {
+		if (!mobile && inView) {
 			setIsIconsFixed(false)
 			setIsIconsStatic(true)
 		} else {
 			setIsIconsFixed(true)
 			setIsIconsStatic(false)
 		}
-	}, [scrollValue])
+	}, [inView, mobile])
 
 	const routes = useMemo(() => {
 		return Object.values(sidebarItemList).map(item => {
@@ -59,33 +50,36 @@ export const Sidebar = memo((props: SidebarProps) => {
 					collapsed={isHover}
 					key = {item.path}
 					className = {cls.sideBarItem}
+					isMobile = {mobile}
 				/>
 			)
 		})
-	}, [isHover])
+	}, [isHover, mobile])
 
 	const onLogout = useCallback(() => {
 		dispatch(userActions.logout())
 	}, [dispatch])
 
 	const mods: Mods = {
-		[cls.collapsed]: isHover
+		[cls.collapsed]: isHover,
+		[cls.mobile]: mobile
 	}
 
-	const iconsMods: Mods = {
-		[cls.fixed]: isIconsFixed,
+	const iconsWrapMods: Mods = {
+		[cls.fixed]: !mobile ? isIconsFixed : false
 	}
 
 	const staticStyles: CSSProperties = {
-		marginTop: window.screen.height
+		position: "absolute",
+		bottom: "100px"
 	}
 	
 	return (
 		<div className = {classNames(cls.Sidebar, mods, [className])}>
-			<div {...bindHover} style = {isIconsStatic ? staticStyles : {}} className = {classNames(cls.iconsWrap, iconsMods, [])}>
+			<div {...bindHover} style = {isIconsStatic ? staticStyles : {}} className = {classNames(!mobile ? cls.iconsWrap : "", iconsWrapMods, [])}>
 				<div className = {cls.icons}>
 					{routes}
-					<div className = {cls.logoutIcon} onClick = {onLogout}>
+					{!mobile && <div className = {classNames(cls.logoutIcon, {}, [cls.sideBarItem])} onClick = {onLogout}>
 						<LogoutIcon/>
 						{isHover && 
 						<Text
@@ -93,9 +87,14 @@ export const Sidebar = memo((props: SidebarProps) => {
 							className = {cls.logoutText}
 							theme = {TextTheme.SECONDARY}
 						/>}
-					</div>
+					</div>}
 				</div>
 			</div>
+			{!mobile && 
+			<div 
+				className = {cls.test}
+				ref = {ref}
+			></div>}
 		</div>
 	)
 })

@@ -1,22 +1,18 @@
-import { memo, useCallback, useEffect } from "react"
+import { memo } from "react"
 import cls from "./Notifications.module.scss"
 import { classNames } from "shared/lib/classNames/classNames"
 import { Text, TextTheme } from "shared/ui/Text/Text"
-import { Input } from "shared/ui/Input/Input"
-import { useAppDispatch } from "shared/lib/hooks/useAppDispatch"
-import { useSelector } from "react-redux"
 import { Loader } from "shared/ui/Loader/Loader"
 import { Button, ButtonTheme } from "shared/ui/Button/Button"
-import { getUserAuthData } from "entity/User"
-import { fetchNotifications } from "../../model/services/fetchNotifications/fetchNotifications"
-import { removeNotifications } from "../../model/services/removeNotifications/removeNotifications"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import { Form } from "shared/ui/Form/Form"
+import React from "react"
+import { NotificationType } from "../../model/types/types"
 
 export interface NotificationsFormProps {
 	className?: string;
-	notifications: string[];
+	notifications: NotificationType[];
 	error: string;
 	isLoading: boolean;
 	removeNotifications: () => void;
@@ -40,24 +36,20 @@ const NotificationsForm = (props: NotificationsFormProps) => {
 		return <Loader/>
 	}
 
-	if (error) {
-		content = <Text text = {t(error)} theme = {TextTheme.ERROR}/>
-	}
-
 	if (notifications?.length === 0) {
-		content = <Text text = {t("Уведомлений нет")} className = {cls.empty}/>
+		content = <Text text = {t("Уведомлений пока нет")} className = {cls.empty}/>
 	} else {
 		content = (
 			<>
-				{notifications?.map(item => {
+				{notifications.length > 0 ? notifications?.map((item) => {
 					return (
 						<Text
-							key = {item}
-							text = {item}
+							key = {item.notificationId}
+							text = {item.message}
 							className = {cls.item}
 						/>
 					)
-				})}
+				}) : null}
 				<Button
 					className = {cls.btn}
 					onClick = {removeNotifications}
@@ -75,6 +67,7 @@ const NotificationsForm = (props: NotificationsFormProps) => {
 				className = {cls.formTitle}
 				title = {t("Уведомления")}
 			/>
+			{error && <Text text = {error} theme = {TextTheme.ERROR}/>}
 			{content}
 		</Form>
 	)

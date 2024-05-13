@@ -1,4 +1,4 @@
-import { memo, useCallback } from "react"
+import { memo, useCallback, useEffect } from "react"
 import cls from "./DeleteAccountForm.module.scss"
 import { classNames } from "shared/lib/classNames/classNames"
 import { Text, TextTheme } from "shared/ui/Text/Text"
@@ -48,8 +48,22 @@ const DeleteAccountForm = (props: DeleteAccountFormProps) => {
 		if (res.meta.requestStatus === "fulfilled") {
 			dispatch(userActions.logout())
 			onClose?.()
+			window.scrollTo({top: 0, behavior: "auto"})
 		}
 	}, [dispatch, onClose])
+
+	const onKeyDown = useCallback((e: KeyboardEvent) => {
+		if (e.key === "Enter") {
+			onDeleteAccount()
+		}
+	}, [onDeleteAccount])
+
+	useEffect(() => {
+		window.addEventListener("keydown", onKeyDown)
+		return () => {
+			removeEventListener("keydown", onKeyDown)
+		}
+	}, [onKeyDown])
 
 	if (isLoading) {
 		return <Loader/>
@@ -63,12 +77,15 @@ const DeleteAccountForm = (props: DeleteAccountFormProps) => {
 			/>
 			{error && <Text text = {error} theme = {TextTheme.ERROR}/>}
 			<Input
+				autoFocus
+				type = "password"
 				className = {cls.input}
 				placeholder = {t("Пароль")}
 				onChange = {onChangePassword}
 				value = {formData?.password}
 			/>
 			<Input
+				type = "password"
 				className = {cls.input}
 				placeholder = {t("повторите пароль")}
 				onChange = {onChangeRepeatPassword}

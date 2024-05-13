@@ -11,7 +11,7 @@ export interface Contact {
 export interface Profile {
 	firstname?: string;
 	lastname?: string;
-	birthday?: string;
+	age?: number;
 	sex?: string;
 	faculty?: FaluctetsItem | string;
 	course?: number;
@@ -21,6 +21,8 @@ export interface Profile {
 	hobbies?: string[];
 	contacts?: Contact;
 	avatar?: string;
+	userId?: string;
+	birthday?: string;
 }
 
 export interface InfoBlockProps {

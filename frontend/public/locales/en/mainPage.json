@@ -40,5 +40,12 @@
 	"Нет согласия на обработку персональных данных": "There is no consent to the processing of personal data",
 	"Логин используется": "Login already exists",
 	"Почта используется": "Email already exists",
-	"Пипин короткий": "Weak password"
+	"Пипин короткий": "Weak password",
+
+	"Восстановление пароля": "Password Recovery",
+	"Введите вашу почту": "Input your email",
+	"Получить пароль": "Get password",
+	"empty_email": "Empty input",
+	"Произошла ошибка при попытке получения пароля": "An error occurred while trying to get the password",
+	"На вашу почту пришло письмо": "A letter has arrived in your mail!"
 }

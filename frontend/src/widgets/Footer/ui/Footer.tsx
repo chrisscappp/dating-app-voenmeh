@@ -13,7 +13,6 @@ interface FooterProps {
 
 const links = [
 	{ link: "https://vk.com/grihapro2004", developerName: "Griha Pro" },
-	{ link: "https://vk.com/tzhrv", developerName: "Timoxxxa777" },
 	{ link: "https://vk.com/chrisscapp", developerName: "BORSHEY" }
 ]
 
@@ -66,11 +65,6 @@ export const Footer = memo((props: FooterProps) => {
 							/>
 							<Text 
 								text = {t("Гриша")}
-								theme = {TextTheme.GREY}
-								className = {cls.text}
-							/>
-							<Text 
-								text = {t("Тимоха")}
 								theme = {TextTheme.GREY}
 								className = {cls.text}
 							/>

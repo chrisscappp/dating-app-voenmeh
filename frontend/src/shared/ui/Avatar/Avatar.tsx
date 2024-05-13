@@ -2,7 +2,7 @@ import { classNames } from "../../lib/classNames/classNames"
 import { CSSProperties, memo, useMemo } from "react"
 import cls from "./Avatar.module.scss"
 import React from "react"
-import AvatarImgDefault from "./avatar-default.png"
+
 
 interface AvatarProps {
 	className?: string;
@@ -20,7 +20,7 @@ export const Avatar = memo((props: AvatarProps) => {
 		width = 100,
 		height = 125,
 		borderRadius = "5px",
-		avatarSrc = AvatarImgDefault,
+		avatarSrc,
 		alt = "avatar"
 	} = props
 

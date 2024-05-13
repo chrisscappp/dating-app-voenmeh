@@ -20,30 +20,35 @@ class User(BaseModel):
     email: str
     login: str
     userId: str
+    avatar: str = None
+    firstname: str = None
+    lastname: str = None
+    about: str = None
+    confirm: bool = False
+    age: int
 
 
 class UserInfo(BaseModel):
-    idToken: str = None
-    userId: str
+    userId: str = ""
     firstname: str
     lastname: str
     sex: str
-    birthday: str
-    createdAt: str
-    faculty: str = None
-    course: str = None
+    birthday: str = ""
+    createdAt: str = ""
+    faculty: str = ""
+    course: int = 0
     confirm: bool = False
-    about: str = None
+    about: str = ""
     interested: list = None
     hobbies: list = None
-    contacts: list = None
+    contacts: dict = None
     avatar: str = None
 
 
 class UserLog(BaseModel):
     email: str = None
     login: str = None
-    password: str
+    password: str = None
 
 
 class UserReg(BaseModel):
@@ -55,3 +60,42 @@ class UserReg(BaseModel):
     sex: str
     birthday: str
     createdAt: str
+
+
+class UserEdit(BaseModel):
+    userId: str = ""
+    firstname: str
+    lastname: str
+    sex: str
+    age: int
+    createdAt: str = ""
+    faculty: str = ""
+    course: int = 0
+    confirm: bool = False
+    about: str = ""
+    interested: list = None
+    hobbies: list = None
+    contacts: dict = None
+    avatar: str = None
+
+
+class UserEdit2(BaseModel):
+    userId: str = ""
+    firstname: str
+    lastname: str
+    sex: str
+    age: int
+    createdAt: str = ""
+    faculty: str = ""
+    course: int = 0
+    confirm: bool = False
+    about: str = ""
+    interested: list = None
+    hobbies: list = None
+    avatar: str = None
+
+
+class Like(BaseModel):
+    userId: str
+    otheruserId: str
+    sympathy: bool = False

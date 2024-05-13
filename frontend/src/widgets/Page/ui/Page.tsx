@@ -4,7 +4,7 @@ import React, { ReactNode } from "react"
 
 interface PageProps {
 	className?: string;
-	children: ReactNode
+	children: ReactNode;
 }
 
 export const Page = (props: PageProps) => {
@@ -12,8 +12,10 @@ export const Page = (props: PageProps) => {
 	const { children, className } = props
 
 	return (
-		<div className = {classNames(cls.Page, {}, [className])}>
-			{children}
-		</div>
+		<section 
+			className = {classNames(cls.Page, {}, [className])}
+		>
+			{children}	
+		</section>
 	)
 }

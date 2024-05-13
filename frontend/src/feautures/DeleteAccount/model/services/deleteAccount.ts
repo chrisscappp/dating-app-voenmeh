@@ -20,6 +20,10 @@ export const deleteAccount = createAsyncThunk<
 		const authData = getUserAuthData(getState())
 		const formData = getDeleteAccountForm(getState())
 
+		if (!formData?.password || !formData.repeatPassword) {
+			return rejectWithValue("Все поля формы должны быть заполнены")
+		}
+
 		try {
 			const response = await extra.api.delete<DeleteAccountForm>(`/removeProfile/${authData?.userId}`, {
 				data: formData,

@@ -1,0 +1,41 @@
+.wrapper {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.header {
+	width: 100%;
+	padding: 40px;
+	background: var(--info-block-bg-color);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 5px;
+}
+
+.cardWrap {
+	display: flex;
+	justify-content: center;
+}
+
+.skeletons {
+	padding: 0px 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.error {
+	margin-top: 40px;
+}
+
+.card {
+	margin-top: 3vh;
+	position: absolute;
+}
+
+

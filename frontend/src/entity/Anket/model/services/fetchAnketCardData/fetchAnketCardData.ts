@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { ThunkConfig } from "app/providers/StoreProvider/index"
 import { Profile } from "entity/ProfileCard"
+import { getUserAuthData } from "entity/User"
 
 export const fetchAnketCardData = createAsyncThunk<
 	Profile, 
@@ -12,11 +13,23 @@ export const fetchAnketCardData = createAsyncThunk<
 		const {
 			dispatch,
 			extra,
-			rejectWithValue
+			rejectWithValue,
+			getState
 		} = thunkAPI
 
+		const authData = getUserAuthData(getState())
+
+		const requestObj = {
+			userId: authData ? authData.userId : "",
+			otheruserId: profileId
+		}
+
 		try {
-			const response = await extra.api.get<Profile>(`/profile/${profileId}`)
+			const response = await extra.api.post<Profile>("/profile", requestObj, {
+				headers: {
+					"Content-Type": "application/json"
+				}
+			})
 			if (!response.data) {
 				throw new Error("Данные не найдены")
 			}

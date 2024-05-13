@@ -22,10 +22,14 @@ import { ProfileCardSkeleton } from "./ProfileCardSkeleton/ProfileCardSkeleton"
 import { Portal } from "shared/ui/Portal/Portal"
 import { useNavigate } from "react-router"
 import ArrowBack from "shared/assets/icons/arrow-back.svg"
+import { Alert, AlertPosition, AlertTheme } from "shared/ui/Alert/Alert"
+import AvatarImgDefault from "shared/assets/images/avatar-default.png"
+import FamilyIcon from "shared/assets/icons/family-icon.svg"
 
 interface ProfileCardProps {
 	isAuthUser?: boolean;
 	isLoading?: boolean;
+	isAvatarAlert?: boolean;
 	className?: string;
 	data?: Profile;
 	readonly?: boolean;
@@ -46,7 +50,7 @@ interface ProfileCardProps {
 export const ProfileCard = memo((props: ProfileCardProps) => {
 	
 	const {
-		isLoading, className, isAuthUser, data, onChangeAvatar,
+		isLoading, className, isAuthUser, isAvatarAlert, data, onChangeAvatar,
 		readonly, onEditProfile, onChangeReadonly, onChangeFirstname,
 		onChangeLastname, onChangeFacultet, onChangeInterested, onChangeHobbies,
 		onChangeContacts, onChangeAbout, onChangeCourse, onCancelEdit
@@ -54,6 +58,8 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 
 	const { t } = useTranslation(TranslationKeys.PROFILE_PAGE)
 	const [ isOpen, setIsOpen ] = useState<boolean>()
+	const [ isOpenSuccessAlert, setIsOpenSuccessAlert ] = useState<boolean>(false)
+	const [ isOpenErrorAlert, setIsOpenErrorAlert ] = useState<boolean>(false)
 	const filePickerRef = useRef(null)
 	const navigate = useNavigate()
 
@@ -76,6 +82,8 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 		navigate(-1)
 	}
 
+	const viewFlag = data?.contacts || data?.contacts === null
+
 	if (isLoading) {
 		return (
 			<div className = {classNames(cls.ProfileCard, {}, [className])}>
@@ -91,6 +99,7 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 				circleSize = {CircleSize.L}
 				theme = {ButtonTheme.BACKGROUND_INVERTED}
 				onClick = {goBack}
+				className = {cls.backBtn}
 			>
 				<ArrowBack className = {cls.arrow}/>
 			</Button>
@@ -103,7 +112,15 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 				<div className = {cls.mainInfo}>
 					<div className = {cls.avatarWrap}>
 						<span onClick = {onOpenAvatarDetail}>
-							<Avatar className = {cls.avatar} avatarSrc = {data?.avatar} />
+							{data?.avatar !== null ? 
+								<Avatar className = {cls.avatar} avatarSrc = {data?.avatar} /> 
+								:
+								<img
+									src = {AvatarImgDefault}
+									width={100}
+									height={125}
+								/>
+							}
 						</span>
 						{ !readonly && 
 							(
@@ -128,10 +145,17 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 					</div>
 					<div className = {cls.headerText}>
 						{readonly ?
-							<Text
-								size = {TextSize.L}
-								text = {`${data?.firstname} ${data?.lastname}`}
-							/>
+							<div className = {cls.nameWrap}>
+								<Text
+									size = {TextSize.L}
+									text = {`${data?.firstname} ${viewFlag ? data?.lastname : ""}`}
+								/>
+								{data?.confirm && 
+								<span title = {t("Этот аккаунт подтвержден!")} className = {cls.family}>
+									<FamilyIcon/>
+								</span>
+								}
+							</div>
 							:
 							<div className = {cls.name}>
 								<Input
@@ -146,7 +170,7 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 							</div>
 						}
 						<Text
-							text = {`${data?.birthday}, ` + t(`${data?.sex}`)}
+							text = {`${data?.age}, ` + t(`${data?.sex}`)}
 							className = {cls.age}
 						/>
 						<div className = {cls.selectorsWrap}>
@@ -191,6 +215,8 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 							onCancelEdit = {onCancelEdit}
 							onChangeReadonly = {onChangeReadonly}
 							onEditProfile = {onEditProfile}
+							setIsOpenSuccess = {setIsOpenSuccessAlert}
+							setIsOpenError = {setIsOpenErrorAlert}
 						/>
 					</div>
 				}
@@ -223,17 +249,22 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 						readonly = {readonly}
 					/>
 				</div>
-				<div className = {cls.infoBlock}>
-					<ProfileCardContactsInfoBlock
-						title = {t("Контакты")}
-						areaPlaceholder = {t("Вы можете оставить свои контакты для тех, с кем построите взаимную симпатию")}
-						data = {data?.contacts}
-						onChange = {onChangeContacts}
-						readonly = {readonly}
-					/>
-				</div>
+				{
+					viewFlag &&
+					<div className = {cls.infoBlock}>
+						<ProfileCardContactsInfoBlock
+							title = {t("Контакты")}
+							areaPlaceholder = {t("Вы можете оставить свои контакты для тех, с кем построите взаимную симпатию")}
+							data = {data?.contacts}
+							onChange = {onChangeContacts}
+							readonly = {readonly}
+						/>
+					</div>
+				}
+				
 			</div>
 			<ProfileCardFooterButtons
+				viewButtons = {viewFlag as boolean}
 				isAuthUser = {isAuthUser}
 				readonly = {readonly}
 				onCancelEdit = {onCancelEdit}
@@ -248,6 +279,33 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 						src = {data?.avatar}
 					/>
 				</Portal>
+			}
+			{
+				isOpenSuccessAlert &&
+				<Alert
+					position = {AlertPosition.TOP_RIGHT}
+					theme = {AlertTheme.SUCCESS}
+					text = {"На вашу почту пришло письмо!"}
+					className = {cls.alert}
+				/>
+			}
+			{
+				isOpenErrorAlert &&
+				<Alert
+					position = {AlertPosition.TOP_RIGHT}
+					theme = {AlertTheme.ERROR}
+					text = {"Что-то пошло не так"}
+					className = {cls.alert}
+				/>
+			}
+			{
+				isAvatarAlert &&
+				<Alert
+					position = {AlertPosition.TOP_RIGHT}
+					theme = {AlertTheme.ERROR}
+					text = {"Выберите файл меньше 4мб"}
+					className = {cls.alert}
+				/>
 			}
 		</div>	
 	)

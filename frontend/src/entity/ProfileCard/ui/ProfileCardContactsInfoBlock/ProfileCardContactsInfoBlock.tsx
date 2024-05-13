@@ -4,18 +4,19 @@ import { TextArea } from "shared/ui/TextArea/TextArea"
 import { Contact, InfoBlockProps } from "../../model/types"
 import { Contacts, SelectContacts } from "entity/SelectContacts"
 import BucketIcon from "shared/assets/icons/bucket-icon.svg"
-import { useCallback, useMemo, useState } from "react"
+import { memo, useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { classNames, Mods } from "shared/lib/classNames/classNames"
 
 interface ProfileCardContactsInfoBlockProps extends InfoBlockProps {
-	data?: Contact
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	data?: any
 	onChange?: (value: Contact) => void;
 }
 
 type ContactKeys = keyof Contact
 
-export const ProfileCardContactsInfoBlock = (props: ProfileCardContactsInfoBlockProps) => {
+export const ProfileCardContactsInfoBlock = memo((props: ProfileCardContactsInfoBlockProps) => {
 	
 	const {
 		areaPlaceholder,
@@ -82,4 +83,4 @@ export const ProfileCardContactsInfoBlock = (props: ProfileCardContactsInfoBlock
 			/>}
 		</div>
 	)
-}
+})

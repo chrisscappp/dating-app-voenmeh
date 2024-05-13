@@ -21,7 +21,6 @@ const interestedOptions: SelectOption[] = [
 	{value: SelectInterestedItem.FACULTET_O, content: SelectInterestedItem.FACULTET_O},
 	{value: SelectInterestedItem.FACULTET_R, content: SelectInterestedItem.FACULTET_R},
 	{value: SelectInterestedItem.FEMALES, content: SelectInterestedItem.FEMALES},
-	{value: SelectInterestedItem.FOREIGNERS, content: SelectInterestedItem.FOREIGNERS},
 	{value: SelectInterestedItem.FRIENDS, content: SelectInterestedItem.FRIENDS},
 	{value: SelectInterestedItem.MALES, content: SelectInterestedItem.MALES},
 ]
