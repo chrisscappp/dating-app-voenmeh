@@ -126,19 +126,13 @@ def sympathies(user_id: str):
 @app.get("/myFriends/{user_id}")
 def friends(user_id: str):
     try:
-        list_likes = db.child("likes").get().val()[user_id]
+        list_likes = db.child("sympathies").get().val()[user_id]
     except:
         list_likes = []
     persons = profiles_list()
     for person in list_likes:
-        for person_2 in db.child("likes").get().val():
-            try:
-                list_likes_2 = (db.child("likes").get().val()[person])
-            except:
-                list_likes_2 = []
-            if list_likes_2.count(user_id):
-                data = db.child("user").order_by_child("userId").equal_to(person).get()[0].val() | \
-                       db.child("userInfo").order_by_child("userId").equal_to(person).get()[0].val() | \
-                       {"age": birthday_to_age(db.child("userInfo").child(person).get().val()["birthday"])}
-                persons.profiles.append(User(**data))
+        data = db.child("user").order_by_child("userId").equal_to(person).get()[0].val() | \
+               db.child("userInfo").order_by_child("userId").equal_to(person).get()[0].val() | \
+               {"age": birthday_to_age(db.child("userInfo").child(person).get().val()["birthday"])}
+        persons.profiles.append(User(**data))
     return persons

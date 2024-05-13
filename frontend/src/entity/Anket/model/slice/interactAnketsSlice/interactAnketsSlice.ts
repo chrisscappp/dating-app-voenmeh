@@ -60,6 +60,7 @@ export const interactAnketsSlice = createSlice({
 				state.likedAnket = state.entities[action.payload.otheruserId]
 				interactAnketsAdapter.removeOne(state, action.payload.otheruserId)
 				state.topStack = state.ids[state.ids.length - 1]
+				localStorage.setItem(TOP_STACK_KEY, state.topStack)
 				state.error = undefined
 			})
 			.addCase(likeAnketCard.rejected, (state, action) => {
@@ -75,6 +76,7 @@ export const interactAnketsSlice = createSlice({
 				state.isDisliked = true
 				interactAnketsAdapter.removeOne(state, action.payload.otheruserId)
 				state.topStack = state.ids[state.ids.length - 1]
+				localStorage.setItem(TOP_STACK_KEY, state.topStack)
 				state.error = undefined
 			})
 			.addCase(dislikeAnketCard.rejected, (state, action) => {
