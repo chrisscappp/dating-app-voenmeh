@@ -50,27 +50,27 @@ def profiles_female(user_id: str):
     return get_profiles("female", user_id)
 
 
-@app.get("/facultet_A/{user_id}")
+@app.get("/facultet_a/{user_id}")
 def profiles_A(user_id: str):
     return get_profiles("А", user_id)
 
 
-@app.get("/facultet_O/{user_id}")
+@app.get("/facultet_o/{user_id}")
 def profiles_O(user_id: str):
     return get_profiles("О", user_id)
 
 
-@app.get("/facultet_R/{user_id}")
+@app.get("/facultet_r/{user_id}")
 def profiles_R(user_id: str):
     return get_profiles("Р", user_id)
 
 
-@app.get("/facultet_I/{user_id}")
+@app.get("/facultet_i/{user_id}")
 def profiles_I(user_id: str):
     return get_profiles("И", user_id)
 
 
-@app.get("/facultet_E/{user_id}")
+@app.get("/facultet_e/{user_id}")
 def profiles_E(user_id: str):
     return get_profiles("Е", user_id)
 
@@ -126,19 +126,13 @@ def sympathies(user_id: str):
 @app.get("/myFriends/{user_id}")
 def friends(user_id: str):
     try:
-        list_likes = db.child("likes").get().val()[user_id]
+        list_likes = db.child("sympathies").get().val()[user_id]
     except:
         list_likes = []
     persons = profiles_list()
     for person in list_likes:
-        for person_2 in db.child("likes").get().val():
-            try:
-                list_likes_2 = (db.child("likes").get().val()[person])
-            except:
-                list_likes_2 = []
-            if list_likes_2.count(user_id):
-                data = db.child("user").order_by_child("userId").equal_to(person).get()[0].val() | \
-                       db.child("userInfo").order_by_child("userId").equal_to(person).get()[0].val() | \
-                       {"age": birthday_to_age(db.child("userInfo").child(person).get().val()["birthday"])}
-                persons.profiles.append(User(**data))
+        data = db.child("user").order_by_child("userId").equal_to(person).get()[0].val() | \
+               db.child("userInfo").order_by_child("userId").equal_to(person).get()[0].val() | \
+               {"age": birthday_to_age(db.child("userInfo").child(person).get().val()["birthday"])}
+        persons.profiles.append(User(**data))
     return persons

@@ -44,8 +44,12 @@ def liked(data: Like):
                 except:
                     notes = []
                 note = db.child("userInfo").child(data.userId).get().val()
+                if note['sex'] == "female":
+                    check = 'а'
+                else:
+                    check = ''
                 notification = {"notificationId": len(notes) + 1,
-                                "message": f"{note['firstname']}, {birthday_to_age(note['birthday'])} лайкнул вашу анкету!"}
+                                "message": f"{note['firstname']}, {birthday_to_age(note['birthday'])} лайкнул{check} вашу анкету!"}
                 notes.append(notification)
                 db.child("notifications").child(data.otheruserId).set(notes)
         except:
@@ -55,7 +59,6 @@ def liked(data: Like):
         return data
 
 
-@app.post("/dislikeAnket")
 @app.post("/dislikeAnket")
 def disliked(data: Like):
     try:
@@ -124,5 +127,5 @@ def notifications_list(user_id: str):
 
 @app.put("/notificationsRemove/{user_id}")
 def notifications_remove(user_id: str):
-    db.child("notifications").remove(user_id)
+    db.child("notifications").child(user_id).remove()
     return user_id

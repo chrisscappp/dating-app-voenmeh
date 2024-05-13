@@ -48,7 +48,7 @@ class UserInfo(BaseModel):
 class UserLog(BaseModel):
     email: str = None
     login: str = None
-    password: str
+    password: str = None
 
 
 class UserReg(BaseModel):
