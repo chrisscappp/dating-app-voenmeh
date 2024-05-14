@@ -2,7 +2,7 @@ import { classNames, Mods } from "shared/lib/classNames/classNames"
 import cls from "./AnketsSectionList.module.scss"
 import { AnketsSectionItem } from "../AnketsSectionItem/AnketsSectionItem"
 import { sectionsConfig } from "../../model/config"
-import { useMemo } from "react"
+import React, { useMemo } from "react"
 import { useMobile } from "shared/lib/hooks/useMobile"
 
 interface AnketsSectionListProps {

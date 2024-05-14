@@ -3,7 +3,7 @@ import cls from "./ProfileCardEditingButtons.module.scss"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import { ChangePasswordModal } from "feautures/ChangePassword" // !нарушена архитектура
-import { Dispatch, memo, SetStateAction, useCallback, useState } from "react"
+import React, { Dispatch, memo, SetStateAction, useCallback, useState } from "react"
 import { Portal } from "shared/ui/Portal/Portal"
 
 interface ProfileCardEditingButtonsProps {

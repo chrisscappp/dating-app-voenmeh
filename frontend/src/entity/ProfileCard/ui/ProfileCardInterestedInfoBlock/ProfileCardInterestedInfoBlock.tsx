@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next"
 import { SelectInterested } from "entity/SelectInterested"
 import { TextArea } from "shared/ui/TextArea/TextArea"
 import BucketIcon from "shared/assets/icons/bucket-icon.svg"
-import { memo, useCallback, useMemo } from "react"
+import React, { memo, useCallback, useMemo } from "react"
 import { InfoBlockProps } from "../../model/types"
 
 interface ProfileCardInterestedInfoBlockProps extends InfoBlockProps {

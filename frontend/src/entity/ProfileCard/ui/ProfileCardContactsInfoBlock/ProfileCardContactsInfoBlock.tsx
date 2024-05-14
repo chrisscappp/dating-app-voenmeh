@@ -4,7 +4,7 @@ import { TextArea } from "shared/ui/TextArea/TextArea"
 import { Contact, InfoBlockProps } from "../../model/types"
 import { Contacts, SelectContacts } from "entity/SelectContacts"
 import BucketIcon from "shared/assets/icons/bucket-icon.svg"
-import { memo, useCallback, useMemo, useState } from "react"
+import React, { memo, useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { classNames, Mods } from "shared/lib/classNames/classNames"
 

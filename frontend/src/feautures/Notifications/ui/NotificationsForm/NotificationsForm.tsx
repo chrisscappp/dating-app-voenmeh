@@ -41,7 +41,7 @@ const NotificationsForm = (props: NotificationsFormProps) => {
 	} else {
 		content = (
 			<>
-				{notifications.length > 0 ? notifications?.map((item) => {
+				{notifications?.length > 0 ? notifications?.map((item) => {
 					return (
 						<Text
 							key = {item.notificationId}
@@ -61,13 +61,17 @@ const NotificationsForm = (props: NotificationsFormProps) => {
 		)
 	}
 
+	if (error) {
+		content = (<Text text = {error} theme = {TextTheme.ERROR} className = {cls.error}/>)
+	}
+
 	return (
 		<Form className = {classNames(cls.DeleteAccountForm, {}, [className])}>
 			<Text
 				className = {cls.formTitle}
 				title = {t("Уведомления")}
 			/>
-			{error && <Text text = {error} theme = {TextTheme.ERROR}/>}
+			
 			{content}
 		</Form>
 	)

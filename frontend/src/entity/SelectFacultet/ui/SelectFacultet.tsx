@@ -1,12 +1,11 @@
 import { classNames, Mods } from "shared/lib/classNames/classNames"
 import cls from "./SelectFaluctet.module.scss"
-import React, { memo, useCallback, useEffect, useState}  from "react"
+import React, { memo, useCallback }  from "react"
 import { Select, SelectOption } from "shared/ui/Select/Select"
 import { FaluctetsItem } from "shared/consts/faluctets"
 import { Input } from "shared/ui/Input/Input"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
-import { MOBILE_WIDTH } from "shared/consts/common"
 import { useMobile } from "shared/lib/hooks/useMobile"
 
 interface SelectSexProps {

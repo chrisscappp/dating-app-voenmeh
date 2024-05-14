@@ -1,19 +1,18 @@
 import { Button, ButtonTheme } from "shared/ui/Button/Button"
 import cls from "./ProfileCardFooterButtons.module.scss"
 import { useNavigate } from "react-router"
-import { IUser } from "entity/User"
 import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import { DeleteAccountModal } from "feautures/DeleteAccount" //! нарушение архитектуры
 import { Portal } from "shared/ui/Portal/Portal"
-import { memo, useCallback, useState } from "react"
+import React, { memo, useCallback, useState } from "react"
 
 interface ProfileCardFooterButtonsProps {
 	viewButtons?: boolean;
 	isAuthUser?: boolean;
-	authData?: IUser
 	userId?: string
-	readonly?: boolean
+	readonly?: boolean;
+	isConfirmed?: boolean;
 	onCancelEdit?: () => void;
 	onEditProfile?: () => void;
 }
@@ -25,7 +24,8 @@ export const ProfileCardFooterButtons = memo((props: ProfileCardFooterButtonsPro
 		isAuthUser,
 		readonly,
 		onCancelEdit,
-		onEditProfile
+		isConfirmed,
+		onEditProfile,
 	} = props
 
 	const navigate = useNavigate()
@@ -86,12 +86,12 @@ export const ProfileCardFooterButtons = memo((props: ProfileCardFooterButtonsPro
 			{
 				isAuthUser && 
 				<div className = {cls.footerBtns}>
-					<Button 
+					{!isConfirmed && (<Button 
 						className = {cls.footerBtn}
 						theme = {ButtonTheme.BACKGROUND_INVERTED}
 					>
 						{t("подтвердить анкету")}
-					</Button>
+					</Button>)}
 					<Button 
 						className = {cls.footerBtn}
 						theme = {ButtonTheme.BACKGROUND_INVERTED}

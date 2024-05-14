@@ -34,6 +34,20 @@ export const TextSecondary: Story = {
 	},
 }
 
+export const TextSuccess: Story = {
+	args: {
+		theme: TextTheme.SUCCESS,
+		text: "Text"
+	},
+}
+
+export const TextError: Story = {
+	args: {
+		theme: TextTheme.ERROR,
+		text: "Text"
+	},
+}
+
 export const TextSecondaryDark: Story = {
 	args: {
 		theme: TextTheme.SECONDARY,

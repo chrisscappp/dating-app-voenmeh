@@ -33,6 +33,19 @@ export const NotificationsFormError: Story = {
 	},
 }
 
+export const NotificationsFormEmpty: Story = {
+	args: {
+		notifications: []
+	},
+}
+
+export const NotificationsFormEmptyDark: Story = {
+	args: {
+		notifications: []
+	},
+	decorators: [ThemeDecorator(Themes.DARK)]
+}
+
 export const NotificationsFormIsLoading: Story = {
 	args: {
 		isLoading: true

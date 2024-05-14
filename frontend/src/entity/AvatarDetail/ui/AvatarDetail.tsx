@@ -1,3 +1,4 @@
+import React from "react"
 import { Form } from "shared/ui/Form/Form"
 import { Modal } from "shared/ui/Modal/Modal"
 import cls from "./AvatarDetail.module.scss"

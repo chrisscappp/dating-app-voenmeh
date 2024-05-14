@@ -266,6 +266,7 @@ export const ProfileCard = memo((props: ProfileCardProps) => {
 			<ProfileCardFooterButtons
 				viewButtons = {viewFlag as boolean}
 				isAuthUser = {isAuthUser}
+				isConfirmed = {data?.confirm}
 				readonly = {readonly}
 				onCancelEdit = {onCancelEdit}
 				onEditProfile = {onEditProfile}

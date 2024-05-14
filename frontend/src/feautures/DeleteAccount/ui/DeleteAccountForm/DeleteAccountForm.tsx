@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect } from "react"
+import React, { memo, useCallback, useEffect } from "react"
 import cls from "./DeleteAccountForm.module.scss"
 import { classNames } from "shared/lib/classNames/classNames"
 import { Text, TextTheme } from "shared/ui/Text/Text"

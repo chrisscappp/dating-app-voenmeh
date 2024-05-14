@@ -1,4 +1,5 @@
 import { Skeleton } from "shared/ui/Skeleton/Skeleton"
+import React from "react"
 import cls from "../ProfileCard.module.scss"
 
 export const ProfileCardSkeleton = () => {

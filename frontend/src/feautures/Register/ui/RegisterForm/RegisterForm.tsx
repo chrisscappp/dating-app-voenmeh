@@ -109,9 +109,6 @@ const RegisterForm = memo(({ className, onSuccess }: RegisterFormProps) => {
 		}
 	}, [onKeyDown])
 
-	if (error) {
-		return <h3>{error}</h3>
-	}
 
 	if (isLoading) {
 		return <Loader/>
@@ -124,12 +121,6 @@ const RegisterForm = memo(({ className, onSuccess }: RegisterFormProps) => {
 				size = {TextSize.XL}
 				className = {cls.formTitle}
 			/>
-			{validateErrors && 
-			<Text
-				text = {validateTranslate[validateErrors[0]]}
-				theme = {TextTheme.ERROR}	
-			/>
-			}
 			<Input 
 				autoFocus
 				type="text" 
@@ -185,6 +176,14 @@ const RegisterForm = memo(({ className, onSuccess }: RegisterFormProps) => {
 				onChange = {onChangeRepeatPassword}
 				value = {repeatPassword}
 			/>
+			{validateErrors && 
+			<Text
+				text = {validateTranslate[validateErrors[0]]}
+				theme = {TextTheme.ERROR}	
+				className = {cls.error}
+			/>
+			}
+			{error && (<Text text = {t(error)} theme = {TextTheme.ERROR} className = {cls.error}/>)}
 			<div className = {cls.checkboxWrap}>
 				<CheckBox
 					className = {cls.checkbox}

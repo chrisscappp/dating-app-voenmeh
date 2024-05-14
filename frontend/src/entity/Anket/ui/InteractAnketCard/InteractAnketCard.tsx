@@ -1,4 +1,4 @@
-import { Dispatch, memo, SetStateAction, useCallback, useEffect, useState } from "react"
+import React, { Dispatch, memo, SetStateAction, useCallback } from "react"
 import cls from "./InteractAnketCard.module.scss"
 import { IUser } from "entity/User"
 import { AnketCard } from "../AnketCard/AnketCard"
@@ -23,14 +23,13 @@ export const InteractAnketCard = memo((props: InteractAnketCardProps) => {
 		className,
 		user,
 		topStack,
-		setTmpId,
 		onOpenModal
 	} = props
 
 	const dispatch = useAppDispatch()
 
 	const onDislikeAnket = useCallback(async () => {
-		const response = await dispatch(dislikeAnketCard(topStack ? topStack : ""))
+		await dispatch(dislikeAnketCard(topStack ? topStack : ""))
 	}, [dispatch, topStack])
 
 	const onLikeAnket = useCallback(async () => {

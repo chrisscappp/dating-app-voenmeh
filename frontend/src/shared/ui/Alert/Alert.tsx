@@ -1,4 +1,4 @@
-import { CSSProperties, memo } from "react"
+import React, { CSSProperties, memo } from "react"
 import { classNames, Mods } from "shared/lib/classNames/classNames"
 import { Text, TextTheme } from "shared/ui/Text/Text"
 import cls from "./Alert.module.scss"

@@ -4,6 +4,7 @@ import { Button, ButtonTheme } from "shared/ui/Button/Button"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
+import React from "react"
 
 export const EmptyAnkets = () => {
 

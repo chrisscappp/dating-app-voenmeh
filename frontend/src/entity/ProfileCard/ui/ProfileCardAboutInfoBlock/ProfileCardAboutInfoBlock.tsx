@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next"
 import { TranslationKeys } from "shared/config/i18nConfig/translationKeys"
 import { TextArea } from "shared/ui/TextArea/TextArea"
 import { InfoBlockProps } from "../../model/types"
-import { memo } from "react"
+import React, { memo } from "react"
 
 interface ProfileCardAboutInfoBlockProps extends InfoBlockProps {
 	onChange?: (value: string) => void;

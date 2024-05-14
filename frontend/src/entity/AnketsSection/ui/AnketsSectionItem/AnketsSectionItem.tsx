@@ -1,7 +1,7 @@
 import { classNames } from "shared/lib/classNames/classNames"
 import { SectionKeys } from "../../model/config"
 import cls from "./AnketsSectionItem.module.scss"
-import { CSSProperties } from "react"
+import React, { CSSProperties } from "react"
 import { Text, TextTheme } from "shared/ui/Text/Text"
 import { useTranslation } from "react-i18next"
 import { Button } from "shared/ui/Button/Button"

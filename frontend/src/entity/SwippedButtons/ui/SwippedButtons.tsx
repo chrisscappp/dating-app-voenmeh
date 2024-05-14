@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from "react"
+import React, { memo, useCallback, useState } from "react"
 import { Button, ButtonTheme, CircleSize } from "shared/ui/Button/Button"
 import cls from "./SwippedButtons.module.scss"
 import { useTranslation } from "react-i18next"
@@ -106,7 +106,7 @@ export const SwippedButtons = memo((props: SwippedButtonsProps) => {
 	}, [dispatch, onOpenModal, topStack, viewId])
 
 	const onDislikeAnket = useCallback(async () => {
-		const response = await dispatch(dislikeAnketCard(topStack ? topStack : viewId ? viewId : ""))
+		await dispatch(dislikeAnketCard(topStack ? topStack : viewId ? viewId : ""))
 	}, [dispatch, topStack, viewId])
 
 	return (
